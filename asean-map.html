@@ -3,22 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASEAN Digital Native Ecosystem Map - Iñaki Moreno</title>
+    <title>ASEAN Digital Native Ecosystem - Iñaki Moreno</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --color-bg: #0f0f0f;
-            --color-surface: #1a1a1a;
+            --color-bg: #0a0a0a;
+            --color-surface: #141414;
+            --color-surface-2: #1c1c1c;
             --color-border: #2a2a2a;
             --color-text: #fafafa;
             --color-muted: #888;
-            --color-accent: #D4622B;
+            --color-accent: #CC785C;
+            --color-accent-soft: rgba(204, 120, 92, 0.15);
             --color-ai: #10b981;
             --color-fintech: #3b82f6;
             --color-health: #ec4899;
             --color-cyber: #8b5cf6;
+            --color-retail: #f59e0b;
+            --color-enterprise: #6366f1;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -27,7 +31,7 @@
             color: var(--color-text);
             min-height: 100vh;
         }
-        .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 24px; }
 
         nav {
             display: flex;
@@ -48,191 +52,524 @@
             margin-bottom: 40px;
         }
         .header h1 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 700;
             margin-bottom: 8px;
         }
         .header p {
             color: var(--color-muted);
             font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .filters {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 32px;
-        }
-        .filter-btn {
-            padding: 10px 20px;
-            border: 1px solid var(--color-border);
-            border-radius: 24px;
-            background: transparent;
-            color: var(--color-muted);
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.2s;
-        }
-        .filter-btn:hover { border-color: var(--color-text); color: var(--color-text); }
-        .filter-btn.active { background: var(--color-accent); border-color: var(--color-accent); color: white; }
-        .filter-btn.ai.active { background: var(--color-ai); border-color: var(--color-ai); }
-        .filter-btn.fintech.active { background: var(--color-fintech); border-color: var(--color-fintech); }
-        .filter-btn.health.active { background: var(--color-health); border-color: var(--color-health); }
-        .filter-btn.cyber.active { background: var(--color-cyber); border-color: var(--color-cyber); }
-
+        /* Stats Bar */
         .stats-bar {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            display: flex;
             gap: 16px;
-            margin-bottom: 32px;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
         }
         .stat-item {
             background: var(--color-surface);
             border: 1px solid var(--color-border);
-            border-radius: 12px;
-            padding: 16px;
+            border-radius: 10px;
+            padding: 16px 24px;
             text-align: center;
+            min-width: 120px;
         }
         .stat-item .number {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: var(--color-accent);
         }
         .stat-item .label {
+            font-size: 0.75rem;
+            color: var(--color-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Main Layout */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+
+        /* Map Section */
+        .map-section {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .map-title {
             font-size: 0.8rem;
             color: var(--color-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+            text-align: center;
         }
 
-        .map-container {
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 24px;
-            margin-bottom: 32px;
+        /* SVG Map */
+        .sea-map {
+            width: 100%;
+            height: 280px;
+            margin-bottom: 20px;
         }
 
+        .country-shape {
+            fill: var(--color-surface-2);
+            stroke: var(--color-border);
+            stroke-width: 1;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .country-shape:hover {
+            fill: var(--color-accent-soft);
+        }
+
+        .country-shape.active {
+            fill: var(--color-accent);
+            stroke: var(--color-accent);
+        }
+
+        .country-label {
+            font-size: 10px;
+            fill: var(--color-muted);
+            pointer-events: none;
+        }
+
+        /* Country List */
         .country-list {
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
+
         .country-btn {
-            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: var(--color-surface-2);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+        }
+
+        .country-btn:hover {
+            border-color: var(--color-accent);
+        }
+
+        .country-btn.active {
+            border-color: var(--color-accent);
+            background: var(--color-accent-soft);
+        }
+
+        .country-btn .flag {
+            font-size: 1.4rem;
+        }
+
+        .country-btn .info {
+            flex: 1;
+        }
+
+        .country-btn .name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 2px;
+        }
+
+        .country-btn .meta {
+            font-size: 0.75rem;
+            color: var(--color-muted);
+        }
+
+        .country-btn .priority {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .priority-1 { background: #dc2626; color: white; }
+        .priority-2 { background: #f59e0b; color: black; }
+        .priority-3 { background: var(--color-surface); color: var(--color-muted); }
+
+        /* Accounts Section */
+        .accounts-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .accounts-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .accounts-header h2 {
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .accounts-header h2 .flag {
+            font-size: 1.5rem;
+        }
+
+        /* Vertical Filters */
+        .vertical-filters {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .vertical-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
             background: var(--color-surface);
             border: 1px solid var(--color-border);
-            border-radius: 12px;
+            border-radius: 20px;
+            color: var(--color-muted);
+            font-size: 0.8rem;
             cursor: pointer;
-            text-align: left;
             transition: all 0.2s;
         }
-        .country-btn:hover { border-color: var(--color-accent); }
-        .country-btn.active { border-color: var(--color-accent); background: rgba(212,98,43,0.1); }
-        .country-btn h3 { font-size: 1rem; margin-bottom: 4px; }
-        .country-btn span { font-size: 0.8rem; color: var(--color-muted); }
 
-        .accounts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 16px;
+        .vertical-btn:hover {
+            border-color: var(--color-text);
+            color: var(--color-text);
         }
-        .account-card {
+
+        .vertical-btn.active {
+            color: white;
+        }
+
+        .vertical-btn.ai.active { background: var(--color-ai); border-color: var(--color-ai); }
+        .vertical-btn.fintech.active { background: var(--color-fintech); border-color: var(--color-fintech); }
+        .vertical-btn.health.active { background: var(--color-health); border-color: var(--color-health); }
+        .vertical-btn.cyber.active { background: var(--color-cyber); border-color: var(--color-cyber); }
+        .vertical-btn.retail.active { background: var(--color-retail); border-color: var(--color-retail); }
+        .vertical-btn.enterprise.active { background: var(--color-enterprise); border-color: var(--color-enterprise); }
+
+        .vertical-icon {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+        }
+
+        /* Market Info */
+        .market-info {
             background: var(--color-surface);
             border: 1px solid var(--color-border);
             border-radius: 12px;
             padding: 20px;
-            transition: all 0.2s;
+            margin-bottom: 20px;
         }
+
+        .market-info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .market-stat {
+            text-align: center;
+        }
+
+        .market-stat .value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--color-accent);
+        }
+
+        .market-stat .label {
+            font-size: 0.7rem;
+            color: var(--color-muted);
+            text-transform: uppercase;
+        }
+
+        .market-notes {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .market-notes h4 {
+            font-size: 0.8rem;
+            color: var(--color-accent);
+            margin-bottom: 8px;
+        }
+
+        .market-notes ul {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            padding-left: 16px;
+            font-size: 0.8rem;
+            color: var(--color-muted);
+        }
+
+        /* Accounts Grid */
+        .accounts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+            flex: 1;
+        }
+
+        .account-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 18px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
         .account-card:hover {
             border-color: var(--color-accent);
             transform: translateY(-2px);
         }
+
+        .account-card.expanded {
+            grid-column: span 2;
+        }
+
         .account-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
-        .account-header h3 { font-size: 1rem; font-weight: 600; }
+
+        .account-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .account-name h3 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .account-logo {
+            width: 32px;
+            height: 32px;
+            background: var(--color-surface-2);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--color-accent);
+        }
+
         .account-tag {
             font-size: 0.7rem;
-            padding: 4px 8px;
+            padding: 4px 10px;
             border-radius: 12px;
             font-weight: 500;
         }
+
         .account-tag.ai { background: rgba(16,185,129,0.2); color: var(--color-ai); }
         .account-tag.fintech { background: rgba(59,130,246,0.2); color: var(--color-fintech); }
         .account-tag.health { background: rgba(236,72,153,0.2); color: var(--color-health); }
         .account-tag.cyber { background: rgba(139,92,246,0.2); color: var(--color-cyber); }
+        .account-tag.retail { background: rgba(245,158,11,0.2); color: var(--color-retail); }
+        .account-tag.enterprise { background: rgba(99,102,241,0.2); color: var(--color-enterprise); }
 
         .account-meta {
             display: flex;
             gap: 16px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             font-size: 0.8rem;
             color: var(--color-muted);
         }
-        .account-meta strong { color: var(--color-text); }
 
-        .account-description {
-            font-size: 0.85rem;
-            color: var(--color-muted);
-            margin-bottom: 12px;
-            line-height: 1.5;
+        .account-meta strong {
+            color: var(--color-text);
         }
 
-        .ai-opportunity {
-            background: rgba(212,98,43,0.1);
+        .account-desc {
+            font-size: 0.85rem;
+            color: var(--color-muted);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .account-opportunity {
+            background: var(--color-accent-soft);
             border-radius: 8px;
             padding: 12px;
             font-size: 0.8rem;
         }
-        .ai-opportunity strong {
+
+        .account-opportunity h4 {
             color: var(--color-accent);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .account-details {
+            display: none;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .account-card.expanded .account-details {
             display: block;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .detail-section h5 {
+            font-size: 0.75rem;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .detail-section ul {
+            padding-left: 16px;
+            font-size: 0.8rem;
+            color: var(--color-muted);
+        }
+
+        .detail-section li {
             margin-bottom: 4px;
         }
 
-        .priority-badge {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            margin-left: 8px;
-        }
-        .priority-badge.high { background: #dc2626; color: white; }
-        .priority-badge.medium { background: #f59e0b; color: black; }
-
+        /* GTM Section */
         .gtm-section {
             background: var(--color-surface);
             border: 1px solid var(--color-border);
-            border-radius: 12px;
-            padding: 24px;
-            margin-top: 32px;
-        }
-        .gtm-section h2 {
-            font-size: 1.2rem;
-            margin-bottom: 16px;
-            color: var(--color-accent);
-        }
-        .gtm-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-        }
-        .gtm-item h4 {
-            font-size: 0.9rem;
-            margin-bottom: 8px;
-        }
-        .gtm-item p {
-            font-size: 0.8rem;
-            color: var(--color-muted);
-            line-height: 1.5;
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 48px;
         }
 
+        .gtm-section h2 {
+            font-size: 1.3rem;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .gtm-timeline {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .gtm-phase {
+            background: var(--color-surface-2);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 20px;
+            flex: 1;
+            min-width: 200px;
+            max-width: 280px;
+        }
+
+        .gtm-phase h3 {
+            font-size: 0.75rem;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+
+        .gtm-phase .markets {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .gtm-phase ul {
+            padding-left: 16px;
+            font-size: 0.8rem;
+            color: var(--color-muted);
+        }
+
+        .gtm-phase li {
+            margin-bottom: 6px;
+        }
+
+        /* Partners Grid */
+        .partners-section {
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .partners-section h3 {
+            font-size: 1rem;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        .partner-card {
+            background: var(--color-surface-2);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .partner-card .name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+
+        .partner-card .type {
+            font-size: 0.75rem;
+            color: var(--color-muted);
+        }
+
+        .partner-card .markets {
+            font-size: 0.7rem;
+            color: var(--color-accent);
+            margin-top: 6px;
+        }
+
+        /* Footer */
         footer {
-            margin-top: 40px;
-            padding-top: 24px;
+            padding: 32px 0;
             border-top: 1px solid var(--color-border);
             text-align: center;
             color: var(--color-muted);
@@ -240,10 +577,22 @@
         }
         footer a { color: var(--color-accent); text-decoration: none; }
 
-        @media (max-width: 900px) {
-            .map-container { grid-template-columns: 1fr; }
-            .stats-bar { grid-template-columns: repeat(2, 1fr); }
-            .gtm-grid { grid-template-columns: 1fr; }
+        @media (max-width: 1000px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            .market-info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .accounts-grid {
+                grid-template-columns: 1fr;
+            }
+            .account-card.expanded {
+                grid-column: span 1;
+            }
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -256,378 +605,511 @@
         </nav>
 
         <div class="header">
-            <h1>ASEAN Digital Native Ecosystem Map</h1>
-            <p>Enterprise accounts by vertical — prioritized for AI opportunity</p>
-        </div>
-
-        <div class="filters">
-            <button class="filter-btn active" onclick="filterVertical('all')">All Verticals</button>
-            <button class="filter-btn ai" onclick="filterVertical('ai')">AI-Native</button>
-            <button class="filter-btn fintech" onclick="filterVertical('fintech')">Fintech</button>
-            <button class="filter-btn health" onclick="filterVertical('health')">Healthtech</button>
-            <button class="filter-btn cyber" onclick="filterVertical('cyber')">Cybersecurity</button>
+            <h1>ASEAN Digital Native Ecosystem</h1>
+            <p>Top accounts per market with domain expertise, compliance needs, and AI opportunities. Data-driven prioritization.</p>
         </div>
 
         <div class="stats-bar">
             <div class="stat-item">
-                <div class="number">48</div>
+                <div class="number">65+</div>
                 <div class="label">Target Accounts</div>
             </div>
             <div class="stat-item">
-                <div class="number">$12B+</div>
+                <div class="number">$15B+</div>
                 <div class="label">Total Funding</div>
             </div>
             <div class="stat-item">
                 <div class="number">6</div>
-                <div class="label">Countries</div>
+                <div class="label">Markets</div>
             </div>
             <div class="stat-item">
-                <div class="number">18</div>
-                <div class="label">High Priority</div>
+                <div class="number">5</div>
+                <div class="label">Key Partners</div>
             </div>
         </div>
 
-        <div class="map-container">
-            <div class="country-list">
-                <div class="country-btn active" onclick="selectCountry('singapore')">
-                    <h3>🇸🇬 Singapore</h3>
-                    <span>16 accounts · Regional HQ hub</span>
-                </div>
-                <div class="country-btn" onclick="selectCountry('indonesia')">
-                    <h3>🇮🇩 Indonesia</h3>
-                    <span>12 accounts · Largest market</span>
-                </div>
-                <div class="country-btn" onclick="selectCountry('vietnam')">
-                    <h3>🇻🇳 Vietnam</h3>
-                    <span>8 accounts · Fast-growing tech</span>
-                </div>
-                <div class="country-btn" onclick="selectCountry('thailand')">
-                    <h3>🇹🇭 Thailand</h3>
-                    <span>6 accounts · Enterprise focus</span>
-                </div>
-                <div class="country-btn" onclick="selectCountry('malaysia')">
-                    <h3>🇲🇾 Malaysia</h3>
-                    <span>4 accounts · Fintech hub</span>
-                </div>
-                <div class="country-btn" onclick="selectCountry('philippines')">
-                    <h3>🇵🇭 Philippines</h3>
-                    <span>4 accounts · BPO + fintech</span>
+        <div class="main-grid">
+            <!-- Map Section -->
+            <div class="map-section">
+                <div class="map-title">Click a Market to Explore</div>
+
+                <!-- Simple Visual Map -->
+                <svg class="sea-map" viewBox="0 0 400 280">
+                    <!-- Singapore -->
+                    <circle class="country-shape active" cx="180" cy="180" r="12" data-country="singapore"/>
+                    <text class="country-label" x="180" y="200" text-anchor="middle">SG</text>
+
+                    <!-- Indonesia -->
+                    <ellipse class="country-shape" cx="220" cy="220" rx="80" ry="25" data-country="indonesia"/>
+                    <text class="country-label" x="220" y="225" text-anchor="middle">Indonesia</text>
+
+                    <!-- Thailand -->
+                    <ellipse class="country-shape" cx="120" cy="100" rx="35" ry="45" data-country="thailand"/>
+                    <text class="country-label" x="120" y="105" text-anchor="middle">Thailand</text>
+
+                    <!-- Vietnam -->
+                    <ellipse class="country-shape" cx="200" cy="90" rx="20" ry="50" data-country="vietnam"/>
+                    <text class="country-label" x="200" y="95" text-anchor="middle">VN</text>
+
+                    <!-- Philippines -->
+                    <ellipse class="country-shape" cx="320" cy="120" rx="30" ry="40" data-country="philippines"/>
+                    <text class="country-label" x="320" y="125" text-anchor="middle">PH</text>
+
+                    <!-- Malaysia -->
+                    <ellipse class="country-shape" cx="150" cy="175" rx="35" ry="15" data-country="malaysia"/>
+                    <text class="country-label" x="150" y="180" text-anchor="middle">MY</text>
+                </svg>
+
+                <div class="country-list">
+                    <div class="country-btn active" data-country="singapore" onclick="selectCountry('singapore')">
+                        <span class="flag">🇸🇬</span>
+                        <div class="info">
+                            <div class="name">Singapore</div>
+                            <div class="meta">15 accounts · Regional HQ hub</div>
+                        </div>
+                        <span class="priority priority-1">P1</span>
+                    </div>
+                    <div class="country-btn" data-country="indonesia" onclick="selectCountry('indonesia')">
+                        <span class="flag">🇮🇩</span>
+                        <div class="info">
+                            <div class="name">Indonesia</div>
+                            <div class="meta">15 accounts · 270M population</div>
+                        </div>
+                        <span class="priority priority-1">P1</span>
+                    </div>
+                    <div class="country-btn" data-country="thailand" onclick="selectCountry('thailand')">
+                        <span class="flag">🇹🇭</span>
+                        <div class="info">
+                            <div class="name">Thailand</div>
+                            <div class="meta">10 accounts · Enterprise focus</div>
+                        </div>
+                        <span class="priority priority-2">P2</span>
+                    </div>
+                    <div class="country-btn" data-country="vietnam" onclick="selectCountry('vietnam')">
+                        <span class="flag">🇻🇳</span>
+                        <div class="info">
+                            <div class="name">Vietnam</div>
+                            <div class="meta">10 accounts · Tech talent hub</div>
+                        </div>
+                        <span class="priority priority-2">P2</span>
+                    </div>
+                    <div class="country-btn" data-country="philippines" onclick="selectCountry('philippines')">
+                        <span class="flag">🇵🇭</span>
+                        <div class="info">
+                            <div class="name">Philippines</div>
+                            <div class="meta">8 accounts · BPO leader</div>
+                        </div>
+                        <span class="priority priority-3">P3</span>
+                    </div>
+                    <div class="country-btn" data-country="malaysia" onclick="selectCountry('malaysia')">
+                        <span class="flag">🇲🇾</span>
+                        <div class="info">
+                            <div class="name">Malaysia</div>
+                            <div class="meta">7 accounts · Gov + Finance</div>
+                        </div>
+                        <span class="priority priority-3">P3</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="accounts-grid" id="accountsGrid">
-                <!-- Singapore AI-Native -->
-                <div class="account-card" data-country="singapore" data-vertical="ai">
-                    <div class="account-header">
-                        <h3>Nansen<span class="priority-badge high">HIGH</span></h3>
-                        <span class="account-tag ai">AI-Native</span>
-                    </div>
-                    <div class="account-meta">
-                        <span>Funding: <strong>$75M</strong></span>
-                        <span>Employees: <strong>200+</strong></span>
-                    </div>
-                    <p class="account-description">Blockchain analytics platform. Recently displaced from OpenAI to Vertex AI with complexity router architecture.</p>
-                    <div class="ai-opportunity">
-                        <strong>AI Opportunity</strong>
-                        Claude for deep reasoning on financial analysis, agentic workflows for automated research
+            <!-- Accounts Section -->
+            <div class="accounts-section">
+                <div class="accounts-header">
+                    <h2><span class="flag" id="currentFlag">🇸🇬</span> <span id="currentCountry">Singapore</span></h2>
+                    <div class="vertical-filters">
+                        <button class="vertical-btn active" onclick="filterVertical('all')">All</button>
+                        <button class="vertical-btn ai" onclick="filterVertical('ai')">AI-Native</button>
+                        <button class="vertical-btn fintech" onclick="filterVertical('fintech')">Fintech</button>
+                        <button class="vertical-btn health" onclick="filterVertical('health')">Health</button>
+                        <button class="vertical-btn cyber" onclick="filterVertical('cyber')">Cyber</button>
+                        <button class="vertical-btn retail" onclick="filterVertical('retail')">Retail</button>
+                        <button class="vertical-btn enterprise" onclick="filterVertical('enterprise')">Enterprise</button>
                     </div>
                 </div>
 
-                <div class="account-card" data-country="singapore" data-vertical="ai">
-                    <div class="account-header">
-                        <h3>Synthesia<span class="priority-badge high">HIGH</span></h3>
-                        <span class="account-tag ai">AI-Native</span>
+                <!-- Market Info -->
+                <div class="market-info" id="marketInfo">
+                    <div class="market-info-grid">
+                        <div class="market-stat">
+                            <div class="value">$5.8T</div>
+                            <div class="label">GDP</div>
+                        </div>
+                        <div class="market-stat">
+                            <div class="value">MAS</div>
+                            <div class="label">Regulator</div>
+                        </div>
+                        <div class="market-stat">
+                            <div class="value">PDPA</div>
+                            <div class="label">Data Law</div>
+                        </div>
+                        <div class="market-stat">
+                            <div class="value">English</div>
+                            <div class="label">Business Lang</div>
+                        </div>
                     </div>
-                    <div class="account-meta">
-                        <span>Funding: <strong>$156M</strong></span>
-                        <span>Employees: <strong>300+</strong></span>
-                    </div>
-                    <p class="account-description">AI video generation platform. APAC operations from Singapore.</p>
-                    <div class="ai-opportunity">
-                        <strong>AI Opportunity</strong>
-                        Script generation, content moderation, multi-language support
-                    </div>
-                </div>
-
-                <div class="account-card" data-country="singapore" data-vertical="fintech">
-                    <div class="account-header">
-                        <h3>Grab Financial<span class="priority-badge high">HIGH</span></h3>
-                        <span class="account-tag fintech">Fintech</span>
-                    </div>
-                    <div class="account-meta">
-                        <span>Funding: <strong>$12B+ (group)</strong></span>
-                        <span>Employees: <strong>8000+</strong></span>
-                    </div>
-                    <p class="account-description">Superapp's financial services arm. GrabPay, lending, insurance across SEA.</p>
-                    <div class="ai-opportunity">
-                        <strong>AI Opportunity</strong>
-                        Fraud detection, credit scoring, customer service automation, personalization
-                    </div>
-                </div>
-
-                <div class="account-card" data-country="singapore" data-vertical="cyber">
-                    <div class="account-header">
-                        <h3>Horangi<span class="priority-badge medium">MED</span></h3>
-                        <span class="account-tag cyber">Cybersecurity</span>
-                    </div>
-                    <div class="account-meta">
-                        <span>Funding: <strong>$28M</strong></span>
-                        <span>Employees: <strong>100+</strong></span>
-                    </div>
-                    <p class="account-description">Cloud security platform for compliance and threat detection.</p>
-                    <div class="ai-opportunity">
-                        <strong>AI Opportunity</strong>
-                        Threat analysis, compliance automation, security report generation
+                    <div class="market-notes">
+                        <h4>Key Compliance Requirements</h4>
+                        <ul id="complianceList">
+                            <li>MAS Technology Risk Management Guidelines</li>
+                            <li>PDPA for personal data handling</li>
+                            <li>AI Governance Framework (voluntary)</li>
+                            <li>Cross-border data transfer rules</li>
+                        </ul>
                     </div>
                 </div>
 
-                <!-- Indonesia -->
-                <div class="account-card" data-country="indonesia" data-vertical="fintech">
-                    <div class="account-header">
-                        <h3>GoTo Financial<span class="priority-badge high">HIGH</span></h3>
-                        <span class="account-tag fintech">Fintech</span>
-                    </div>
-                    <div class="account-meta">
-                        <span>Funding: <strong>$8B+ (group)</strong></span>
-                        <span>Employees: <strong>5000+</strong></span>
-                    </div>
-                    <p class="account-description">GoPay, lending, and financial services for Indonesia's largest superapp.</p>
-                    <div class="ai-opportunity">
-                        <strong>AI Opportunity</strong>
-                        Bahasa Indonesia NLP, fraud detection, driver communications, payment risk
-                    </div>
-                </div>
-
-                <div class="account-card" data-country="indonesia" data-vertical="fintech">
-                    <div class="account-header">
-                        <h3>OVO<span class="priority-badge high">HIGH</span></h3>
-                        <span class="account-tag fintech">Fintech</span>
-                    </div>
-                    <div class="account-meta">
-                        <span>Funding: <strong>$500M+</strong></span>
-                        <span>Employees: <strong>1000+</strong></span>
-                    </div>
-                    <p class="account-description">Leading digital payments platform in Indonesia. Part of Grab ecosystem.</p>
-                    <div class="ai-opportunity">
-                        <strong>AI Opportunity</strong>
-                        Transaction analysis, merchant insights, customer segmentation
-                    </div>
-                </div>
-
-                <div class="account-card" data-country="indonesia" data-vertical="health">
-                    <div class="account-header">
-                        <h3>Halodoc<span class="priority-badge high">HIGH</span></h3>
-                        <span class="account-tag health">Healthtech</span>
-                    </div>
-                    <div class="account-meta">
-                        <span>Funding: <strong>$180M</strong></span>
-                        <span>Employees: <strong>500+</strong></span>
-                    </div>
-                    <p class="account-description">Indonesia's largest telehealth platform. 20M+ monthly users.</p>
-                    <div class="ai-opportunity">
-                        <strong>AI Opportunity</strong>
-                        Symptom triage, doctor matching, medical record summarization, drug interaction
-                    </div>
-                </div>
-
-                <div class="account-card" data-country="indonesia" data-vertical="ai">
-                    <div class="account-header">
-                        <h3>Kata.ai<span class="priority-badge medium">MED</span></h3>
-                        <span class="account-tag ai">AI-Native</span>
-                    </div>
-                    <div class="account-meta">
-                        <span>Funding: <strong>$20M</strong></span>
-                        <span>Employees: <strong>150+</strong></span>
-                    </div>
-                    <p class="account-description">Conversational AI platform specializing in Bahasa Indonesia.</p>
-                    <div class="ai-opportunity">
-                        <strong>AI Opportunity</strong>
-                        LLM integration, multi-model orchestration, enterprise deployments
-                    </div>
-                </div>
-
-                <!-- Vietnam -->
-                <div class="account-card" data-country="vietnam" data-vertical="fintech">
-                    <div class="account-header">
-                        <h3>VNPay<span class="priority-badge high">HIGH</span></h3>
-                        <span class="account-tag fintech">Fintech</span>
-                    </div>
-                    <div class="account-meta">
-                        <span>Funding: <strong>$300M</strong></span>
-                        <span>Employees: <strong>2000+</strong></span>
-                    </div>
-                    <p class="account-description">Vietnam's largest payment gateway. 40+ bank integrations.</p>
-                    <div class="ai-opportunity">
-                        <strong>AI Opportunity</strong>
-                        Fraud detection, merchant analytics, Vietnamese NLP for support
-                    </div>
-                </div>
-
-                <div class="account-card" data-country="vietnam" data-vertical="ai">
-                    <div class="account-header">
-                        <h3>FPT Software<span class="priority-badge high">HIGH</span></h3>
-                        <span class="account-tag ai">AI-Native</span>
-                    </div>
-                    <div class="account-meta">
-                        <span>Employees: <strong>25,000+</strong></span>
-                        <span>Revenue: <strong>$1B+</strong></span>
-                    </div>
-                    <p class="account-description">Vietnam's largest IT services company. Heavy AI/ML investment.</p>
-                    <div class="ai-opportunity">
-                        <strong>AI Opportunity</strong>
-                        Partner opportunity - AI services delivery, joint GTM for Vietnam market
-                    </div>
-                </div>
-
-                <!-- Thailand -->
-                <div class="account-card" data-country="thailand" data-vertical="fintech">
-                    <div class="account-header">
-                        <h3>Ascend Money<span class="priority-badge high">HIGH</span></h3>
-                        <span class="account-tag fintech">Fintech</span>
-                    </div>
-                    <div class="account-meta">
-                        <span>Funding: <strong>$150M</strong></span>
-                        <span>Employees: <strong>1500+</strong></span>
-                    </div>
-                    <p class="account-description">TrueMoney operator. 50M+ users across 6 countries.</p>
-                    <div class="ai-opportunity">
-                        <strong>AI Opportunity</strong>
-                        Cross-border payments, remittance optimization, Thai language support
-                    </div>
-                </div>
-
-                <div class="account-card" data-country="thailand" data-vertical="health">
-                    <div class="account-header">
-                        <h3>Bumrungrad International<span class="priority-badge medium">MED</span></h3>
-                        <span class="account-tag health">Healthtech</span>
-                    </div>
-                    <div class="account-meta">
-                        <span>Revenue: <strong>$600M+</strong></span>
-                        <span>Employees: <strong>5000+</strong></span>
-                    </div>
-                    <p class="account-description">Leading medical tourism hospital. Strong digital transformation agenda.</p>
-                    <div class="ai-opportunity">
-                        <strong>AI Opportunity</strong>
-                        Patient communication (multi-language), diagnostic support, admin automation
-                    </div>
-                </div>
-
-                <!-- Malaysia -->
-                <div class="account-card" data-country="malaysia" data-vertical="fintech">
-                    <div class="account-header">
-                        <h3>Touch 'n Go<span class="priority-badge high">HIGH</span></h3>
-                        <span class="account-tag fintech">Fintech</span>
-                    </div>
-                    <div class="account-meta">
-                        <span>Users: <strong>20M+</strong></span>
-                        <span>Employees: <strong>500+</strong></span>
-                    </div>
-                    <p class="account-description">Malaysia's leading e-wallet. Expanding into lending and insurance.</p>
-                    <div class="ai-opportunity">
-                        <strong>AI Opportunity</strong>
-                        Credit scoring, customer service, Malay/English NLP
-                    </div>
-                </div>
-
-                <!-- Philippines -->
-                <div class="account-card" data-country="philippines" data-vertical="fintech">
-                    <div class="account-header">
-                        <h3>GCash<span class="priority-badge high">HIGH</span></h3>
-                        <span class="account-tag fintech">Fintech</span>
-                    </div>
-                    <div class="account-meta">
-                        <span>Users: <strong>80M+</strong></span>
-                        <span>Valuation: <strong>$5B</strong></span>
-                    </div>
-                    <p class="account-description">Philippines' dominant mobile wallet. Owned by Globe/Ant Group.</p>
-                    <div class="ai-opportunity">
-                        <strong>AI Opportunity</strong>
-                        Fraud detection at scale, Filipino language support, merchant services
-                    </div>
-                </div>
-
-                <div class="account-card" data-country="philippines" data-vertical="ai">
-                    <div class="account-header">
-                        <h3>TaskUs<span class="priority-badge high">HIGH</span></h3>
-                        <span class="account-tag ai">AI-Native</span>
-                    </div>
-                    <div class="account-meta">
-                        <span>Revenue: <strong>$900M+</strong></span>
-                        <span>Employees: <strong>45,000+</strong></span>
-                    </div>
-                    <p class="account-description">AI-enabled outsourcing. Content moderation, customer experience.</p>
-                    <div class="ai-opportunity">
-                        <strong>AI Opportunity</strong>
-                        Agent augmentation, content moderation at scale, quality automation
-                    </div>
+                <div class="accounts-grid" id="accountsGrid">
+                    <!-- Accounts loaded by JS -->
                 </div>
             </div>
         </div>
 
+        <!-- GTM Strategy -->
         <div class="gtm-section">
-            <h2>GTM Strategy for Anthropic in ASEAN</h2>
-            <div class="gtm-grid">
-                <div class="gtm-item">
-                    <h4>🎯 Land Strategy</h4>
-                    <p>Start with Singapore-HQ digital natives (Nansen, Synthesia) who value reasoning quality.
-                    Use OpenAI displacement playbook. Focus on complex use cases where Claude excels.</p>
+            <h2>Go-To-Market Prioritization</h2>
+
+            <div class="gtm-timeline">
+                <div class="gtm-phase">
+                    <h3>Phase 1 · Months 1-6</h3>
+                    <div class="markets">🇸🇬 Singapore + 🇮🇩 Indonesia</div>
+                    <ul>
+                        <li>Land 5-8 lighthouse accounts</li>
+                        <li>Focus on AI-natives + Fintech</li>
+                        <li>Activate Slalom + Tomoro AI</li>
+                        <li>Build case studies with ROI</li>
+                    </ul>
                 </div>
-                <div class="gtm-item">
-                    <h4>🤝 Partner Motion</h4>
-                    <p>Partner with FPT Software (Vietnam), BCW Group (Web3), CloudMile (APAC) for delivery.
-                    SIs extend reach without headcount. Focus on AI specialization certifications.</p>
+                <div class="gtm-phase">
+                    <h3>Phase 2 · Months 6-12</h3>
+                    <div class="markets">🇹🇭 Thailand + 🇻🇳 Vietnam</div>
+                    <ul>
+                        <li>Expand with proven playbook</li>
+                        <li>Activate Neurond AI (Vietnam)</li>
+                        <li>Partner with FPT Software</li>
+                        <li>15-20 production deployments</li>
+                    </ul>
                 </div>
-                <div class="gtm-item">
-                    <h4>📈 Expand Strategy</h4>
-                    <p>Land in Singapore HQ, expand to Indonesia/Vietnam operations. Follow the funding —
-                    fintech and healthtech have budget. Multi-language Claude is a differentiator.</p>
+                <div class="gtm-phase">
+                    <h3>Phase 3 · Year 2</h3>
+                    <div class="markets">🇵🇭 Philippines + 🇲🇾 Malaysia</div>
+                    <ul>
+                        <li>BPO transformation (TaskUs)</li>
+                        <li>Government + Banking focus</li>
+                        <li>GSI activation (Accenture, BCG)</li>
+                        <li>50% partner-sourced pipeline</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="partners-section">
+                <h3>Key Delivery Partners by Market</h3>
+                <div class="partners-grid">
+                    <div class="partner-card">
+                        <div class="name">Slalom</div>
+                        <div class="type">AI Boutique</div>
+                        <div class="markets">SG · ID · TH</div>
+                    </div>
+                    <div class="partner-card">
+                        <div class="name">Tomoro AI</div>
+                        <div class="type">FSI Specialist</div>
+                        <div class="markets">SG · ID</div>
+                    </div>
+                    <div class="partner-card">
+                        <div class="name">FPT Software</div>
+                        <div class="type">Tech Services</div>
+                        <div class="markets">VN · Regional</div>
+                    </div>
+                    <div class="partner-card">
+                        <div class="name">Neurond AI</div>
+                        <div class="type">Doc AI Expert</div>
+                        <div class="markets">VN · SG</div>
+                    </div>
+                    <div class="partner-card">
+                        <div class="name">Sertis</div>
+                        <div class="type">Data Analytics</div>
+                        <div class="markets">TH · SG</div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <footer>
-            <p>Built with <a href="https://claude.ai">Claude Code</a> by <a href="index.html">Iñaki Moreno</a></p>
+            <p>
+                <a href="index.html">← Back to Portfolio</a> ·
+                Built with <a href="https://claude.ai">Claude Code</a>
+            </p>
         </footer>
     </div>
 
     <script>
-        function filterVertical(vertical) {
-            // Update buttons
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            if (vertical === 'all') {
-                document.querySelector('.filter-btn').classList.add('active');
-            } else {
-                document.querySelector(`.filter-btn.${vertical}`).classList.add('active');
+        const marketData = {
+            singapore: {
+                flag: '🇸🇬',
+                name: 'Singapore',
+                gdp: '$423B',
+                regulator: 'MAS',
+                dataLaw: 'PDPA',
+                language: 'English',
+                compliance: [
+                    'MAS Technology Risk Management Guidelines',
+                    'PDPA for personal data handling',
+                    'AI Governance Framework (voluntary)',
+                    'Cross-border data transfer rules'
+                ],
+                accounts: [
+                    { name: 'DBS Bank', logo: 'DBS', vertical: 'enterprise', funding: 'Public', employees: '33,000+', desc: 'Largest bank in SEA. Heavy AI investment. Already on GCP.', opportunity: 'Knowledge assistants, document processing, fraud detection', compliance: ['MAS TRM', 'PDPA', 'Data residency'], useCases: ['Branch knowledge assistant', 'Loan document processing', 'Customer service automation'] },
+                    { name: 'Grab', logo: 'G', vertical: 'fintech', funding: '$12B+', employees: '8,000+', desc: 'SEA superapp. Payments, delivery, mobility.', opportunity: 'Fraud detection, driver comms, customer support', compliance: ['MAS', 'Multi-country data'], useCases: ['Real-time fraud scoring', 'Multilingual support', 'Driver assistance'] },
+                    { name: 'Nansen', logo: 'N', vertical: 'ai', funding: '$75M', employees: '200+', desc: 'Blockchain analytics. OpenAI displacement win.', opportunity: 'Deep reasoning for financial analysis, agentic research', compliance: ['Crypto regulations', 'Data handling'], useCases: ['On-chain analysis', 'Research automation', 'Report generation'] },
+                    { name: 'Singtel', logo: 'ST', vertical: 'enterprise', funding: 'Public', employees: '25,000+', desc: 'Largest telco. Regional presence.', opportunity: 'Customer service, network ops, document processing', compliance: ['IMDA', 'PDPA', 'Critical infra'], useCases: ['Call center AI', 'Network troubleshooting', 'Contract analysis'] },
+                    { name: 'Sea Group', logo: 'SE', vertical: 'enterprise', funding: 'Public', employees: '60,000+', desc: 'Shopee, Garena, SeaMoney. Tech giant.', opportunity: 'E-commerce AI, gaming, payments', compliance: ['Multi-jurisdiction', 'Gaming regs'], useCases: ['Seller support', 'Content moderation', 'Fraud detection'] },
+                    { name: 'Lazada', logo: 'L', vertical: 'retail', funding: 'Alibaba', employees: '10,000+', desc: 'E-commerce leader across 6 markets.', opportunity: 'Seller tools, customer service, logistics', compliance: ['Consumer protection', 'Cross-border'], useCases: ['Product descriptions', 'Customer queries', 'Logistics optimization'] },
+                    { name: 'Carousell', logo: 'C', vertical: 'retail', funding: '$300M+', employees: '800+', desc: 'Classifieds marketplace. 8 markets.', opportunity: 'Listing optimization, trust & safety, support', compliance: ['Consumer data', 'Fraud prevention'], useCases: ['Auto-categorization', 'Scam detection', 'Seller assistance'] },
+                    { name: 'Horangi', logo: 'H', vertical: 'cyber', funding: '$28M', employees: '100+', desc: 'Cloud security platform.', opportunity: 'Threat analysis, compliance automation', compliance: ['SOC2', 'ISO27001'], useCases: ['Security report generation', 'Compliance mapping', 'Threat intelligence'] },
+                    { name: 'Advance.AI', logo: 'A', vertical: 'ai', funding: '$100M+', employees: '500+', desc: 'Digital identity and risk management.', opportunity: 'KYC automation, fraud scoring', compliance: ['AML/CFT', 'Data privacy'], useCases: ['Document verification', 'Risk assessment', 'Liveness detection'] },
+                    { name: 'PatSnap', logo: 'P', vertical: 'ai', funding: '$400M+', employees: '1,000+', desc: 'IP intelligence platform.', opportunity: 'Patent analysis, R&D insights', compliance: ['IP regulations', 'Data handling'], useCases: ['Patent summarization', 'Competitive analysis', 'Innovation tracking'] }
+                ]
+            },
+            indonesia: {
+                flag: '🇮🇩',
+                name: 'Indonesia',
+                gdp: '$1.3T',
+                regulator: 'OJK/BI',
+                dataLaw: 'UU PDP',
+                language: 'Bahasa',
+                compliance: [
+                    'OJK regulations for fintech',
+                    'UU PDP (new data protection law)',
+                    'Local data storage requirements',
+                    'Sharia compliance for Islamic finance'
+                ],
+                accounts: [
+                    { name: 'GoTo', logo: 'GT', vertical: 'fintech', funding: '$8B+', employees: '20,000+', desc: 'GoPay, Gojek, Tokopedia merged superapp.', opportunity: 'Bahasa NLP, fraud, driver comms', compliance: ['OJK', 'BI', 'UU PDP'], useCases: ['Customer support in Bahasa', 'Fraud detection', 'Merchant insights'] },
+                    { name: 'Bank Central Asia', logo: 'BCA', vertical: 'enterprise', funding: 'Public', employees: '25,000+', desc: 'Largest private bank. Digital leader.', opportunity: 'Customer service, document processing', compliance: ['OJK', 'BI', 'Data residency'], useCases: ['Virtual assistant', 'Loan processing', 'Compliance monitoring'] },
+                    { name: 'Halodoc', logo: 'HD', vertical: 'health', funding: '$180M', employees: '500+', desc: 'Largest telehealth. 20M+ monthly users.', opportunity: 'Symptom triage, doctor matching', compliance: ['Healthcare regs', 'UU PDP'], useCases: ['Symptom checker', 'Medical record summary', 'Drug interaction alerts'] },
+                    { name: 'Telkomsel', logo: 'TS', vertical: 'enterprise', funding: 'Telkom', employees: '5,000+', desc: '170M subscribers. Largest mobile operator.', opportunity: 'Call center transformation', compliance: ['Kominfo', 'Critical infra'], useCases: ['Customer support', 'Network optimization', 'Churn prediction'] },
+                    { name: 'Akulaku', logo: 'AK', vertical: 'fintech', funding: '$500M+', employees: '2,000+', desc: 'BNPL and digital banking.', opportunity: 'Credit scoring, collections, support', compliance: ['OJK', 'Consumer protection'], useCases: ['Underwriting assistance', 'Collection scripts', 'Customer queries'] },
+                    { name: 'Kata.ai', logo: 'K', vertical: 'ai', funding: '$20M', employees: '150+', desc: 'Bahasa conversational AI leader.', opportunity: 'LLM integration, enterprise chatbots', compliance: ['UU PDP', 'Industry specific'], useCases: ['Chatbot enhancement', 'Voice AI', 'Enterprise deployment'] },
+                    { name: 'Blibli', logo: 'B', vertical: 'retail', funding: '$1B+', employees: '3,000+', desc: 'E-commerce. Part of Djarum group.', opportunity: 'Product discovery, seller tools', compliance: ['E-commerce regs', 'Consumer data'], useCases: ['Search optimization', 'Product recommendations', 'Seller support'] },
+                    { name: 'Kredivo', logo: 'KR', vertical: 'fintech', funding: '$300M+', employees: '500+', desc: 'Digital credit. 6M+ users.', opportunity: 'Credit decisioning, collections', compliance: ['OJK', 'Consumer lending'], useCases: ['Risk assessment', 'Customer communication', 'Fraud prevention'] },
+                    { name: 'Tiket.com', logo: 'T', vertical: 'retail', funding: 'Djarum/Blibli', employees: '1,000+', desc: 'OTA platform. Travel booking.', opportunity: 'Customer service, content generation', compliance: ['Consumer protection', 'Travel regs'], useCases: ['Booking assistance', 'Itinerary planning', 'Support automation'] },
+                    { name: 'DANA', logo: 'D', vertical: 'fintech', funding: '$500M+', employees: '1,500+', desc: 'Digital wallet. Ant Group backed.', opportunity: 'Fraud detection, merchant tools', compliance: ['BI', 'OJK', 'E-money regs'], useCases: ['Transaction monitoring', 'Merchant onboarding', 'Customer support'] }
+                ]
+            },
+            thailand: {
+                flag: '🇹🇭',
+                name: 'Thailand',
+                gdp: '$500B',
+                regulator: 'BOT/SEC',
+                dataLaw: 'PDPA',
+                language: 'Thai',
+                compliance: [
+                    'BOT regulations for fintech',
+                    'Thailand PDPA (enforced 2022)',
+                    'SEC for digital assets',
+                    'Thai language requirements'
+                ],
+                accounts: [
+                    { name: 'SCB', logo: 'SCB', vertical: 'enterprise', funding: 'Public', employees: '27,000+', desc: 'Oldest Thai bank. SCBX transformation.', opportunity: 'Digital banking, customer service', compliance: ['BOT', 'PDPA', 'AML'], useCases: ['Virtual assistant', 'Document processing', 'Compliance'] },
+                    { name: 'Ascend Money', logo: 'TM', vertical: 'fintech', funding: '$150M', employees: '1,500+', desc: 'TrueMoney. 50M+ users, 6 countries.', opportunity: 'Cross-border payments, Thai NLP', compliance: ['BOT', 'Multi-country'], useCases: ['Customer support', 'Fraud detection', 'Remittance optimization'] },
+                    { name: 'Bitkub', logo: 'BK', vertical: 'fintech', funding: '$300M+', employees: '1,000+', desc: 'Largest crypto exchange in Thailand.', opportunity: 'Trading insights, compliance', compliance: ['SEC TH', 'AML/CFT'], useCases: ['Market analysis', 'Regulatory reporting', 'Customer education'] },
+                    { name: 'Line Man Wongnai', logo: 'LW', vertical: 'retail', funding: '$300M+', employees: '2,000+', desc: 'Food delivery + restaurant reviews.', opportunity: 'Restaurant recommendations, driver ops', compliance: ['Consumer data', 'Food safety'], useCases: ['Restaurant discovery', 'Order support', 'Review analysis'] },
+                    { name: 'Sertis', logo: 'S', vertical: 'ai', funding: '$30M+', employees: '200+', desc: 'Data analytics consultancy.', opportunity: 'Partner for enterprise delivery', compliance: ['PDPA', 'Industry specific'], useCases: ['AI implementation', 'Data strategy', 'Model deployment'] },
+                    { name: 'True Digital', logo: 'TD', vertical: 'enterprise', funding: 'CP Group', employees: '3,000+', desc: 'Digital arm of True Corp.', opportunity: 'Telco AI, enterprise solutions', compliance: ['NBTC', 'PDPA'], useCases: ['Network ops', 'Customer analytics', 'Content moderation'] },
+                    { name: 'Pomelo', logo: 'PM', vertical: 'fintech', funding: '$100M+', employees: '300+', desc: 'Fintech infrastructure for embedded finance.', opportunity: 'Developer tools, compliance', compliance: ['BOT', 'PDPA'], useCases: ['API documentation', 'Compliance automation', 'Developer support'] },
+                    { name: 'Flash Group', logo: 'FG', vertical: 'retail', funding: '$400M+', employees: '5,000+', desc: 'E-commerce logistics leader.', opportunity: 'Logistics optimization, customer service', compliance: ['Logistics regs', 'Consumer data'], useCases: ['Route optimization', 'Tracking support', 'Seller tools'] }
+                ]
+            },
+            vietnam: {
+                flag: '🇻🇳',
+                name: 'Vietnam',
+                gdp: '$400B',
+                regulator: 'SBV',
+                dataLaw: 'Cybersecurity Law',
+                language: 'Vietnamese',
+                compliance: [
+                    'Cybersecurity Law data localization',
+                    'SBV fintech sandbox',
+                    'Local data storage mandate',
+                    'Vietnamese language requirements'
+                ],
+                accounts: [
+                    { name: 'VNPay', logo: 'VP', vertical: 'fintech', funding: '$300M', employees: '2,000+', desc: 'Largest payment gateway. 40+ banks.', opportunity: 'Fraud detection, Vietnamese NLP', compliance: ['SBV', 'Cybersecurity Law'], useCases: ['Transaction monitoring', 'Merchant analytics', 'Customer support'] },
+                    { name: 'FPT Software', logo: 'FPT', vertical: 'ai', funding: 'Public', employees: '25,000+', desc: 'Largest IT services. $1B+ revenue.', opportunity: 'Partner for delivery, joint GTM', compliance: ['Global standards', 'Multi-client'], useCases: ['AI services', 'Offshore development', 'System integration'] },
+                    { name: 'MoMo', logo: 'MM', vertical: 'fintech', funding: '$500M+', employees: '2,000+', desc: 'Leading e-wallet. 30M+ users.', opportunity: 'Fraud, mini-app ecosystem', compliance: ['SBV', 'E-money regs'], useCases: ['Fraud prevention', 'Customer support', 'Merchant tools'] },
+                    { name: 'Tiki', logo: 'TK', vertical: 'retail', funding: '$400M+', employees: '4,000+', desc: 'E-commerce platform. JD.com backed.', opportunity: 'Product discovery, logistics', compliance: ['E-commerce regs', 'Consumer data'], useCases: ['Search optimization', 'Seller support', 'Delivery tracking'] },
+                    { name: 'VNG', logo: 'VNG', vertical: 'enterprise', funding: '$500M+', employees: '3,000+', desc: 'Tech conglomerate. Gaming, payments.', opportunity: 'Content moderation, customer service', compliance: ['Gaming regs', 'Data localization'], useCases: ['Game moderation', 'ZaloPay support', 'Content generation'] },
+                    { name: 'Neurond AI', logo: 'N', vertical: 'ai', funding: '$5M+', employees: '50+', desc: 'Document AI specialist. Fast delivery.', opportunity: 'Partner for doc processing use cases', compliance: ['Enterprise standards'], useCases: ['Loan document processing', 'Contract analysis', 'Invoice extraction'] },
+                    { name: 'KMS Technology', logo: 'KMS', vertical: 'ai', funding: 'Private', employees: '2,500+', desc: 'Software services. AI practice.', opportunity: 'Partner for enterprise delivery', compliance: ['Multi-client', 'Global standards'], useCases: ['AI implementation', 'Custom development', 'Testing automation'] },
+                    { name: 'Be Group', logo: 'BE', vertical: 'fintech', funding: '$100M+', employees: '500+', desc: 'Ride-hailing and fintech.', opportunity: 'Driver comms, fraud detection', compliance: ['Transport regs', 'SBV'], useCases: ['Driver support', 'Payment fraud', 'Customer service'] }
+                ]
+            },
+            philippines: {
+                flag: '🇵🇭',
+                name: 'Philippines',
+                gdp: '$400B',
+                regulator: 'BSP',
+                dataLaw: 'Data Privacy Act',
+                language: 'Filipino/English',
+                compliance: [
+                    'BSP regulations for e-money',
+                    'Data Privacy Act (NPC)',
+                    'BPO-specific data handling',
+                    'English + Filipino support'
+                ],
+                accounts: [
+                    { name: 'GCash', logo: 'GC', vertical: 'fintech', funding: '$500M+', employees: '1,000+', desc: 'Dominant wallet. 80M+ users.', opportunity: 'Fraud at scale, Filipino support', compliance: ['BSP', 'NPC', 'AML'], useCases: ['Fraud detection', 'Customer support', 'Merchant services'] },
+                    { name: 'TaskUs', logo: 'TU', vertical: 'ai', funding: 'Public', employees: '45,000+', desc: 'AI-enabled BPO. Content moderation.', opportunity: 'Agent augmentation at scale', compliance: ['Client-specific', 'SOC2'], useCases: ['Content moderation', 'Customer support', 'QA automation'] },
+                    { name: 'Maya', logo: 'MY', vertical: 'fintech', funding: '$400M+', employees: '800+', desc: 'Digital bank. PayMaya rebrand.', opportunity: 'Banking AI, customer service', compliance: ['BSP', 'Digital bank license'], useCases: ['Virtual assistant', 'Credit assessment', 'Fraud prevention'] },
+                    { name: 'Teleperformance PH', logo: 'TP', vertical: 'enterprise', funding: 'Global', employees: '50,000+', desc: 'Largest BPO employer.', opportunity: 'Agent assist, quality automation', compliance: ['Client contracts', 'Data handling'], useCases: ['Real-time agent assist', 'Call summarization', 'QA scoring'] },
+                    { name: 'BDO', logo: 'BDO', vertical: 'enterprise', funding: 'Public', employees: '40,000+', desc: 'Largest bank by assets.', opportunity: 'Customer service, document processing', compliance: ['BSP', 'NPC', 'AML'], useCases: ['Branch assistant', 'Loan processing', 'Compliance'] },
+                    { name: 'Globe Telecom', logo: 'GLB', vertical: 'enterprise', funding: 'Public', employees: '8,000+', desc: 'Major telco. GCash parent.', opportunity: 'Network ops, customer service', compliance: ['NTC', 'NPC'], useCases: ['Network troubleshooting', 'Customer support', 'Churn prediction'] },
+                    { name: 'Mynt', logo: 'MNT', vertical: 'fintech', funding: '$350M+', employees: '500+', desc: 'GCash operator. Fintech services.', opportunity: 'Credit, insurance, investments', compliance: ['BSP', 'SEC PH'], useCases: ['Credit scoring', 'Claims processing', 'Investment advice'] }
+                ]
+            },
+            malaysia: {
+                flag: '🇲🇾',
+                name: 'Malaysia',
+                gdp: '$370B',
+                regulator: 'BNM',
+                dataLaw: 'PDPA MY',
+                language: 'Malay/English',
+                compliance: [
+                    'BNM fintech regulations',
+                    'Malaysia PDPA',
+                    'Sharia compliance for Islamic banking',
+                    'Government procurement rules'
+                ],
+                accounts: [
+                    { name: 'Touch n Go', logo: 'TNG', vertical: 'fintech', funding: '$500M+', employees: '500+', desc: 'Leading e-wallet. 20M+ users.', opportunity: 'Credit scoring, customer service', compliance: ['BNM', 'PDPA MY'], useCases: ['Customer support', 'Fraud detection', 'Merchant tools'] },
+                    { name: 'Maybank', logo: 'MB', vertical: 'enterprise', funding: 'Public', employees: '45,000+', desc: 'Largest bank in SEA by assets.', opportunity: 'Digital banking, document processing', compliance: ['BNM', 'PDPA', 'Sharia'], useCases: ['MAE assistant', 'Loan processing', 'Compliance'] },
+                    { name: 'Grab MY', logo: 'GR', vertical: 'fintech', funding: 'Regional', employees: '2,000+', desc: 'Superapp operations in Malaysia.', opportunity: 'Local language support, fraud', compliance: ['BNM', 'Transport regs'], useCases: ['Malay/English support', 'Driver assistance', 'Merchant analytics'] },
+                    { name: 'CIMB', logo: 'CM', vertical: 'enterprise', funding: 'Public', employees: '35,000+', desc: 'Second largest bank. ASEAN presence.', opportunity: 'Cross-border banking, customer service', compliance: ['BNM', 'Multi-country'], useCases: ['Virtual assistant', 'Trade finance', 'Compliance'] },
+                    { name: 'AirAsia Digital', logo: 'AA', vertical: 'retail', funding: 'Capital A', employees: '1,000+', desc: 'Digital ventures of AirAsia.', opportunity: 'Travel AI, logistics', compliance: ['Aviation', 'E-commerce'], useCases: ['Booking support', 'BigPay assistance', 'Cargo optimization'] },
+                    { name: 'Boost', logo: 'B', vertical: 'fintech', funding: '$200M+', employees: '400+', desc: 'Axiata e-wallet. Digital bank license.', opportunity: 'Digital banking, payments', compliance: ['BNM', 'PDPA'], useCases: ['Customer service', 'Credit decisions', 'Merchant tools'] },
+                    { name: 'Carsome', logo: 'CS', vertical: 'retail', funding: '$500M+', employees: '3,000+', desc: 'Car marketplace. Regional.', opportunity: 'Vehicle inspection, pricing', compliance: ['Consumer protection', 'Vehicle regs'], useCases: ['Inspection reports', 'Pricing intelligence', 'Customer support'] }
+                ]
             }
+        };
 
-            // Filter cards
-            document.querySelectorAll('.account-card').forEach(card => {
-                if (vertical === 'all' || card.dataset.vertical === vertical) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
+        let currentCountry = 'singapore';
+        let currentVertical = 'all';
 
         function selectCountry(country) {
-            // Update buttons
-            document.querySelectorAll('.country-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.closest('.country-btn').classList.add('active');
+            currentCountry = country;
+            currentVertical = 'all';
 
-            // Filter cards
-            document.querySelectorAll('.account-card').forEach(card => {
-                if (card.dataset.country === country) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
+            // Update country buttons
+            document.querySelectorAll('.country-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.country === country);
             });
 
-            // Reset vertical filter
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelector('.filter-btn').classList.add('active');
+            // Update map shapes
+            document.querySelectorAll('.country-shape').forEach(shape => {
+                shape.classList.toggle('active', shape.dataset.country === country);
+            });
+
+            // Update vertical filter
+            document.querySelectorAll('.vertical-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.vertical-btn').classList.add('active');
+
+            updateMarketInfo();
+            renderAccounts();
         }
+
+        function filterVertical(vertical) {
+            currentVertical = vertical;
+
+            // Update buttons
+            document.querySelectorAll('.vertical-btn').forEach(btn => btn.classList.remove('active'));
+            if (vertical === 'all') {
+                document.querySelector('.vertical-btn').classList.add('active');
+            } else {
+                document.querySelector(`.vertical-btn.${vertical}`).classList.add('active');
+            }
+
+            renderAccounts();
+        }
+
+        function updateMarketInfo() {
+            const market = marketData[currentCountry];
+            document.getElementById('currentFlag').textContent = market.flag;
+            document.getElementById('currentCountry').textContent = market.name;
+
+            const infoGrid = document.querySelector('.market-info-grid');
+            infoGrid.innerHTML = `
+                <div class="market-stat">
+                    <div class="value">${market.gdp}</div>
+                    <div class="label">GDP</div>
+                </div>
+                <div class="market-stat">
+                    <div class="value">${market.regulator}</div>
+                    <div class="label">Regulator</div>
+                </div>
+                <div class="market-stat">
+                    <div class="value">${market.dataLaw}</div>
+                    <div class="label">Data Law</div>
+                </div>
+                <div class="market-stat">
+                    <div class="value">${market.language}</div>
+                    <div class="label">Language</div>
+                </div>
+            `;
+
+            document.getElementById('complianceList').innerHTML = market.compliance.map(c => `<li>${c}</li>`).join('');
+        }
+
+        function renderAccounts() {
+            const market = marketData[currentCountry];
+            const accounts = currentVertical === 'all'
+                ? market.accounts
+                : market.accounts.filter(a => a.vertical === currentVertical);
+
+            document.getElementById('accountsGrid').innerHTML = accounts.map(account => `
+                <div class="account-card" data-vertical="${account.vertical}" onclick="this.classList.toggle('expanded')">
+                    <div class="account-header">
+                        <div class="account-name">
+                            <div class="account-logo">${account.logo}</div>
+                            <h3>${account.name}</h3>
+                        </div>
+                        <span class="account-tag ${account.vertical}">${account.vertical}</span>
+                    </div>
+                    <div class="account-meta">
+                        <span>Funding: <strong>${account.funding}</strong></span>
+                        <span>Size: <strong>${account.employees}</strong></span>
+                    </div>
+                    <p class="account-desc">${account.desc}</p>
+                    <div class="account-opportunity">
+                        <h4>AI Opportunity</h4>
+                        ${account.opportunity}
+                    </div>
+                    <div class="account-details">
+                        <div class="detail-grid">
+                            <div class="detail-section">
+                                <h5>Compliance Requirements</h5>
+                                <ul>
+                                    ${account.compliance.map(c => `<li>${c}</li>`).join('')}
+                                </ul>
+                            </div>
+                            <div class="detail-section">
+                                <h5>Key Use Cases</h5>
+                                <ul>
+                                    ${account.useCases.map(u => `<li>${u}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Add click handlers to SVG map
+        document.querySelectorAll('.country-shape').forEach(shape => {
+            shape.addEventListener('click', () => selectCountry(shape.dataset.country));
+        });
+
+        // Initialize
+        updateMarketInfo();
+        renderAccounts();
     </script>
 </body>
 </html>
