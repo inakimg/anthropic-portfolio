@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DN Sales Assistant - AI-Powered BDR Tool</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #0a0a0a;
+            --color-surface: #141414;
+            --color-surface-2: #1c1c1c;
+            --color-border: #2a2a2a;
+            --color-text: #fafafa;
+            --color-muted: #888;
+            --color-accent: #D4622B;
+            --color-accent-soft: rgba(212, 98, 43, 0.15);
+            --color-success: #10b981;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            min-height: 100vh;
+        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 24px; }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--color-border);
+            margin-bottom: 32px;
+        }
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo-icon {
+            width: 40px; height: 40px;
+            background: var(--color-accent);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700;
+        }
+        .logo h1 { font-size: 1.2rem; font-weight: 600; }
+        header nav a {
+            color: var(--color-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-left: 24px;
+        }
+        header nav a:hover { color: var(--color-accent); }
+
+        .tabs {
+            display: flex; gap: 8px; margin-bottom: 24px;
+            border-bottom: 1px solid var(--color-border); padding-bottom: 16px;
+        }
+        .tab {
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            color: var(--color-muted);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .tab:hover { border-color: var(--color-text); color: var(--color-text); }
+        .tab.active { background: var(--color-accent); border-color: var(--color-accent); color: white; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .filters {
+            display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap;
+        }
+        .filter-select {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 10px 16px;
+            color: var(--color-text);
+            font-size: 0.9rem;
+        }
+
+        .account-grid { display: grid; gap: 16px; }
+        .account-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .account-card:hover { border-color: var(--color-accent); }
+        .account-card.expanded { border-color: var(--color-accent); }
+
+        .account-header {
+            display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;
+        }
+        .account-header h3 { font-size: 1.1rem; font-weight: 600; }
+        .account-tags { display: flex; gap: 8px; }
+        .tag {
+            font-size: 0.75rem; padding: 4px 10px; border-radius: 12px; font-weight: 500;
+        }
+        .tag.vertical { background: rgba(16,185,129,0.2); color: #10b981; }
+        .tag.priority { background: #dc2626; color: white; }
+        .tag.country { background: var(--color-surface-2); color: var(--color-muted); }
+
+        .account-meta {
+            display: flex; gap: 24px; font-size: 0.85rem; color: var(--color-muted); margin-bottom: 12px;
+        }
+        .account-meta strong { color: var(--color-text); }
+        .account-description { font-size: 0.9rem; color: var(--color-muted); margin-bottom: 16px; }
+
+        .account-details {
+            display: none;
+            border-top: 1px solid var(--color-border);
+            padding-top: 16px; margin-top: 16px;
+        }
+        .account-card.expanded .account-details { display: block; }
+
+        .detail-section { margin-bottom: 20px; }
+        .detail-section h4 {
+            font-size: 0.85rem; color: var(--color-accent);
+            text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px;
+        }
+        .detail-section p, .detail-section li {
+            font-size: 0.9rem; color: var(--color-text); line-height: 1.6;
+        }
+        .detail-section ul { padding-left: 20px; }
+        .detail-section li { margin-bottom: 6px; }
+
+        .contacts-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;
+        }
+        .contact-card {
+            background: var(--color-surface-2); border-radius: 8px; padding: 12px;
+        }
+        .contact-card h5 { font-size: 0.9rem; margin-bottom: 4px; }
+        .contact-card p { font-size: 0.8rem; color: var(--color-muted); margin: 0; }
+
+        .outreach-form { display: grid; gap: 16px; margin-bottom: 24px; }
+        .form-group label {
+            display: block; font-size: 0.85rem; color: var(--color-muted); margin-bottom: 6px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 12px;
+            color: var(--color-text);
+            font-size: 0.95rem;
+        }
+
+        .search-btn {
+            background: var(--color-accent);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 14px 28px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .search-btn:hover { background: #b8531f; }
+
+        .generated-output {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .output-header {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
+        }
+        .copy-btn {
+            background: var(--color-surface-2);
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            padding: 8px 16px;
+            color: var(--color-text);
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+        .copy-btn:hover { border-color: var(--color-accent); }
+
+        .outreach-template {
+            background: var(--color-surface-2);
+            border-radius: 8px;
+            padding: 16px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .playbook-steps { counter-reset: step; }
+        .playbook-step { display: flex; gap: 12px; margin-bottom: 12px; }
+        .step-number {
+            width: 28px; height: 28px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.8rem; font-weight: 600; flex-shrink: 0;
+        }
+
+        footer {
+            margin-top: 48px; padding-top: 24px;
+            border-top: 1px solid var(--color-border);
+            text-align: center; color: var(--color-muted); font-size: 0.85rem;
+        }
+        footer a { color: var(--color-accent); text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .tabs { flex-wrap: wrap; }
+            .tab { font-size: 0.8rem; padding: 8px 14px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">DN</div>
+                <h1>DN Sales Assistant</h1>
+            </div>
+            <nav><a href="../index.html">← Back to Portfolio</a></nav>
+        </header>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('discover')">🔍 Discover</button>
+            <button class="tab" onclick="showTab('outreach')">✉️ Outreach</button>
+            <button class="tab" onclick="showTab('playbooks')">📚 Playbooks</button>
+        </div>
+
+        <!-- DISCOVER TAB -->
+        <div id="discover" class="tab-content active">
+            <div class="filters">
+                <select class="filter-select" id="verticalFilter" onchange="filterAccounts()">
+                    <option value="all">All Verticals</option>
+                    <option value="ai">AI-Native</option>
+                    <option value="fintech">Fintech</option>
+                    <option value="health">Healthtech</option>
+                    <option value="cyber">Cybersecurity</option>
+                </select>
+                <select class="filter-select" id="countryFilter" onchange="filterAccounts()">
+                    <option value="all">All Countries</option>
+                    <option value="singapore">Singapore</option>
+                    <option value="indonesia">Indonesia</option>
+                    <option value="vietnam">Vietnam</option>
+                    <option value="thailand">Thailand</option>
+                    <option value="philippines">Philippines</option>
+                </select>
+            </div>
+            <div class="account-grid" id="accountGrid"></div>
+        </div>
+
+        <!-- OUTREACH TAB -->
+        <div id="outreach" class="tab-content">
+            <div class="outreach-form">
+                <div class="form-group">
+                    <label>Target Company</label>
+                    <input type="text" id="outreachCompany" placeholder="e.g., Grab Financial">
+                </div>
+                <div class="form-group">
+                    <label>Target Persona</label>
+                    <select id="outreachPersona">
+                        <option value="cto">CTO / VP Engineering</option>
+                        <option value="cpo">CPO / Head of Product</option>
+                        <option value="data">Head of Data / ML</option>
+                        <option value="founder">Founder / CEO</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Your Connection (optional)</label>
+                    <input type="text" id="outreachConnection" placeholder="e.g., Met at Web3 Summit">
+                </div>
+                <div class="form-group">
+                    <label>Key Value Proposition</label>
+                    <select id="outreachValue">
+                        <option value="reasoning">Deep reasoning for complex tasks</option>
+                        <option value="cost">Cost reduction vs current AI</option>
+                        <option value="safety">Enterprise security & compliance</option>
+                        <option value="multi">Multi-language ASEAN support</option>
+                    </select>
+                </div>
+                <button class="search-btn" onclick="generateOutreach()">Generate Message (&lt;300 chars)</button>
+            </div>
+            <div class="generated-output" id="outreachOutput" style="display: none;">
+                <div class="output-header">
+                    <h4>LinkedIn Connection Request</h4>
+                    <button class="copy-btn" onclick="copyOutreach()">Copy</button>
+                </div>
+                <div class="outreach-template" id="outreachMessage"></div>
+                <p style="margin-top: 12px; font-size: 0.8rem; color: var(--color-muted);" id="charCount"></p>
+            </div>
+        </div>
+
+        <!-- PLAYBOOKS TAB -->
+        <div id="playbooks" class="tab-content">
+            <div class="account-grid">
+                <div class="account-card" onclick="this.classList.toggle('expanded')">
+                    <div class="account-header">
+                        <h3>🎯 OpenAI Displacement Playbook</h3>
+                        <span class="tag priority">Proven</span>
+                    </div>
+                    <p class="account-description">Win accounts using GPT-4. Based on real APAC wins.</p>
+                    <div class="account-details">
+                        <div class="detail-section">
+                            <h4>When to Use</h4>
+                            <ul>
+                                <li>Customer complaining about GPT-4 latency/costs</li>
+                                <li>Complex reasoning use cases (financial, legal)</li>
+                                <li>Enterprise security requirements</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>The Play</h4>
+                            <div class="playbook-steps">
+                                <div class="playbook-step">
+                                    <div class="step-number">1</div>
+                                    <div>Identify pain: TTFT, reasoning quality, cost per query</div>
+                                </div>
+                                <div class="playbook-step">
+                                    <div class="step-number">2</div>
+                                    <div>Propose benchmark: "Let's run 100 hard queries through both"</div>
+                                </div>
+                                <div class="playbook-step">
+                                    <div class="step-number">3</div>
+                                    <div>Design complexity router: Claude for reasoning, Flash for volume</div>
+                                </div>
+                                <div class="playbook-step">
+                                    <div class="step-number">4</div>
+                                    <div>Show TCO: Multi-model = 30-50% cheaper than GPT-4</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Objection Handlers</h4>
+                            <ul>
+                                <li><strong>"Invested in OpenAI"</strong> → Benchmark the hard 5%. If Claude isn't better, no harm.</li>
+                                <li><strong>"Migration complex"</strong> → API near-identical. Most teams swap in a day.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="account-card" onclick="this.classList.toggle('expanded')">
+                    <div class="account-header">
+                        <h3>🏦 Fintech AI Playbook</h3>
+                        <span class="tag vertical">Fintech</span>
+                    </div>
+                    <p class="account-description">Sell AI to payments, neobanks, lending in SEA.</p>
+                    <div class="account-details">
+                        <div class="detail-section">
+                            <h4>Top Use Cases</h4>
+                            <ul>
+                                <li><strong>Fraud Detection:</strong> Nuanced transaction analysis</li>
+                                <li><strong>Credit Scoring:</strong> Alternative data for thin-file customers</li>
+                                <li><strong>Multilingual Support:</strong> Bahasa, Vietnamese, Thai, Tagalog</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Key Stakeholders</h4>
+                            <ul>
+                                <li><strong>CTO:</strong> Reliability, latency, security</li>
+                                <li><strong>Head of Risk:</strong> Fraud loss reduction</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="account-card" onclick="this.classList.toggle('expanded')">
+                    <div class="account-header">
+                        <h3>🏥 Healthtech AI Playbook</h3>
+                        <span class="tag" style="background: rgba(236,72,153,0.2); color: #ec4899;">Health</span>
+                    </div>
+                    <p class="account-description">AI for telehealth and digital health platforms.</p>
+                    <div class="account-details">
+                        <div class="detail-section">
+                            <h4>Use Cases</h4>
+                            <ul>
+                                <li>Symptom triage & patient intake</li>
+                                <li>Clinical documentation & summaries</li>
+                                <li>Drug interaction checking</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Compliance</h4>
+                            <p>PDPA (Singapore), UU PDP (Indonesia) data residency. Claude's safety focus is a selling point.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Built with <a href="https://claude.ai">Claude Code</a> by <a href="../index.html">Iñaki Moreno</a></p>
+        </footer>
+    </div>
+
+    <script>
+        const accounts = [
+            { name: 'Nansen', vertical: 'ai', country: 'singapore', funding: 75, employees: 200, priority: 'high',
+              desc: 'Blockchain analytics. OpenAI displacement success.',
+              opportunity: 'Deep reasoning for financial analysis, agentic research',
+              contacts: [{name: 'Alex Svanevik', title: 'CEO'}, {name: 'Lars Bakke', title: 'CTO'}] },
+            { name: 'Grab Financial', vertical: 'fintech', country: 'singapore', funding: 12000, employees: 8000, priority: 'high',
+              desc: 'Superapp: payments, lending, insurance.',
+              opportunity: 'Fraud detection, credit scoring, multilingual CS',
+              contacts: [{name: 'Reuben Lai', title: 'MD Financial Services'}] },
+            { name: 'Halodoc', vertical: 'health', country: 'indonesia', funding: 180, employees: 500, priority: 'high',
+              desc: 'Indonesia telehealth. 20M+ monthly users.',
+              opportunity: 'Symptom triage, doctor matching, record summarization',
+              contacts: [{name: 'Jonathan Sudharta', title: 'CEO'}] },
+            { name: 'GoTo Financial', vertical: 'fintech', country: 'indonesia', funding: 8000, employees: 5000, priority: 'high',
+              desc: 'GoPay, lending. Indonesia superapp.',
+              opportunity: 'Bahasa NLP, fraud detection, driver comms',
+              contacts: [{name: 'Hans Patuwo', title: 'President GoPay'}] },
+            { name: 'Horangi', vertical: 'cyber', country: 'singapore', funding: 28, employees: 100, priority: 'medium',
+              desc: 'Cloud security. Compliance & threat detection.',
+              opportunity: 'Threat analysis, compliance automation',
+              contacts: [{name: 'Paul Hadjy', title: 'CEO'}] },
+            { name: 'VNPay', vertical: 'fintech', country: 'vietnam', funding: 300, employees: 2000, priority: 'high',
+              desc: 'Vietnam payment gateway. 40+ banks.',
+              opportunity: 'Fraud detection, Vietnamese NLP',
+              contacts: [{name: 'Mai Huu Tin', title: 'CEO'}] },
+            { name: 'TaskUs', vertical: 'ai', country: 'philippines', funding: 0, employees: 45000, priority: 'high',
+              desc: 'AI-enabled BPO. Content moderation, CX.',
+              opportunity: 'Agent augmentation, content mod at scale',
+              contacts: [{name: 'Bryce Maddock', title: 'CEO'}] },
+            { name: 'Ascend Money', vertical: 'fintech', country: 'thailand', funding: 150, employees: 1500, priority: 'high',
+              desc: 'TrueMoney. 50M+ users, 6 countries.',
+              opportunity: 'Cross-border payments, Thai NLP',
+              contacts: [{name: 'Tanyapong T.', title: 'CEO'}] },
+            { name: 'GCash', vertical: 'fintech', country: 'philippines', funding: 500, employees: 1000, priority: 'high',
+              desc: 'Philippines mobile wallet. 80M+ users.',
+              opportunity: 'Fraud detection at scale, Filipino support',
+              contacts: [{name: 'Martha Sazon', title: 'CEO'}] }
+        ];
+
+        function renderAccounts(list = accounts) {
+            document.getElementById('accountGrid').innerHTML = list.map(a => `
+                <div class="account-card" onclick="this.classList.toggle('expanded')"
+                     data-vertical="${a.vertical}" data-country="${a.country}">
+                    <div class="account-header">
+                        <h3>${a.name}</h3>
+                        <div class="account-tags">
+                            <span class="tag vertical">${a.vertical}</span>
+                            ${a.priority === 'high' ? '<span class="tag priority">HIGH</span>' : ''}
+                            <span class="tag country">${a.country}</span>
+                        </div>
+                    </div>
+                    <div class="account-meta">
+                        <span>Funding: <strong>$${a.funding}M</strong></span>
+                        <span>Size: <strong>${a.employees.toLocaleString()}</strong></span>
+                    </div>
+                    <p class="account-description">${a.desc}</p>
+                    <div class="account-details">
+                        <div class="detail-section">
+                            <h4>AI Opportunity</h4>
+                            <p>${a.opportunity}</p>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Key Contacts</h4>
+                            <div class="contacts-grid">
+                                ${a.contacts.map(c => `<div class="contact-card"><h5>${c.name}</h5><p>${c.title}</p></div>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterAccounts() {
+            const v = document.getElementById('verticalFilter').value;
+            const c = document.getElementById('countryFilter').value;
+            renderAccounts(accounts.filter(a =>
+                (v === 'all' || a.vertical === v) && (c === 'all' || a.country === c)
+            ));
+        }
+
+        function showTab(id) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="showTab('${id}')"]`).classList.add('active');
+            document.getElementById(id).classList.add('active');
+        }
+
+        function generateOutreach() {
+            const company = document.getElementById('outreachCompany').value || 'your company';
+            const persona = document.getElementById('outreachPersona').value;
+            const connection = document.getElementById('outreachConnection').value;
+            const value = document.getElementById('outreachValue').value;
+
+            const titles = { cto: 'engineering', cpo: 'product', data: 'data/ML', founder: '' };
+            const values = {
+                reasoning: 'complex reasoning tasks',
+                cost: 'AI cost optimization',
+                safety: 'enterprise AI security',
+                multi: 'multi-language AI'
+            };
+
+            let msg = connection ? `${connection}. ` : 'Hi! ';
+            msg += `Work with ${titles[persona] ? titles[persona] + ' leaders' : 'founders'} in SEA on AI. `;
+            msg += `Noticed ${company}'s growth — exploring ${values[value]}? `;
+            msg += `Happy to share what's working.`;
+
+            document.getElementById('outreachMessage').textContent = msg;
+            document.getElementById('charCount').textContent = `${msg.length} characters`;
+            document.getElementById('outreachOutput').style.display = 'block';
+        }
+
+        function copyOutreach() {
+            navigator.clipboard.writeText(document.getElementById('outreachMessage').textContent);
+            document.querySelector('.copy-btn').textContent = 'Copied!';
+            setTimeout(() => document.querySelector('.copy-btn').textContent = 'Copy', 2000);
+        }
+
+        renderAccounts();
+    </script>
+</body>
+</html>

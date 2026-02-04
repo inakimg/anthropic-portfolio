@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASEAN Digital Native Ecosystem Map - Iñaki Moreno</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #0f0f0f;
+            --color-surface: #1a1a1a;
+            --color-border: #2a2a2a;
+            --color-text: #fafafa;
+            --color-muted: #888;
+            --color-accent: #D4622B;
+            --color-ai: #10b981;
+            --color-fintech: #3b82f6;
+            --color-health: #ec4899;
+            --color-cyber: #8b5cf6;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+
+        nav {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            padding: 16px 0;
+            margin-bottom: 24px;
+        }
+        nav a {
+            color: var(--color-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        nav a:hover, nav a.active { color: var(--color-accent); }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .header p {
+            color: var(--color-muted);
+            font-size: 1rem;
+        }
+
+        .filters {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+        }
+        .filter-btn {
+            padding: 10px 20px;
+            border: 1px solid var(--color-border);
+            border-radius: 24px;
+            background: transparent;
+            color: var(--color-muted);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .filter-btn:hover { border-color: var(--color-text); color: var(--color-text); }
+        .filter-btn.active { background: var(--color-accent); border-color: var(--color-accent); color: white; }
+        .filter-btn.ai.active { background: var(--color-ai); border-color: var(--color-ai); }
+        .filter-btn.fintech.active { background: var(--color-fintech); border-color: var(--color-fintech); }
+        .filter-btn.health.active { background: var(--color-health); border-color: var(--color-health); }
+        .filter-btn.cyber.active { background: var(--color-cyber); border-color: var(--color-cyber); }
+
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .stat-item {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+        .stat-item .number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-accent);
+        }
+        .stat-item .label {
+            font-size: 0.8rem;
+            color: var(--color-muted);
+        }
+
+        .map-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .country-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .country-btn {
+            padding: 16px;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+        }
+        .country-btn:hover { border-color: var(--color-accent); }
+        .country-btn.active { border-color: var(--color-accent); background: rgba(212,98,43,0.1); }
+        .country-btn h3 { font-size: 1rem; margin-bottom: 4px; }
+        .country-btn span { font-size: 0.8rem; color: var(--color-muted); }
+
+        .accounts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .account-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.2s;
+        }
+        .account-card:hover {
+            border-color: var(--color-accent);
+            transform: translateY(-2px);
+        }
+        .account-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        .account-header h3 { font-size: 1rem; font-weight: 600; }
+        .account-tag {
+            font-size: 0.7rem;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+        .account-tag.ai { background: rgba(16,185,129,0.2); color: var(--color-ai); }
+        .account-tag.fintech { background: rgba(59,130,246,0.2); color: var(--color-fintech); }
+        .account-tag.health { background: rgba(236,72,153,0.2); color: var(--color-health); }
+        .account-tag.cyber { background: rgba(139,92,246,0.2); color: var(--color-cyber); }
+
+        .account-meta {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 12px;
+            font-size: 0.8rem;
+            color: var(--color-muted);
+        }
+        .account-meta strong { color: var(--color-text); }
+
+        .account-description {
+            font-size: 0.85rem;
+            color: var(--color-muted);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .ai-opportunity {
+            background: rgba(212,98,43,0.1);
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 0.8rem;
+        }
+        .ai-opportunity strong {
+            color: var(--color-accent);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .priority-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        .priority-badge.high { background: #dc2626; color: white; }
+        .priority-badge.medium { background: #f59e0b; color: black; }
+
+        .gtm-section {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 32px;
+        }
+        .gtm-section h2 {
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+            color: var(--color-accent);
+        }
+        .gtm-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .gtm-item h4 {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+        .gtm-item p {
+            font-size: 0.8rem;
+            color: var(--color-muted);
+            line-height: 1.5;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid var(--color-border);
+            text-align: center;
+            color: var(--color-muted);
+            font-size: 0.85rem;
+        }
+        footer a { color: var(--color-accent); text-decoration: none; }
+
+        @media (max-width: 900px) {
+            .map-container { grid-template-columns: 1fr; }
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
+            .gtm-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="why-anthropic.html">Why Anthropic</a>
+            <a href="asean-map.html" class="active">ASEAN Map</a>
+            <a href="dn-sales-assistant/index.html">Sales Assistant</a>
+            <a href="blog.html">Writing</a>
+        </nav>
+
+        <div class="header">
+            <h1>ASEAN Digital Native Ecosystem Map</h1>
+            <p>Enterprise accounts by vertical — prioritized for AI opportunity</p>
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active" onclick="filterVertical('all')">All Verticals</button>
+            <button class="filter-btn ai" onclick="filterVertical('ai')">AI-Native</button>
+            <button class="filter-btn fintech" onclick="filterVertical('fintech')">Fintech</button>
+            <button class="filter-btn health" onclick="filterVertical('health')">Healthtech</button>
+            <button class="filter-btn cyber" onclick="filterVertical('cyber')">Cybersecurity</button>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="number">48</div>
+                <div class="label">Target Accounts</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">$12B+</div>
+                <div class="label">Total Funding</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">6</div>
+                <div class="label">Countries</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">18</div>
+                <div class="label">High Priority</div>
+            </div>
+        </div>
+
+        <div class="map-container">
+            <div class="country-list">
+                <div class="country-btn active" onclick="selectCountry('singapore')">
+                    <h3>🇸🇬 Singapore</h3>
+                    <span>16 accounts · Regional HQ hub</span>
+                </div>
+                <div class="country-btn" onclick="selectCountry('indonesia')">
+                    <h3>🇮🇩 Indonesia</h3>
+                    <span>12 accounts · Largest market</span>
+                </div>
+                <div class="country-btn" onclick="selectCountry('vietnam')">
+                    <h3>🇻🇳 Vietnam</h3>
+                    <span>8 accounts · Fast-growing tech</span>
+                </div>
+                <div class="country-btn" onclick="selectCountry('thailand')">
+                    <h3>🇹🇭 Thailand</h3>
+                    <span>6 accounts · Enterprise focus</span>
+                </div>
+                <div class="country-btn" onclick="selectCountry('malaysia')">
+                    <h3>🇲🇾 Malaysia</h3>
+                    <span>4 accounts · Fintech hub</span>
+                </div>
+                <div class="country-btn" onclick="selectCountry('philippines')">
+                    <h3>🇵🇭 Philippines</h3>
+                    <span>4 accounts · BPO + fintech</span>
+                </div>
+            </div>
+
+            <div class="accounts-grid" id="accountsGrid">
+                <!-- Singapore AI-Native -->
+                <div class="account-card" data-country="singapore" data-vertical="ai">
+                    <div class="account-header">
+                        <h3>Nansen<span class="priority-badge high">HIGH</span></h3>
+                        <span class="account-tag ai">AI-Native</span>
+                    </div>
+                    <div class="account-meta">
+                        <span>Funding: <strong>$75M</strong></span>
+                        <span>Employees: <strong>200+</strong></span>
+                    </div>
+                    <p class="account-description">Blockchain analytics platform. Recently displaced from OpenAI to Vertex AI with complexity router architecture.</p>
+                    <div class="ai-opportunity">
+                        <strong>AI Opportunity</strong>
+                        Claude for deep reasoning on financial analysis, agentic workflows for automated research
+                    </div>
+                </div>
+
+                <div class="account-card" data-country="singapore" data-vertical="ai">
+                    <div class="account-header">
+                        <h3>Synthesia<span class="priority-badge high">HIGH</span></h3>
+                        <span class="account-tag ai">AI-Native</span>
+                    </div>
+                    <div class="account-meta">
+                        <span>Funding: <strong>$156M</strong></span>
+                        <span>Employees: <strong>300+</strong></span>
+                    </div>
+                    <p class="account-description">AI video generation platform. APAC operations from Singapore.</p>
+                    <div class="ai-opportunity">
+                        <strong>AI Opportunity</strong>
+                        Script generation, content moderation, multi-language support
+                    </div>
+                </div>
+
+                <div class="account-card" data-country="singapore" data-vertical="fintech">
+                    <div class="account-header">
+                        <h3>Grab Financial<span class="priority-badge high">HIGH</span></h3>
+                        <span class="account-tag fintech">Fintech</span>
+                    </div>
+                    <div class="account-meta">
+                        <span>Funding: <strong>$12B+ (group)</strong></span>
+                        <span>Employees: <strong>8000+</strong></span>
+                    </div>
+                    <p class="account-description">Superapp's financial services arm. GrabPay, lending, insurance across SEA.</p>
+                    <div class="ai-opportunity">
+                        <strong>AI Opportunity</strong>
+                        Fraud detection, credit scoring, customer service automation, personalization
+                    </div>
+                </div>
+
+                <div class="account-card" data-country="singapore" data-vertical="cyber">
+                    <div class="account-header">
+                        <h3>Horangi<span class="priority-badge medium">MED</span></h3>
+                        <span class="account-tag cyber">Cybersecurity</span>
+                    </div>
+                    <div class="account-meta">
+                        <span>Funding: <strong>$28M</strong></span>
+                        <span>Employees: <strong>100+</strong></span>
+                    </div>
+                    <p class="account-description">Cloud security platform for compliance and threat detection.</p>
+                    <div class="ai-opportunity">
+                        <strong>AI Opportunity</strong>
+                        Threat analysis, compliance automation, security report generation
+                    </div>
+                </div>
+
+                <!-- Indonesia -->
+                <div class="account-card" data-country="indonesia" data-vertical="fintech">
+                    <div class="account-header">
+                        <h3>GoTo Financial<span class="priority-badge high">HIGH</span></h3>
+                        <span class="account-tag fintech">Fintech</span>
+                    </div>
+                    <div class="account-meta">
+                        <span>Funding: <strong>$8B+ (group)</strong></span>
+                        <span>Employees: <strong>5000+</strong></span>
+                    </div>
+                    <p class="account-description">GoPay, lending, and financial services for Indonesia's largest superapp.</p>
+                    <div class="ai-opportunity">
+                        <strong>AI Opportunity</strong>
+                        Bahasa Indonesia NLP, fraud detection, driver communications, payment risk
+                    </div>
+                </div>
+
+                <div class="account-card" data-country="indonesia" data-vertical="fintech">
+                    <div class="account-header">
+                        <h3>OVO<span class="priority-badge high">HIGH</span></h3>
+                        <span class="account-tag fintech">Fintech</span>
+                    </div>
+                    <div class="account-meta">
+                        <span>Funding: <strong>$500M+</strong></span>
+                        <span>Employees: <strong>1000+</strong></span>
+                    </div>
+                    <p class="account-description">Leading digital payments platform in Indonesia. Part of Grab ecosystem.</p>
+                    <div class="ai-opportunity">
+                        <strong>AI Opportunity</strong>
+                        Transaction analysis, merchant insights, customer segmentation
+                    </div>
+                </div>
+
+                <div class="account-card" data-country="indonesia" data-vertical="health">
+                    <div class="account-header">
+                        <h3>Halodoc<span class="priority-badge high">HIGH</span></h3>
+                        <span class="account-tag health">Healthtech</span>
+                    </div>
+                    <div class="account-meta">
+                        <span>Funding: <strong>$180M</strong></span>
+                        <span>Employees: <strong>500+</strong></span>
+                    </div>
+                    <p class="account-description">Indonesia's largest telehealth platform. 20M+ monthly users.</p>
+                    <div class="ai-opportunity">
+                        <strong>AI Opportunity</strong>
+                        Symptom triage, doctor matching, medical record summarization, drug interaction
+                    </div>
+                </div>
+
+                <div class="account-card" data-country="indonesia" data-vertical="ai">
+                    <div class="account-header">
+                        <h3>Kata.ai<span class="priority-badge medium">MED</span></h3>
+                        <span class="account-tag ai">AI-Native</span>
+                    </div>
+                    <div class="account-meta">
+                        <span>Funding: <strong>$20M</strong></span>
+                        <span>Employees: <strong>150+</strong></span>
+                    </div>
+                    <p class="account-description">Conversational AI platform specializing in Bahasa Indonesia.</p>
+                    <div class="ai-opportunity">
+                        <strong>AI Opportunity</strong>
+                        LLM integration, multi-model orchestration, enterprise deployments
+                    </div>
+                </div>
+
+                <!-- Vietnam -->
+                <div class="account-card" data-country="vietnam" data-vertical="fintech">
+                    <div class="account-header">
+                        <h3>VNPay<span class="priority-badge high">HIGH</span></h3>
+                        <span class="account-tag fintech">Fintech</span>
+                    </div>
+                    <div class="account-meta">
+                        <span>Funding: <strong>$300M</strong></span>
+                        <span>Employees: <strong>2000+</strong></span>
+                    </div>
+                    <p class="account-description">Vietnam's largest payment gateway. 40+ bank integrations.</p>
+                    <div class="ai-opportunity">
+                        <strong>AI Opportunity</strong>
+                        Fraud detection, merchant analytics, Vietnamese NLP for support
+                    </div>
+                </div>
+
+                <div class="account-card" data-country="vietnam" data-vertical="ai">
+                    <div class="account-header">
+                        <h3>FPT Software<span class="priority-badge high">HIGH</span></h3>
+                        <span class="account-tag ai">AI-Native</span>
+                    </div>
+                    <div class="account-meta">
+                        <span>Employees: <strong>25,000+</strong></span>
+                        <span>Revenue: <strong>$1B+</strong></span>
+                    </div>
+                    <p class="account-description">Vietnam's largest IT services company. Heavy AI/ML investment.</p>
+                    <div class="ai-opportunity">
+                        <strong>AI Opportunity</strong>
+                        Partner opportunity - AI services delivery, joint GTM for Vietnam market
+                    </div>
+                </div>
+
+                <!-- Thailand -->
+                <div class="account-card" data-country="thailand" data-vertical="fintech">
+                    <div class="account-header">
+                        <h3>Ascend Money<span class="priority-badge high">HIGH</span></h3>
+                        <span class="account-tag fintech">Fintech</span>
+                    </div>
+                    <div class="account-meta">
+                        <span>Funding: <strong>$150M</strong></span>
+                        <span>Employees: <strong>1500+</strong></span>
+                    </div>
+                    <p class="account-description">TrueMoney operator. 50M+ users across 6 countries.</p>
+                    <div class="ai-opportunity">
+                        <strong>AI Opportunity</strong>
+                        Cross-border payments, remittance optimization, Thai language support
+                    </div>
+                </div>
+
+                <div class="account-card" data-country="thailand" data-vertical="health">
+                    <div class="account-header">
+                        <h3>Bumrungrad International<span class="priority-badge medium">MED</span></h3>
+                        <span class="account-tag health">Healthtech</span>
+                    </div>
+                    <div class="account-meta">
+                        <span>Revenue: <strong>$600M+</strong></span>
+                        <span>Employees: <strong>5000+</strong></span>
+                    </div>
+                    <p class="account-description">Leading medical tourism hospital. Strong digital transformation agenda.</p>
+                    <div class="ai-opportunity">
+                        <strong>AI Opportunity</strong>
+                        Patient communication (multi-language), diagnostic support, admin automation
+                    </div>
+                </div>
+
+                <!-- Malaysia -->
+                <div class="account-card" data-country="malaysia" data-vertical="fintech">
+                    <div class="account-header">
+                        <h3>Touch 'n Go<span class="priority-badge high">HIGH</span></h3>
+                        <span class="account-tag fintech">Fintech</span>
+                    </div>
+                    <div class="account-meta">
+                        <span>Users: <strong>20M+</strong></span>
+                        <span>Employees: <strong>500+</strong></span>
+                    </div>
+                    <p class="account-description">Malaysia's leading e-wallet. Expanding into lending and insurance.</p>
+                    <div class="ai-opportunity">
+                        <strong>AI Opportunity</strong>
+                        Credit scoring, customer service, Malay/English NLP
+                    </div>
+                </div>
+
+                <!-- Philippines -->
+                <div class="account-card" data-country="philippines" data-vertical="fintech">
+                    <div class="account-header">
+                        <h3>GCash<span class="priority-badge high">HIGH</span></h3>
+                        <span class="account-tag fintech">Fintech</span>
+                    </div>
+                    <div class="account-meta">
+                        <span>Users: <strong>80M+</strong></span>
+                        <span>Valuation: <strong>$5B</strong></span>
+                    </div>
+                    <p class="account-description">Philippines' dominant mobile wallet. Owned by Globe/Ant Group.</p>
+                    <div class="ai-opportunity">
+                        <strong>AI Opportunity</strong>
+                        Fraud detection at scale, Filipino language support, merchant services
+                    </div>
+                </div>
+
+                <div class="account-card" data-country="philippines" data-vertical="ai">
+                    <div class="account-header">
+                        <h3>TaskUs<span class="priority-badge high">HIGH</span></h3>
+                        <span class="account-tag ai">AI-Native</span>
+                    </div>
+                    <div class="account-meta">
+                        <span>Revenue: <strong>$900M+</strong></span>
+                        <span>Employees: <strong>45,000+</strong></span>
+                    </div>
+                    <p class="account-description">AI-enabled outsourcing. Content moderation, customer experience.</p>
+                    <div class="ai-opportunity">
+                        <strong>AI Opportunity</strong>
+                        Agent augmentation, content moderation at scale, quality automation
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="gtm-section">
+            <h2>GTM Strategy for Anthropic in ASEAN</h2>
+            <div class="gtm-grid">
+                <div class="gtm-item">
+                    <h4>🎯 Land Strategy</h4>
+                    <p>Start with Singapore-HQ digital natives (Nansen, Synthesia) who value reasoning quality.
+                    Use OpenAI displacement playbook. Focus on complex use cases where Claude excels.</p>
+                </div>
+                <div class="gtm-item">
+                    <h4>🤝 Partner Motion</h4>
+                    <p>Partner with FPT Software (Vietnam), BCW Group (Web3), CloudMile (APAC) for delivery.
+                    SIs extend reach without headcount. Focus on AI specialization certifications.</p>
+                </div>
+                <div class="gtm-item">
+                    <h4>📈 Expand Strategy</h4>
+                    <p>Land in Singapore HQ, expand to Indonesia/Vietnam operations. Follow the funding —
+                    fintech and healthtech have budget. Multi-language Claude is a differentiator.</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Built with <a href="https://claude.ai">Claude Code</a> by <a href="index.html">Iñaki Moreno</a></p>
+        </footer>
+    </div>
+
+    <script>
+        function filterVertical(vertical) {
+            // Update buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            if (vertical === 'all') {
+                document.querySelector('.filter-btn').classList.add('active');
+            } else {
+                document.querySelector(`.filter-btn.${vertical}`).classList.add('active');
+            }
+
+            // Filter cards
+            document.querySelectorAll('.account-card').forEach(card => {
+                if (vertical === 'all' || card.dataset.vertical === vertical) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function selectCountry(country) {
+            // Update buttons
+            document.querySelectorAll('.country-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.closest('.country-btn').classList.add('active');
+
+            // Filter cards
+            document.querySelectorAll('.account-card').forEach(card => {
+                if (card.dataset.country === country) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Reset vertical filter
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.filter-btn').classList.add('active');
+        }
+    </script>
+</body>
+</html>

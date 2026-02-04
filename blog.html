@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writing - Iñaki Moreno</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #FDFBF7;
+            --color-text: #1a1a1a;
+            --color-text-muted: #666;
+            --color-accent: #D4622B;
+            --color-accent-soft: #F5E6DC;
+            --color-border: #e5e0d8;
+            --font-serif: 'Instrument Serif', Georgia, serif;
+            --font-sans: 'DM Sans', -apple-system, sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-sans);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        .container { max-width: 680px; margin: 0 auto; padding: 0 24px; }
+
+        nav {
+            padding: 20px 0;
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        nav a:hover, nav a.active { color: var(--color-accent); }
+
+        .page-header {
+            padding: 60px 0 40px;
+        }
+        .page-header h1 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+        .page-header p {
+            color: var(--color-text-muted);
+        }
+
+        article {
+            padding: 40px 0;
+            border-top: 1px solid var(--color-border);
+        }
+        article h2 {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+        .article-meta {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+        }
+        article p {
+            margin-bottom: 16px;
+            font-size: 1.05rem;
+        }
+        article strong {
+            color: var(--color-text);
+            font-weight: 600;
+        }
+        article h3 {
+            font-size: 1.2rem;
+            margin: 32px 0 16px;
+            color: var(--color-accent);
+        }
+        article ul, article ol {
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+        article li {
+            margin-bottom: 8px;
+        }
+
+        .callout {
+            background: var(--color-accent-soft);
+            border-left: 4px solid var(--color-accent);
+            padding: 16px 20px;
+            margin: 24px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .callout p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--color-border);
+            text-align: center;
+        }
+        .footer-meta {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+        .footer-meta a { color: var(--color-accent); text-decoration: none; }
+
+        @media (max-width: 600px) {
+            .page-header h1 { font-size: 2rem; }
+            article h2 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="why-anthropic.html">Why Anthropic</a>
+            <a href="asean-map.html">ASEAN Map</a>
+            <a href="dn-sales-assistant/index.html">Sales Assistant</a>
+            <a href="blog.html" class="active">Writing</a>
+        </nav>
+
+        <header class="page-header">
+            <h1>Writing</h1>
+            <p>Learning in public — mostly about AI, sales, and building things.</p>
+        </header>
+
+        <article>
+            <h2>What I Learned Building with Claude Code</h2>
+            <div class="article-meta">February 2025 · 5 min read</div>
+
+            <p>
+                I'll be honest — <strong>I'm not a developer</strong>. I'm a sales guy who spent 9 years
+                at Google without touching a CV. But over the last few weeks, I've shipped more working
+                code than in my entire career combined.
+            </p>
+
+            <p>
+                This entire website? Built with Claude Code. The DN Sales Assistant? Claude Code.
+                The ASEAN Ecosystem Map? You get the idea.
+            </p>
+
+            <p>
+                Here's what I learned — and why I think this changes everything for people like me.
+            </p>
+
+            <h3>1. Start with the outcome, not the technology</h3>
+
+            <p>
+                My first instinct was to ask Claude "how do I build a website?" Wrong question.
+            </p>
+
+            <p>
+                The right question: <strong>"I want to create a personal website that shows I'm the right
+                person for Anthropic's first AE role in Singapore. Here's my background..."</strong>
+            </p>
+
+            <p>
+                When you give Claude the <em>why</em>, it figures out the <em>how</em>. It suggested a
+                simple HTML/CSS approach instead of overengineering with React. It kept things focused
+                on the goal, not the tech stack.
+            </p>
+
+            <div class="callout">
+                <p>💡 <strong>Lesson:</strong> Describe the business problem first. Let Claude pick the
+                technical approach. You'll end up with simpler, more appropriate solutions.</p>
+            </div>
+
+            <h3>2. Cowork mode is like having a team</h3>
+
+            <p>
+                This was the game-changer. Claude Code's cowork feature lets you spin up multiple agents
+                working in parallel. While one agent was building the ASEAN map, another was writing this
+                blog post, and another was refining the main site.
+            </p>
+
+            <p>
+                It's like being the PM with a team of developers, except the team:
+            </p>
+
+            <ul>
+                <li>Doesn't need context switching time</li>
+                <li>Never forgets what you discussed</li>
+                <li>Can work on 3 things simultaneously</li>
+                <li>Doesn't complain about scope creep (much)</li>
+            </ul>
+
+            <p>
+                For someone who thinks in terms of projects and outcomes rather than code, this mental
+                model clicked immediately.
+            </p>
+
+            <h3>3. Be specific about what you DON'T want</h3>
+
+            <p>
+                Claude is helpful. Sometimes too helpful. It'll add features you didn't ask for, suggest
+                improvements you don't need, and overcomplicate simple things.
+            </p>
+
+            <p>
+                I learned to be explicit: <strong>"Keep it simple. No frameworks. No build step.
+                Just HTML, CSS, and vanilla JS that I can open in a browser."</strong>
+            </p>
+
+            <p>
+                The constraint actually made everything better. Simpler code, easier to understand,
+                easier to maintain.
+            </p>
+
+            <h3>4. Iterate fast, don't plan too much</h3>
+
+            <p>
+                My sales brain wanted to spec everything out upfront. "Let's plan the whole site
+                architecture before writing any code."
+            </p>
+
+            <p>
+                Bad idea. Claude works best when you <strong>build → see → adjust → repeat</strong>.
+            </p>
+
+            <p>
+                I'd ask for a first version, open it in the browser, see what I liked and didn't like,
+                then tell Claude to change specific things. The feedback loop was minutes, not days.
+            </p>
+
+            <div class="callout">
+                <p>⚡ <strong>My workflow:</strong> Ask Claude to build something → open in browser →
+                screenshot what's wrong → ask Claude to fix it → repeat until happy.</p>
+            </div>
+
+            <h3>5. Your writing style prompt is gold</h3>
+
+            <p>
+                Claude helped me analyze my own writing across different documents. The output?
+                A "writing style DNA" that captures how I actually communicate — direct, sports metaphors,
+                self-deprecating humor, metric-driven.
+            </p>
+
+            <p>
+                Now when I ask Claude to write something, I can say "match my style" and it actually does.
+                This article? Claude helped write it. But it sounds like me because we built that profile first.
+            </p>
+
+            <h3>The bottom line</h3>
+
+            <p>
+                <strong>Claude Code isn't about replacing developers.</strong> It's about enabling people
+                who have ideas but lack the technical skills to actually ship them.
+            </p>
+
+            <p>
+                I built a multi-page website, an interactive ecosystem map, and a sales intelligence tool
+                in a few days. Not because I suddenly learned to code, but because Claude handled the
+                coding while I focused on what I actually know: the business problem, the user needs,
+                and the outcomes that matter.
+            </p>
+
+            <p>
+                There's always a way. You just need to find it.
+            </p>
+
+            <p>
+                And right now, Claude Code is the way.
+            </p>
+        </article>
+
+        <footer>
+            <p class="footer-meta">
+                <a href="mailto:imorenogirona@gmail.com">Get in touch</a> ·
+                Built with <a href="https://claude.ai">Claude Code</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
