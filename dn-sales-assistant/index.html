@@ -19,6 +19,12 @@
             --color-accent-soft: rgba(204, 120, 92, 0.15);
             --color-success: #10b981;
             --color-linkedin: #0A66C2;
+            --color-ai: #10b981;
+            --color-fintech: #3b82f6;
+            --color-health: #ec4899;
+            --color-cyber: #8b5cf6;
+            --color-retail: #f59e0b;
+            --color-enterprise: #6366f1;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -27,7 +33,7 @@
             color: var(--color-text);
             min-height: 100vh;
         }
-        .container { max-width: 1000px; margin: 0 auto; padding: 24px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
 
         header {
             display: flex;
@@ -39,13 +45,15 @@
         }
         .logo { display: flex; align-items: center; gap: 12px; }
         .logo-icon {
-            width: 40px; height: 40px;
+            width: 44px; height: 44px;
             background: var(--color-accent);
-            border-radius: 10px;
+            border-radius: 12px;
             display: flex; align-items: center; justify-content: center;
             font-weight: 700;
+            font-size: 1.1rem;
         }
-        .logo h1 { font-size: 1.2rem; font-weight: 600; }
+        .logo h1 { font-size: 1.3rem; font-weight: 600; }
+        .logo p { font-size: 0.8rem; color: var(--color-muted); }
         header nav a {
             color: var(--color-muted);
             text-decoration: none;
@@ -54,19 +62,50 @@
         }
         header nav a:hover { color: var(--color-accent); }
 
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+        .stat-item {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            padding: 16px 24px;
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+        }
+        .stat-item .number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-accent);
+        }
+        .stat-item .label {
+            font-size: 0.75rem;
+            color: var(--color-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
         .tabs {
             display: flex; gap: 8px; margin-bottom: 24px;
             border-bottom: 1px solid var(--color-border); padding-bottom: 16px;
         }
         .tab {
-            padding: 10px 20px;
+            padding: 12px 24px;
             background: transparent;
             border: 1px solid var(--color-border);
-            border-radius: 8px;
+            border-radius: 10px;
             color: var(--color-muted);
             cursor: pointer;
             font-size: 0.9rem;
             transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         .tab:hover { border-color: var(--color-text); color: var(--color-text); }
         .tab.active { background: var(--color-accent); border-color: var(--color-accent); color: white; }
@@ -75,8 +114,10 @@
         .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
+        /* Filters */
         .filters {
             display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap;
+            align-items: center;
         }
         .filter-select {
             background: var(--color-surface);
@@ -87,7 +128,32 @@
             font-size: 0.9rem;
             cursor: pointer;
         }
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--color-accent);
+        }
+        .search-input {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 10px 16px;
+            color: var(--color-text);
+            font-size: 0.9rem;
+            flex: 1;
+            min-width: 200px;
+        }
+        .search-input::placeholder { color: var(--color-muted); }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--color-accent);
+        }
+        .results-count {
+            font-size: 0.85rem;
+            color: var(--color-muted);
+            margin-left: auto;
+        }
 
+        /* Account Grid */
         .account-grid { display: grid; gap: 16px; }
         .account-card {
             background: var(--color-surface);
@@ -97,18 +163,40 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-        .account-card:hover { border-color: var(--color-accent); }
+        .account-card:hover { border-color: var(--color-accent); transform: translateY(-2px); }
         .account-card.expanded { border-color: var(--color-accent); }
 
         .account-header {
             display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;
         }
+        .account-name {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .account-logo {
+            width: 40px;
+            height: 40px;
+            background: var(--color-surface-2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--color-accent);
+        }
         .account-header h3 { font-size: 1.1rem; font-weight: 600; }
         .account-tags { display: flex; gap: 8px; flex-wrap: wrap; }
         .tag {
-            font-size: 0.75rem; padding: 4px 10px; border-radius: 12px; font-weight: 500;
+            font-size: 0.7rem; padding: 4px 10px; border-radius: 12px; font-weight: 500;
         }
-        .tag.vertical { background: rgba(16,185,129,0.2); color: #10b981; }
+        .tag.ai { background: rgba(16,185,129,0.2); color: var(--color-ai); }
+        .tag.fintech { background: rgba(59,130,246,0.2); color: var(--color-fintech); }
+        .tag.health { background: rgba(236,72,153,0.2); color: var(--color-health); }
+        .tag.cyber { background: rgba(139,92,246,0.2); color: var(--color-cyber); }
+        .tag.retail { background: rgba(245,158,11,0.2); color: var(--color-retail); }
+        .tag.enterprise { background: rgba(99,102,241,0.2); color: var(--color-enterprise); }
         .tag.priority { background: #dc2626; color: white; }
         .tag.country { background: var(--color-surface-2); color: var(--color-muted); }
 
@@ -116,38 +204,57 @@
             display: flex; gap: 24px; font-size: 0.85rem; color: var(--color-muted); margin-bottom: 12px;
         }
         .account-meta strong { color: var(--color-text); }
-        .account-description { font-size: 0.9rem; color: var(--color-muted); margin-bottom: 16px; }
+        .account-description { font-size: 0.9rem; color: var(--color-muted); margin-bottom: 16px; line-height: 1.5; }
+
+        .opportunity-badge {
+            background: var(--color-accent-soft);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 0.85rem;
+        }
+        .opportunity-badge h5 {
+            color: var(--color-accent);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
 
         .account-details {
             display: none;
             border-top: 1px solid var(--color-border);
-            padding-top: 16px; margin-top: 16px;
+            padding-top: 20px; margin-top: 20px;
         }
         .account-card.expanded .account-details { display: block; }
 
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
         .detail-section { margin-bottom: 20px; }
         .detail-section h4 {
-            font-size: 0.85rem; color: var(--color-accent);
+            font-size: 0.8rem; color: var(--color-accent);
             text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px;
         }
         .detail-section p, .detail-section li {
             font-size: 0.9rem; color: var(--color-text); line-height: 1.6;
         }
         .detail-section ul { padding-left: 20px; }
-        .detail-section li { margin-bottom: 6px; }
+        .detail-section li { margin-bottom: 6px; color: var(--color-muted); }
 
         .contacts-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;
         }
         .contact-card {
-            background: var(--color-surface-2); border-radius: 8px; padding: 14px;
+            background: var(--color-surface-2); border-radius: 10px; padding: 16px;
             display: flex; justify-content: space-between; align-items: center;
         }
-        .contact-info h5 { font-size: 0.9rem; margin-bottom: 4px; }
+        .contact-info h5 { font-size: 0.95rem; margin-bottom: 4px; }
         .contact-info p { font-size: 0.8rem; color: var(--color-muted); margin: 0; }
         .contact-actions { display: flex; gap: 8px; }
         .contact-btn {
-            padding: 6px 10px;
+            padding: 8px 12px;
             border-radius: 6px;
             font-size: 0.75rem;
             text-decoration: none;
@@ -167,19 +274,46 @@
         }
         .contact-btn.outreach:hover { background: #b5684d; }
 
-        .outreach-form { display: grid; gap: 16px; margin-bottom: 24px; }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        .form-group label {
-            display: block; font-size: 0.85rem; color: var(--color-muted); margin-bottom: 6px;
+        /* Outreach Tab */
+        .outreach-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
         }
-        .form-group input, .form-group select {
-            width: 100%;
+        .outreach-form-section {
             background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            padding: 24px;
+        }
+        .outreach-form-section h3 {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .form-group { margin-bottom: 16px; }
+        .form-group label {
+            display: block; font-size: 0.85rem; color: var(--color-muted); margin-bottom: 8px;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            background: var(--color-surface-2);
             border: 1px solid var(--color-border);
             border-radius: 8px;
             padding: 12px;
             color: var(--color-text);
             font-size: 0.95rem;
+            font-family: inherit;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-accent);
         }
 
         .selected-contact {
@@ -206,38 +340,48 @@
         }
         .clear-contact:hover { color: var(--color-text); }
 
-        .search-btn {
+        .generate-btn {
             background: var(--color-accent);
             color: white;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             padding: 14px 28px;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             width: 100%;
+            font-size: 0.95rem;
+            transition: all 0.2s;
         }
-        .search-btn:hover { background: #b5684d; }
+        .generate-btn:hover { background: #b5684d; transform: translateY(-1px); }
 
         .generated-output {
             background: var(--color-surface);
             border: 1px solid var(--color-border);
-            border-radius: 12px;
-            padding: 20px;
+            border-radius: 16px;
+            padding: 24px;
         }
         .output-header {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+        }
+        .output-header h3 {
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         .output-actions { display: flex; gap: 8px; }
         .copy-btn, .linkedin-btn {
             border: 1px solid var(--color-border);
-            border-radius: 6px;
-            padding: 8px 16px;
+            border-radius: 8px;
+            padding: 10px 16px;
             font-size: 0.85rem;
             cursor: pointer;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            font-weight: 500;
+            transition: all 0.2s;
         }
         .copy-btn {
             background: var(--color-surface-2);
@@ -253,19 +397,30 @@
 
         .outreach-template {
             background: var(--color-surface-2);
-            border-radius: 8px;
-            padding: 16px;
-            font-size: 0.9rem;
-            line-height: 1.6;
+            border-radius: 10px;
+            padding: 20px;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            white-space: pre-wrap;
         }
 
+        .char-count {
+            margin-top: 12px;
+            font-size: 0.8rem;
+            color: var(--color-muted);
+            display: flex;
+            justify-content: space-between;
+        }
+        .char-count.warning { color: #f59e0b; }
+        .char-count.error { color: #ef4444; }
+
         .resources-section {
-            margin-top: 20px;
-            padding-top: 16px;
+            margin-top: 24px;
+            padding-top: 20px;
             border-top: 1px solid var(--color-border);
         }
         .resources-section h5 {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--color-accent);
             margin-bottom: 12px;
             text-transform: uppercase;
@@ -277,8 +432,8 @@
         .resource-link {
             background: var(--color-surface-2);
             border: 1px solid var(--color-border);
-            padding: 8px 14px;
-            border-radius: 6px;
+            padding: 10px 14px;
+            border-radius: 8px;
             font-size: 0.8rem;
             color: var(--color-text);
             text-decoration: none;
@@ -289,14 +444,97 @@
             color: var(--color-accent);
         }
 
+        /* Playbooks Tab */
+        .playbooks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        .playbook-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .playbook-card:hover { border-color: var(--color-accent); transform: translateY(-2px); }
+        .playbook-card.expanded { border-color: var(--color-accent); }
+
+        .playbook-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        .playbook-header h3 {
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .playbook-header .icon {
+            font-size: 1.3rem;
+        }
+        .playbook-desc {
+            color: var(--color-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .playbook-details {
+            display: none;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--color-border);
+        }
+        .playbook-card.expanded .playbook-details { display: block; }
+
         .playbook-steps { counter-reset: step; }
-        .playbook-step { display: flex; gap: 12px; margin-bottom: 12px; }
+        .playbook-step { display: flex; gap: 14px; margin-bottom: 14px; }
         .step-number {
-            width: 28px; height: 28px;
+            width: 30px; height: 30px;
             background: var(--color-accent);
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 0.8rem; font-weight: 600; flex-shrink: 0;
+            font-size: 0.85rem; font-weight: 600; flex-shrink: 0;
+        }
+        .step-content {
+            flex: 1;
+        }
+        .step-content h5 {
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+        .step-content p {
+            font-size: 0.85rem;
+            color: var(--color-muted);
+        }
+
+        .objections {
+            background: var(--color-surface-2);
+            border-radius: 10px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+        .objections h5 {
+            font-size: 0.8rem;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .objection-item {
+            margin-bottom: 12px;
+        }
+        .objection-item:last-child { margin-bottom: 0; }
+        .objection-item .q {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .objection-item .a {
+            font-size: 0.85rem;
+            color: var(--color-muted);
         }
 
         footer {
@@ -306,11 +544,15 @@
         }
         footer a { color: var(--color-accent); text-decoration: none; }
 
+        @media (max-width: 900px) {
+            .outreach-layout { grid-template-columns: 1fr; }
+        }
         @media (max-width: 768px) {
             .tabs { flex-wrap: wrap; }
-            .tab { font-size: 0.8rem; padding: 8px 14px; }
-            .form-row { grid-template-columns: 1fr; }
+            .tab { font-size: 0.8rem; padding: 10px 16px; }
             .contacts-grid { grid-template-columns: 1fr; }
+            .playbooks-grid { grid-template-columns: 1fr; }
+            .stats-bar { flex-direction: column; }
         }
     </style>
 </head>
@@ -319,53 +561,93 @@
         <header>
             <div class="logo">
                 <div class="logo-icon">DN</div>
-                <h1>DN Sales Assistant</h1>
+                <div>
+                    <h1>DN Sales Assistant</h1>
+                    <p>AI-Powered BDR Tool for SEA Digital Natives</p>
+                </div>
             </div>
             <nav><a href="../index.html">← Back to Portfolio</a></nav>
         </header>
 
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="number">25+</div>
+                <div class="label">Target Accounts</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">50+</div>
+                <div class="label">Key Contacts</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">6</div>
+                <div class="label">SEA Markets</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">5</div>
+                <div class="label">Playbooks</div>
+            </div>
+        </div>
+
         <div class="tabs">
-            <button class="tab active" onclick="showTab('discover')">🔍 Discover</button>
-            <button class="tab" onclick="showTab('outreach')">✉️ Outreach</button>
-            <button class="tab" onclick="showTab('playbooks')">📚 Playbooks</button>
+            <button class="tab active" onclick="showTab('discover')">
+                <span>🔍</span> Discover Accounts
+            </button>
+            <button class="tab" onclick="showTab('outreach')">
+                <span>✉️</span> Outreach Generator
+            </button>
+            <button class="tab" onclick="showTab('playbooks')">
+                <span>📚</span> Sales Playbooks
+            </button>
         </div>
 
         <!-- DISCOVER TAB -->
         <div id="discover" class="tab-content active">
             <div class="filters">
+                <input type="text" class="search-input" id="searchInput" placeholder="Search accounts..." oninput="filterAccounts()">
                 <select class="filter-select" id="verticalFilter" onchange="filterAccounts()">
                     <option value="all">All Verticals</option>
                     <option value="ai">AI-Native</option>
                     <option value="fintech">Fintech</option>
                     <option value="health">Healthtech</option>
                     <option value="cyber">Cybersecurity</option>
+                    <option value="retail">Retail/E-commerce</option>
+                    <option value="enterprise">Enterprise</option>
                 </select>
                 <select class="filter-select" id="countryFilter" onchange="filterAccounts()">
                     <option value="all">All Countries</option>
                     <option value="singapore">Singapore</option>
                     <option value="indonesia">Indonesia</option>
-                    <option value="vietnam">Vietnam</option>
                     <option value="thailand">Thailand</option>
+                    <option value="vietnam">Vietnam</option>
                     <option value="philippines">Philippines</option>
+                    <option value="malaysia">Malaysia</option>
                 </select>
+                <select class="filter-select" id="priorityFilter" onchange="filterAccounts()">
+                    <option value="all">All Priorities</option>
+                    <option value="high">High Priority</option>
+                    <option value="medium">Medium Priority</option>
+                </select>
+                <span class="results-count" id="resultsCount">25 accounts</span>
             </div>
             <div class="account-grid" id="accountGrid"></div>
         </div>
 
         <!-- OUTREACH TAB -->
         <div id="outreach" class="tab-content">
-            <div class="selected-contact" id="selectedContact">
-                <div class="selected-contact-header">
-                    <div>
-                        <h4 id="selectedName">—</h4>
-                        <p><span id="selectedTitle">—</span> at <span id="selectedCompany">—</span></p>
-                    </div>
-                    <button class="clear-contact" onclick="clearSelectedContact()">✕ Clear</button>
-                </div>
-            </div>
+            <div class="outreach-layout">
+                <div class="outreach-form-section">
+                    <h3>✏️ Compose Message</h3>
 
-            <div class="outreach-form">
-                <div class="form-row">
+                    <div class="selected-contact" id="selectedContact">
+                        <div class="selected-contact-header">
+                            <div>
+                                <h4 id="selectedName">—</h4>
+                                <p><span id="selectedTitle">—</span> at <span id="selectedCompany">—</span></p>
+                            </div>
+                            <button class="clear-contact" onclick="clearSelectedContact()">✕ Clear</button>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label>Target Company</label>
                         <select id="outreachCompany" onchange="updateContactsDropdown()">
@@ -378,47 +660,58 @@
                             <option value="">Select a contact...</option>
                         </select>
                     </div>
-                </div>
-                <div class="form-row">
                     <div class="form-group">
-                        <label>Key Value Proposition</label>
-                        <select id="outreachValue">
-                            <option value="reasoning">Deep reasoning for complex tasks</option>
-                            <option value="cost">Cost reduction vs current AI</option>
-                            <option value="safety">Enterprise security & compliance</option>
-                            <option value="multi">Multi-language ASEAN support</option>
+                        <label>Message Angle</label>
+                        <select id="outreachAngle">
+                            <option value="reasoning">Deep Reasoning Power</option>
+                            <option value="cost">Cost Optimization (vs OpenAI)</option>
+                            <option value="safety">Enterprise Security & Safety</option>
+                            <option value="multi">Multi-language SEA Support</option>
+                            <option value="code">Code Generation & Analysis</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Your Connection (optional)</label>
-                        <input type="text" id="outreachConnection" placeholder="e.g., Met at Web3 Summit">
+                        <label>Personalization Hook (optional)</label>
+                        <input type="text" id="outreachHook" placeholder="e.g., Saw your talk at TechWeek, loved the point about...">
                     </div>
-                </div>
-                <button class="search-btn" onclick="generateOutreach()">Generate Message (&lt;300 chars)</button>
-            </div>
-
-            <div class="generated-output" id="outreachOutput" style="display: none;">
-                <div class="output-header">
-                    <h4>LinkedIn Connection Request</h4>
-                    <div class="output-actions">
-                        <button class="copy-btn" onclick="copyOutreach()">📋 Copy</button>
-                        <a class="linkedin-btn" id="linkedinLink" href="#" target="_blank">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                            Open LinkedIn
-                        </a>
+                    <div class="form-group">
+                        <label>Tone</label>
+                        <select id="outreachTone">
+                            <option value="direct">Direct & Confident</option>
+                            <option value="curious">Curious & Exploratory</option>
+                            <option value="value">Value-First</option>
+                        </select>
                     </div>
+                    <button class="generate-btn" onclick="generateOutreach()">Generate Message</button>
                 </div>
-                <div class="outreach-template" id="outreachMessage"></div>
-                <p style="margin-top: 12px; font-size: 0.8rem; color: var(--color-muted);" id="charCount"></p>
 
-                <div class="resources-section">
-                    <h5>📎 Attach to Follow-up Email</h5>
-                    <div class="resource-links">
-                        <a href="https://www.anthropic.com/claude" target="_blank" class="resource-link">Claude Overview</a>
-                        <a href="https://docs.anthropic.com/en/docs/about-claude/models" target="_blank" class="resource-link">Model Comparison</a>
-                        <a href="https://cloud.google.com/vertex-ai/generative-ai/docs/partner-models/use-claude" target="_blank" class="resource-link">Claude on Vertex AI</a>
-                        <a href="https://www.anthropic.com/customers" target="_blank" class="resource-link">Customer Stories</a>
-                        <a href="https://www.anthropic.com/news/claude-4-benchmarks" target="_blank" class="resource-link">Benchmarks</a>
+                <div class="generated-output" id="outreachOutput">
+                    <div class="output-header">
+                        <h3>📨 LinkedIn Connection Request</h3>
+                        <div class="output-actions">
+                            <button class="copy-btn" onclick="copyOutreach()">📋 Copy</button>
+                            <a class="linkedin-btn" id="linkedinLink" href="#" target="_blank" style="display: none;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                                Open LinkedIn
+                            </a>
+                        </div>
+                    </div>
+                    <div class="outreach-template" id="outreachMessage">Select a contact and generate a message to get started.</div>
+                    <div class="char-count" id="charCount">
+                        <span>—</span>
+                        <span>LinkedIn limit: 300 characters</span>
+                    </div>
+
+                    <div class="resources-section">
+                        <h5>📎 Resources to Share in Follow-up</h5>
+                        <div class="resource-links">
+                            <a href="https://www.anthropic.com/claude" target="_blank" class="resource-link">Claude Overview</a>
+                            <a href="https://docs.anthropic.com/en/docs/about-claude/models" target="_blank" class="resource-link">Model Comparison</a>
+                            <a href="https://cloud.google.com/vertex-ai/generative-ai/docs/partner-models/use-claude" target="_blank" class="resource-link">Claude on Vertex AI</a>
+                            <a href="https://www.anthropic.com/customers" target="_blank" class="resource-link">Customer Stories</a>
+                            <a href="https://www.anthropic.com/research/measuring-model-persuasion" target="_blank" class="resource-link">Safety Research</a>
+                            <a href="https://www.anthropic.com/news/claude-4-benchmarks" target="_blank" class="resource-link">Benchmarks</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -426,100 +719,7 @@
 
         <!-- PLAYBOOKS TAB -->
         <div id="playbooks" class="tab-content">
-            <div class="account-grid">
-                <div class="account-card" onclick="this.classList.toggle('expanded')">
-                    <div class="account-header">
-                        <h3>🎯 OpenAI Displacement Playbook</h3>
-                        <span class="tag priority">Proven</span>
-                    </div>
-                    <p class="account-description">Win accounts using GPT-4. Based on real APAC wins.</p>
-                    <div class="account-details">
-                        <div class="detail-section">
-                            <h4>When to Use</h4>
-                            <ul>
-                                <li>Customer complaining about GPT-4 latency/costs</li>
-                                <li>Complex reasoning use cases (financial, legal)</li>
-                                <li>Enterprise security requirements</li>
-                            </ul>
-                        </div>
-                        <div class="detail-section">
-                            <h4>The Play</h4>
-                            <div class="playbook-steps">
-                                <div class="playbook-step">
-                                    <div class="step-number">1</div>
-                                    <div>Identify pain: TTFT, reasoning quality, cost per query</div>
-                                </div>
-                                <div class="playbook-step">
-                                    <div class="step-number">2</div>
-                                    <div>Propose benchmark: "Let's run 100 hard queries through both"</div>
-                                </div>
-                                <div class="playbook-step">
-                                    <div class="step-number">3</div>
-                                    <div>Design complexity router: Claude for reasoning, Flash for volume</div>
-                                </div>
-                                <div class="playbook-step">
-                                    <div class="step-number">4</div>
-                                    <div>Show TCO: Multi-model = 30-50% cheaper than GPT-4</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="detail-section">
-                            <h4>Objection Handlers</h4>
-                            <ul>
-                                <li><strong>"Invested in OpenAI"</strong> → Benchmark the hard 5%. If Claude isn't better, no harm.</li>
-                                <li><strong>"Migration complex"</strong> → API near-identical. Most teams swap in a day.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="account-card" onclick="this.classList.toggle('expanded')">
-                    <div class="account-header">
-                        <h3>🏦 Fintech AI Playbook</h3>
-                        <span class="tag vertical">Fintech</span>
-                    </div>
-                    <p class="account-description">Sell AI to payments, neobanks, lending in SEA.</p>
-                    <div class="account-details">
-                        <div class="detail-section">
-                            <h4>Top Use Cases</h4>
-                            <ul>
-                                <li><strong>Fraud Detection:</strong> Nuanced transaction analysis</li>
-                                <li><strong>Credit Scoring:</strong> Alternative data for thin-file customers</li>
-                                <li><strong>Multilingual Support:</strong> Bahasa, Vietnamese, Thai, Tagalog</li>
-                            </ul>
-                        </div>
-                        <div class="detail-section">
-                            <h4>Key Stakeholders</h4>
-                            <ul>
-                                <li><strong>CTO:</strong> Reliability, latency, security</li>
-                                <li><strong>Head of Risk:</strong> Fraud loss reduction</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="account-card" onclick="this.classList.toggle('expanded')">
-                    <div class="account-header">
-                        <h3>🏥 Healthtech AI Playbook</h3>
-                        <span class="tag" style="background: rgba(236,72,153,0.2); color: #ec4899;">Health</span>
-                    </div>
-                    <p class="account-description">AI for telehealth and digital health platforms.</p>
-                    <div class="account-details">
-                        <div class="detail-section">
-                            <h4>Use Cases</h4>
-                            <ul>
-                                <li>Symptom triage & patient intake</li>
-                                <li>Clinical documentation & summaries</li>
-                                <li>Drug interaction checking</li>
-                            </ul>
-                        </div>
-                        <div class="detail-section">
-                            <h4>Compliance</h4>
-                            <p>PDPA (Singapore), UU PDP (Indonesia) data residency. Claude's safety focus is a selling point.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="playbooks-grid" id="playbooksGrid"></div>
         </div>
 
         <footer>
@@ -529,67 +729,301 @@
 
     <script>
         const accounts = [
-            { name: 'Nansen', vertical: 'ai', country: 'singapore', funding: 75, employees: 200, priority: 'high',
-              desc: 'Blockchain analytics. OpenAI displacement success.',
-              opportunity: 'Deep reasoning for financial analysis, agentic research',
+            // Singapore
+            { name: 'Nansen', logo: 'N', vertical: 'ai', country: 'singapore', funding: 75, employees: 200, priority: 'high',
+              desc: 'Blockchain analytics platform. Successfully displaced OpenAI in APAC - proven win case.',
+              opportunity: 'Deep reasoning for on-chain financial analysis, agentic research workflows, automated report generation',
+              techStack: ['GCP', 'Node.js', 'Python', 'React'],
               contacts: [
                 {name: 'Alex Svanevik', title: 'CEO', linkedin: 'https://linkedin.com/in/alexsvanevik'},
                 {name: 'Lars Bakke', title: 'CTO', linkedin: 'https://linkedin.com/in/larsbakke'}
               ] },
-            { name: 'Grab Financial', vertical: 'fintech', country: 'singapore', funding: 12000, employees: 8000, priority: 'high',
-              desc: 'Superapp: payments, lending, insurance.',
-              opportunity: 'Fraud detection, credit scoring, multilingual CS',
+            { name: 'Grab', logo: 'G', vertical: 'fintech', country: 'singapore', funding: 12000, employees: 8000, priority: 'high',
+              desc: 'SEA superapp - payments, delivery, mobility. Regional giant with massive AI investment.',
+              opportunity: 'Fraud detection at scale, multilingual customer support, driver communication automation',
+              techStack: ['AWS', 'GCP', 'Go', 'Python', 'Kubernetes'],
               contacts: [
-                {name: 'Reuben Lai', title: 'MD Financial Services', linkedin: 'https://linkedin.com/in/reubenlai'},
-                {name: 'Suthen Thomas', title: 'CTO', linkedin: 'https://linkedin.com/in/suthenthomas'}
+                {name: 'Suthen Thomas', title: 'Group CTO', linkedin: 'https://linkedin.com/in/suthenthomas'},
+                {name: 'Reuben Lai', title: 'MD Financial Services', linkedin: 'https://linkedin.com/in/reubenlai'}
               ] },
-            { name: 'Halodoc', vertical: 'health', country: 'indonesia', funding: 180, employees: 500, priority: 'high',
-              desc: 'Indonesia telehealth. 20M+ monthly users.',
-              opportunity: 'Symptom triage, doctor matching, record summarization',
+            { name: 'DBS Bank', logo: 'DBS', vertical: 'enterprise', country: 'singapore', funding: 0, employees: 33000, priority: 'high',
+              desc: 'Largest bank in SEA. Heavy AI investment, already on GCP. Digital transformation leader.',
+              opportunity: 'Knowledge assistants for wealth management, document processing, fraud detection',
+              techStack: ['GCP', 'Java', 'Python', 'Kubernetes'],
               contacts: [
-                {name: 'Jonathan Sudharta', title: 'CEO', linkedin: 'https://linkedin.com/in/jonathansudharta'},
-                {name: 'Doddy Lukito', title: 'CTO', linkedin: 'https://linkedin.com/in/doddylukito'}
+                {name: 'Jimmy Ng', title: 'Chief Data & Transformation Officer', linkedin: 'https://linkedin.com/in/jimmyngdbs'}
               ] },
-            { name: 'GoTo Financial', vertical: 'fintech', country: 'indonesia', funding: 8000, employees: 5000, priority: 'high',
-              desc: 'GoPay, lending. Indonesia superapp.',
-              opportunity: 'Bahasa NLP, fraud detection, driver comms',
+            { name: 'Horangi', logo: 'H', vertical: 'cyber', country: 'singapore', funding: 28, employees: 100, priority: 'medium',
+              desc: 'Cloud security platform for enterprises. Acquired by Bitdefender.',
+              opportunity: 'Threat analysis automation, compliance report generation, security posture assessment',
+              techStack: ['AWS', 'Python', 'Go'],
+              contacts: [
+                {name: 'Paul Hadjy', title: 'CEO', linkedin: 'https://linkedin.com/in/paulhadjy'}
+              ] },
+            { name: 'Carousell', logo: 'C', vertical: 'retail', country: 'singapore', funding: 300, employees: 800, priority: 'medium',
+              desc: 'Classifieds marketplace across 8 markets. Strong product focus.',
+              opportunity: 'Listing optimization, trust & safety content moderation, multilingual customer support',
+              techStack: ['GCP', 'Go', 'React Native'],
+              contacts: [
+                {name: 'Quek Siu Rui', title: 'CEO', linkedin: 'https://linkedin.com/in/siurui'}
+              ] },
+            { name: 'Advance.AI', logo: 'A', vertical: 'ai', country: 'singapore', funding: 100, employees: 500, priority: 'high',
+              desc: 'Digital identity and risk management platform. KYC/AML focus.',
+              opportunity: 'Document verification, fraud scoring enhancement, automated compliance checks',
+              techStack: ['AWS', 'Python', 'TensorFlow'],
+              contacts: [
+                {name: 'Jefferson Chen', title: 'CEO', linkedin: 'https://linkedin.com/in/jeffersonchen'}
+              ] },
+
+            // Indonesia
+            { name: 'GoTo', logo: 'GT', vertical: 'fintech', country: 'indonesia', funding: 8000, employees: 20000, priority: 'high',
+              desc: 'Indonesia superapp - GoPay, Gojek, Tokopedia. The merger created a tech giant.',
+              opportunity: 'Bahasa NLP for customer support, fraud detection, driver communication at scale',
+              techStack: ['GCP', 'Go', 'Python', 'Kubernetes'],
               contacts: [
                 {name: 'Hans Patuwo', title: 'President GoPay', linkedin: 'https://linkedin.com/in/hanspatuwo'},
                 {name: 'Ari Sarker', title: 'Co-President', linkedin: 'https://linkedin.com/in/arisarker'}
               ] },
-            { name: 'Horangi', vertical: 'cyber', country: 'singapore', funding: 28, employees: 100, priority: 'medium',
-              desc: 'Cloud security. Compliance & threat detection.',
-              opportunity: 'Threat analysis, compliance automation',
+            { name: 'Halodoc', logo: 'HD', vertical: 'health', country: 'indonesia', funding: 180, employees: 500, priority: 'high',
+              desc: 'Indonesia largest telehealth platform. 20M+ monthly users.',
+              opportunity: 'Symptom triage AI, doctor matching optimization, medical record summarization',
+              techStack: ['GCP', 'Python', 'React'],
               contacts: [
-                {name: 'Paul Hadjy', title: 'CEO', linkedin: 'https://linkedin.com/in/paulhadjy'},
-                {name: 'Lee Sult', title: 'CTO', linkedin: 'https://linkedin.com/in/leesult'}
+                {name: 'Jonathan Sudharta', title: 'CEO', linkedin: 'https://linkedin.com/in/jonathansudharta'},
+                {name: 'Doddy Lukito', title: 'CTO', linkedin: 'https://linkedin.com/in/doddylukito'}
               ] },
-            { name: 'VNPay', vertical: 'fintech', country: 'vietnam', funding: 300, employees: 2000, priority: 'high',
-              desc: 'Vietnam payment gateway. 40+ banks.',
-              opportunity: 'Fraud detection, Vietnamese NLP',
+            { name: 'Akulaku', logo: 'AK', vertical: 'fintech', country: 'indonesia', funding: 500, employees: 2000, priority: 'medium',
+              desc: 'BNPL and digital banking. Strong growth in underbanked markets.',
+              opportunity: 'Credit scoring for thin-file customers, collections automation, support chatbots',
+              techStack: ['AWS', 'Java', 'Python'],
+              contacts: [
+                {name: 'William Li', title: 'CEO', linkedin: 'https://linkedin.com/in/williamliakulaku'}
+              ] },
+            { name: 'Kata.ai', logo: 'K', vertical: 'ai', country: 'indonesia', funding: 20, employees: 150, priority: 'high',
+              desc: 'Bahasa conversational AI leader. Powers major Indonesian enterprise chatbots.',
+              opportunity: 'LLM integration for enhanced chatbots, enterprise deployment partnerships',
+              techStack: ['GCP', 'Python', 'Node.js'],
+              contacts: [
+                {name: 'Irzan Raditya', title: 'CEO', linkedin: 'https://linkedin.com/in/irzanraditya'}
+              ] },
+
+            // Thailand
+            { name: 'SCB (SCBX)', logo: 'SCB', vertical: 'enterprise', country: 'thailand', funding: 0, employees: 27000, priority: 'high',
+              desc: 'Oldest Thai bank, transformed into SCBX holding company. Major digital push.',
+              opportunity: 'Digital banking AI, customer service automation, document processing',
+              techStack: ['AWS', 'GCP', 'Java', 'Python'],
+              contacts: [
+                {name: 'Trirat Suwanprateep', title: 'Chief Technology Officer', linkedin: 'https://linkedin.com/in/trirats'}
+              ] },
+            { name: 'Ascend Money', logo: 'TM', vertical: 'fintech', country: 'thailand', funding: 150, employees: 1500, priority: 'high',
+              desc: 'TrueMoney operator. 50M+ users across 6 SEA countries.',
+              opportunity: 'Cross-border payment optimization, Thai NLP for support, fraud prevention',
+              techStack: ['AWS', 'Java', 'Python'],
+              contacts: [
+                {name: 'Tanyapong Thamavaranukupt', title: 'CEO', linkedin: 'https://linkedin.com/in/tanyapong'}
+              ] },
+            { name: 'Bitkub', logo: 'BK', vertical: 'fintech', country: 'thailand', funding: 300, employees: 1000, priority: 'medium',
+              desc: 'Largest crypto exchange in Thailand. Regulated by SEC Thailand.',
+              opportunity: 'Trading insights generation, regulatory compliance automation, customer education',
+              techStack: ['AWS', 'Go', 'React'],
+              contacts: [
+                {name: 'Topp Jirayut', title: 'CEO', linkedin: 'https://linkedin.com/in/toppjirayut'}
+              ] },
+            { name: 'Sertis', logo: 'S', vertical: 'ai', country: 'thailand', funding: 30, employees: 200, priority: 'high',
+              desc: 'Leading Thai data analytics consultancy. Strong enterprise relationships.',
+              opportunity: 'Partner opportunity - joint delivery of Claude-powered solutions',
+              techStack: ['GCP', 'AWS', 'Python', 'Spark'],
+              contacts: [
+                {name: 'Nuttapong Atthasit', title: 'CEO', linkedin: 'https://linkedin.com/in/nuttapong'}
+              ] },
+
+            // Vietnam
+            { name: 'VNPay', logo: 'VP', vertical: 'fintech', country: 'vietnam', funding: 300, employees: 2000, priority: 'high',
+              desc: 'Vietnam largest payment gateway. 40+ bank integrations.',
+              opportunity: 'Vietnamese NLP for support, fraud detection, merchant analytics',
+              techStack: ['On-prem', 'Java', 'Python'],
               contacts: [
                 {name: 'Mai Huu Tin', title: 'CEO', linkedin: 'https://linkedin.com/in/maihuutin'}
               ] },
-            { name: 'TaskUs', vertical: 'ai', country: 'philippines', funding: 0, employees: 45000, priority: 'high',
-              desc: 'AI-enabled BPO. Content moderation, CX.',
-              opportunity: 'Agent augmentation, content mod at scale',
+            { name: 'MoMo', logo: 'MM', vertical: 'fintech', country: 'vietnam', funding: 500, employees: 2000, priority: 'high',
+              desc: 'Leading Vietnamese e-wallet. 30M+ users, mini-app ecosystem.',
+              opportunity: 'Fraud prevention at scale, mini-app ecosystem AI, customer support',
+              techStack: ['AWS', 'Java', 'Python'],
+              contacts: [
+                {name: 'Nguyen Manh Tuong', title: 'CEO', linkedin: 'https://linkedin.com/in/nguyenmanhtuong'}
+              ] },
+            { name: 'FPT Software', logo: 'FPT', vertical: 'enterprise', country: 'vietnam', funding: 0, employees: 25000, priority: 'high',
+              desc: 'Vietnam largest IT services. $1B+ revenue. Major partner opportunity.',
+              opportunity: 'Strategic delivery partner, joint GTM, AI services practice',
+              techStack: ['Multi-cloud', 'Java', 'Python', '.NET'],
+              contacts: [
+                {name: 'Pham Minh Tuan', title: 'CEO', linkedin: 'https://linkedin.com/in/phamminhtuan'}
+              ] },
+            { name: 'Neurond AI', logo: 'N', vertical: 'ai', country: 'vietnam', funding: 5, employees: 50, priority: 'high',
+              desc: 'Document AI specialist. Fast delivery, strong technical team.',
+              opportunity: 'Partner for document processing use cases, joint customer delivery',
+              techStack: ['GCP', 'Python', 'FastAPI'],
+              contacts: [
+                {name: 'Truong Bui', title: 'CEO', linkedin: 'https://linkedin.com/in/truongbui'}
+              ] },
+
+            // Philippines
+            { name: 'GCash', logo: 'GC', vertical: 'fintech', country: 'philippines', funding: 500, employees: 1000, priority: 'high',
+              desc: 'Philippines dominant mobile wallet. 80M+ users. Globe Telecom subsidiary.',
+              opportunity: 'Fraud detection at scale, Filipino language support, merchant services',
+              techStack: ['AWS', 'Java', 'Python'],
+              contacts: [
+                {name: 'Martha Sazon', title: 'CEO', linkedin: 'https://linkedin.com/in/marthasazon'}
+              ] },
+            { name: 'TaskUs', logo: 'TU', vertical: 'ai', country: 'philippines', funding: 0, employees: 45000, priority: 'high',
+              desc: 'AI-enabled BPO. Content moderation, customer experience. Public company.',
+              opportunity: 'Agent augmentation at massive scale, content moderation, QA automation',
+              techStack: ['Multi-cloud', 'Python', 'Custom tools'],
               contacts: [
                 {name: 'Bryce Maddock', title: 'CEO', linkedin: 'https://linkedin.com/in/brycemaddock'},
                 {name: 'Jaspar Weir', title: 'President', linkedin: 'https://linkedin.com/in/jasparweir'}
               ] },
-            { name: 'Ascend Money', vertical: 'fintech', country: 'thailand', funding: 150, employees: 1500, priority: 'high',
-              desc: 'TrueMoney. 50M+ users, 6 countries.',
-              opportunity: 'Cross-border payments, Thai NLP',
+            { name: 'Maya', logo: 'MY', vertical: 'fintech', country: 'philippines', funding: 400, employees: 800, priority: 'high',
+              desc: 'Digital bank (formerly PayMaya). Strong consumer and merchant base.',
+              opportunity: 'Banking AI assistant, credit assessment, fraud prevention',
+              techStack: ['AWS', 'Java', 'React'],
               contacts: [
-                {name: 'Tanyapong Thamavaranukupt', title: 'CEO', linkedin: 'https://linkedin.com/in/tanyapong'}
+                {name: 'Angelo Madrid', title: 'President', linkedin: 'https://linkedin.com/in/angelomadrid'}
               ] },
-            { name: 'GCash', vertical: 'fintech', country: 'philippines', funding: 500, employees: 1000, priority: 'high',
-              desc: 'Philippines mobile wallet. 80M+ users.',
-              opportunity: 'Fraud detection at scale, Filipino support',
+
+            // Malaysia
+            { name: 'Touch n Go', logo: 'TNG', vertical: 'fintech', country: 'malaysia', funding: 500, employees: 500, priority: 'high',
+              desc: 'Malaysia leading e-wallet. 20M+ users. Alipay partnership.',
+              opportunity: 'Credit scoring, customer service automation, fraud detection',
+              techStack: ['AWS', 'Java', 'Python'],
               contacts: [
-                {name: 'Martha Sazon', title: 'CEO', linkedin: 'https://linkedin.com/in/marthasazon'},
-                {name: 'Alberto Bautista', title: 'CTO', linkedin: 'https://linkedin.com/in/albertobautista'}
+                {name: 'Effendy Shahul Hamid', title: 'CEO', linkedin: 'https://linkedin.com/in/effendyshahul'}
+              ] },
+            { name: 'Carsome', logo: 'CS', vertical: 'retail', country: 'malaysia', funding: 500, employees: 3000, priority: 'medium',
+              desc: 'SEA largest integrated car e-commerce platform. Regional expansion.',
+              opportunity: 'Vehicle inspection automation, pricing intelligence, customer support',
+              techStack: ['AWS', 'Python', 'React'],
+              contacts: [
+                {name: 'Eric Cheng', title: 'CEO', linkedin: 'https://linkedin.com/in/ericchengcarsome'}
               ] }
+        ];
+
+        const playbooks = [
+            {
+                title: 'OpenAI Displacement',
+                icon: '🎯',
+                tag: 'Proven Win',
+                tagClass: 'priority',
+                desc: 'Win accounts currently using GPT-4. Based on real APAC displacement wins.',
+                whenToUse: [
+                    'Customer complaining about GPT-4 latency or costs',
+                    'Complex reasoning use cases (financial analysis, legal, research)',
+                    'Enterprise security requirements not met by OpenAI',
+                    'Inconsistent output quality on nuanced tasks'
+                ],
+                steps: [
+                    { title: 'Identify the Pain', desc: 'Ask about TTFT, reasoning quality, cost per query, hallucination rate' },
+                    { title: 'Propose a Benchmark', desc: '"Let\'s run your 100 hardest queries through both models"' },
+                    { title: 'Design Complexity Router', desc: 'Claude for reasoning, Flash/Haiku for volume - show the architecture' },
+                    { title: 'Calculate TCO', desc: 'Multi-model approach = 30-50% cheaper than GPT-4 only' }
+                ],
+                objections: [
+                    { q: '"We\'ve invested heavily in OpenAI"', a: 'Benchmark just the hard 5% of queries. If Claude isn\'t meaningfully better, no harm done. But if it is, you\'re leaving value on the table.' },
+                    { q: '"Migration is complex"', a: 'API is near-identical. Most teams swap in under a day. We can run parallel for a week to validate.' }
+                ]
+            },
+            {
+                title: 'Fintech AI Playbook',
+                icon: '🏦',
+                tag: 'Fintech',
+                tagClass: 'fintech',
+                desc: 'Sell AI to payments, neobanks, and lending companies in SEA.',
+                whenToUse: [
+                    'Payments company with fraud challenges',
+                    'Lender struggling with thin-file credit assessment',
+                    'Neobank looking to scale customer support',
+                    'Any fintech needing multilingual SEA support'
+                ],
+                steps: [
+                    { title: 'Lead with Compliance', desc: 'Emphasize data residency, MAS/OJK/BSP compliance, audit trails' },
+                    { title: 'Quantify Fraud Loss', desc: 'Get their current fraud rate. Model 10-20% improvement with better reasoning' },
+                    { title: 'Demo Multilingual', desc: 'Show Bahasa, Thai, Vietnamese, Filipino understanding in same model' },
+                    { title: 'Propose Pilot', desc: '30-day fraud analysis pilot on historical data - no production risk' }
+                ],
+                objections: [
+                    { q: '"Regulators won\'t approve AI for decisions"', a: 'Claude augments, doesn\'t replace. Human-in-loop for all final decisions. Better audit trail than manual review.' },
+                    { q: '"We need on-prem"', a: 'Claude via Vertex AI can run in your GCP tenant. Data never leaves your environment.' }
+                ]
+            },
+            {
+                title: 'Healthtech AI Playbook',
+                icon: '🏥',
+                tag: 'Health',
+                tagClass: 'health',
+                desc: 'AI for telehealth and digital health platforms.',
+                whenToUse: [
+                    'Telehealth platform scaling patient intake',
+                    'Health insurer processing claims manually',
+                    'Pharma company needing drug interaction checking',
+                    'Hospital system drowning in documentation'
+                ],
+                steps: [
+                    { title: 'Lead with Safety', desc: 'Claude\'s Constitutional AI is a selling point - designed to avoid harmful outputs' },
+                    { title: 'Start Non-Clinical', desc: 'Admin tasks first - appointment scheduling, insurance queries, documentation' },
+                    { title: 'Show Triage Value', desc: 'Symptom checker demo - not diagnosis, but intelligent routing to right specialist' },
+                    { title: 'Compliance Path', desc: 'PDPA/UU PDP compliance, data residency, audit logging for healthcare regs' }
+                ],
+                objections: [
+                    { q: '"AI in healthcare is too risky"', a: 'Start with admin tasks - zero clinical risk. Appointment scheduling, insurance queries, basic FAQs.' },
+                    { q: '"Doctors won\'t trust AI"', a: 'AI assists, doesn\'t replace. Doctors spend 30% less time on paperwork, more time with patients.' }
+                ]
+            },
+            {
+                title: 'BPO Transformation',
+                icon: '🎧',
+                tag: 'Enterprise',
+                tagClass: 'enterprise',
+                desc: 'Transform contact centers and BPO operations with AI augmentation.',
+                whenToUse: [
+                    'BPO with thousands of agents handling similar queries',
+                    'Contact center struggling with quality consistency',
+                    'Content moderation at scale',
+                    'Back-office document processing'
+                ],
+                steps: [
+                    { title: 'Calculate Agent Time', desc: 'How many minutes per ticket? What % is repetitive lookup/typing?' },
+                    { title: 'Propose Agent Assist', desc: 'Real-time suggestions, not replacement. 30-40% faster handling time' },
+                    { title: 'Quality Automation', desc: 'AI-powered QA on 100% of interactions vs 2% manual sampling' },
+                    { title: 'Scale the Math', desc: '40,000 agents × 20% efficiency = 8,000 FTE equivalent. Show the ROI.' }
+                ],
+                objections: [
+                    { q: '"Our agents will fear job loss"', a: 'Position as career growth - agents handle complex cases, AI handles routine. Upskilling, not replacement.' },
+                    { q: '"We tried chatbots and they failed"', a: 'This isn\'t a chatbot. Agent Assist means AI helps humans, not replaces. Best of both worlds.' }
+                ]
+            },
+            {
+                title: 'Code & Developer Tools',
+                icon: '💻',
+                tag: 'AI-Native',
+                tagClass: 'ai',
+                desc: 'Sell Claude for code generation, review, and developer productivity.',
+                whenToUse: [
+                    'Engineering team scaling rapidly',
+                    'Legacy codebase migration projects',
+                    'Security code review at scale',
+                    'Documentation debt'
+                ],
+                steps: [
+                    { title: 'Demo Claude Code', desc: 'Live coding session - show file reading, multi-step changes, test writing' },
+                    { title: 'Security Angle', desc: 'Code review catches vulnerabilities humans miss. Show SAST enhancement' },
+                    { title: 'Calculate Dev Time', desc: 'What % of time is boilerplate? Documentation? Code review? Quantify savings' },
+                    { title: 'Pilot with Specific Team', desc: 'One team, one sprint, measure velocity before/after' }
+                ],
+                objections: [
+                    { q: '"GitHub Copilot is good enough"', a: 'For autocomplete, yes. But complex refactoring, architecture decisions, debugging? Try Claude Code side-by-side.' },
+                    { q: '"Security team won\'t approve code AI"', a: 'Code stays in your environment. No training on your data. Better security than devs copy-pasting from Stack Overflow.' }
+                ]
+            }
         ];
 
         let selectedContactData = null;
@@ -597,41 +1031,94 @@
         function renderAccounts(list = accounts) {
             document.getElementById('accountGrid').innerHTML = list.map(a => `
                 <div class="account-card" onclick="this.classList.toggle('expanded')"
-                     data-vertical="${a.vertical}" data-country="${a.country}">
+                     data-vertical="${a.vertical}" data-country="${a.country}" data-priority="${a.priority}">
                     <div class="account-header">
-                        <h3>${a.name}</h3>
+                        <div class="account-name">
+                            <div class="account-logo">${a.logo}</div>
+                            <h3>${a.name}</h3>
+                        </div>
                         <div class="account-tags">
-                            <span class="tag vertical">${a.vertical}</span>
+                            <span class="tag ${a.vertical}">${a.vertical}</span>
                             ${a.priority === 'high' ? '<span class="tag priority">HIGH</span>' : ''}
                             <span class="tag country">${a.country}</span>
                         </div>
                     </div>
                     <div class="account-meta">
-                        <span>Funding: <strong>$${a.funding}M</strong></span>
+                        <span>Funding: <strong>${a.funding > 0 ? '$' + a.funding + 'M' : 'Public'}</strong></span>
                         <span>Size: <strong>${a.employees.toLocaleString()}</strong></span>
                     </div>
                     <p class="account-description">${a.desc}</p>
+                    <div class="opportunity-badge">
+                        <h5>AI Opportunity</h5>
+                        ${a.opportunity}
+                    </div>
                     <div class="account-details">
+                        <div class="detail-grid">
+                            <div class="detail-section">
+                                <h4>Tech Stack</h4>
+                                <p>${a.techStack.join(' · ')}</p>
+                            </div>
+                            <div class="detail-section">
+                                <h4>Key Contacts</h4>
+                                <div class="contacts-grid">
+                                    ${a.contacts.map(c => `
+                                        <div class="contact-card">
+                                            <div class="contact-info">
+                                                <h5>${c.name}</h5>
+                                                <p>${c.title}</p>
+                                            </div>
+                                            <div class="contact-actions">
+                                                <a href="${c.linkedin}" target="_blank" class="contact-btn linkedin">LinkedIn</a>
+                                                <button class="contact-btn outreach" onclick="event.stopPropagation(); startOutreach('${a.name}', '${c.name}', '${c.title}', '${c.linkedin}')">✉️</button>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('resultsCount').textContent = `${list.length} accounts`;
+        }
+
+        function renderPlaybooks() {
+            document.getElementById('playbooksGrid').innerHTML = playbooks.map(p => `
+                <div class="playbook-card" onclick="this.classList.toggle('expanded')">
+                    <div class="playbook-header">
+                        <h3><span class="icon">${p.icon}</span> ${p.title}</h3>
+                        <span class="tag ${p.tagClass}">${p.tag}</span>
+                    </div>
+                    <p class="playbook-desc">${p.desc}</p>
+                    <div class="playbook-details">
                         <div class="detail-section">
-                            <h4>AI Opportunity</h4>
-                            <p>${a.opportunity}</p>
+                            <h4>When to Use</h4>
+                            <ul>
+                                ${p.whenToUse.map(w => `<li>${w}</li>`).join('')}
+                            </ul>
                         </div>
                         <div class="detail-section">
-                            <h4>Key Contacts</h4>
-                            <div class="contacts-grid">
-                                ${a.contacts.map(c => `
-                                    <div class="contact-card">
-                                        <div class="contact-info">
-                                            <h5>${c.name}</h5>
-                                            <p>${c.title}</p>
-                                        </div>
-                                        <div class="contact-actions">
-                                            <a href="${c.linkedin}" target="_blank" class="contact-btn linkedin">LinkedIn</a>
-                                            <button class="contact-btn outreach" onclick="event.stopPropagation(); startOutreach('${a.name}', '${c.name}', '${c.title}', '${c.linkedin}')">✉️</button>
+                            <h4>The Play</h4>
+                            <div class="playbook-steps">
+                                ${p.steps.map((s, i) => `
+                                    <div class="playbook-step">
+                                        <div class="step-number">${i + 1}</div>
+                                        <div class="step-content">
+                                            <h5>${s.title}</h5>
+                                            <p>${s.desc}</p>
                                         </div>
                                     </div>
                                 `).join('')}
                             </div>
+                        </div>
+                        <div class="objections">
+                            <h5>Objection Handlers</h5>
+                            ${p.objections.map(o => `
+                                <div class="objection-item">
+                                    <div class="q">${o.q}</div>
+                                    <div class="a">→ ${o.a}</div>
+                                </div>
+                            `).join('')}
                         </div>
                     </div>
                 </div>
@@ -639,11 +1126,18 @@
         }
 
         function filterAccounts() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
             const v = document.getElementById('verticalFilter').value;
             const c = document.getElementById('countryFilter').value;
-            renderAccounts(accounts.filter(a =>
-                (v === 'all' || a.vertical === v) && (c === 'all' || a.country === c)
-            ));
+            const p = document.getElementById('priorityFilter').value;
+
+            const filtered = accounts.filter(a =>
+                (a.name.toLowerCase().includes(search) || a.desc.toLowerCase().includes(search)) &&
+                (v === 'all' || a.vertical === v) &&
+                (c === 'all' || a.country === c) &&
+                (p === 'all' || a.priority === p)
+            );
+            renderAccounts(filtered);
         }
 
         function showTab(id) {
@@ -656,7 +1150,7 @@
         function populateCompanyDropdown() {
             const select = document.getElementById('outreachCompany');
             select.innerHTML = '<option value="">Select a company...</option>' +
-                accounts.map(a => `<option value="${a.name}">${a.name}</option>`).join('');
+                accounts.map(a => `<option value="${a.name}">${a.name} (${a.country})</option>`).join('');
         }
 
         function updateContactsDropdown() {
@@ -700,7 +1194,6 @@
             document.getElementById('outreachCompany').value = company;
             updateContactsDropdown();
 
-            // Find and select the contact
             const account = accounts.find(a => a.name === company);
             const contactIndex = account.contacts.findIndex(c => c.name === name);
             document.getElementById('outreachContact').value = contactIndex;
@@ -714,54 +1207,89 @@
 
         function generateOutreach() {
             const company = document.getElementById('outreachCompany').value || 'your company';
-            const connection = document.getElementById('outreachConnection').value;
-            const value = document.getElementById('outreachValue').value;
+            const hook = document.getElementById('outreachHook').value;
+            const angle = document.getElementById('outreachAngle').value;
+            const tone = document.getElementById('outreachTone').value;
 
-            const values = {
-                reasoning: 'complex reasoning tasks',
-                cost: 'AI cost optimization',
-                safety: 'enterprise AI security',
-                multi: 'multi-language AI'
-            };
-
-            let name = selectedContactData ? selectedContactData.name.split(' ')[0] : '';
-            let title = selectedContactData ? selectedContactData.title : '';
-
-            let msg = '';
-            if (connection) {
-                msg = `${connection}. `;
-            } else if (name) {
-                msg = `Hi ${name}! `;
-            } else {
-                msg = 'Hi! ';
+            if (!selectedContactData) {
+                document.getElementById('outreachMessage').textContent = 'Please select a contact first.';
+                return;
             }
 
-            msg += `Work with ${title.includes('CEO') || title.includes('Founder') ? 'founders' : 'tech leaders'} in SEA on AI. `;
-            msg += `Noticed ${company}'s growth — exploring ${values[value]}? `;
-            msg += `Happy to share what's working.`;
+            const firstName = selectedContactData.name.split(' ')[0];
+            const isExecutive = selectedContactData.title.includes('CEO') ||
+                               selectedContactData.title.includes('CTO') ||
+                               selectedContactData.title.includes('President') ||
+                               selectedContactData.title.includes('Founder');
+
+            const angles = {
+                reasoning: 'AI reasoning capabilities',
+                cost: 'AI cost optimization',
+                safety: 'enterprise AI security',
+                multi: 'multilingual AI',
+                code: 'developer productivity'
+            };
+
+            let msg = '';
+
+            // Build message based on tone
+            if (tone === 'direct') {
+                if (hook) {
+                    msg = `${hook} `;
+                } else {
+                    msg = `Hi ${firstName}, `;
+                }
+                msg += `I help ${isExecutive ? 'founders' : 'tech leaders'} in SEA with ${angles[angle]}. `;
+                msg += `${company} seems like a great fit. Worth a quick chat?`;
+            } else if (tone === 'curious') {
+                msg = `Hi ${firstName}! `;
+                if (hook) {
+                    msg += `${hook} `;
+                }
+                msg += `Curious how ${company} is thinking about ${angles[angle]}? `;
+                msg += `Happy to share what's working for similar companies.`;
+            } else {
+                // Value-first
+                msg = `Hi ${firstName}, `;
+                if (hook) {
+                    msg += `${hook} `;
+                }
+                msg += `Helped several SEA ${accounts.find(a => a.name === company)?.vertical || 'tech'} companies reduce AI costs by 30-40%. `;
+                msg += `Would ${company} benefit from a quick analysis?`;
+            }
 
             document.getElementById('outreachMessage').textContent = msg;
-            document.getElementById('charCount').textContent = `${msg.length} characters`;
-            document.getElementById('outreachOutput').style.display = 'block';
+
+            const charCount = msg.length;
+            const countEl = document.getElementById('charCount');
+            countEl.querySelector('span:first-child').textContent = `${charCount} characters`;
+            countEl.classList.remove('warning', 'error');
+            if (charCount > 300) {
+                countEl.classList.add('error');
+            } else if (charCount > 250) {
+                countEl.classList.add('warning');
+            }
 
             // Update LinkedIn link
-            if (selectedContactData && selectedContactData.linkedin) {
+            if (selectedContactData.linkedin) {
                 document.getElementById('linkedinLink').href = selectedContactData.linkedin;
                 document.getElementById('linkedinLink').style.display = 'inline-flex';
-            } else {
-                document.getElementById('linkedinLink').style.display = 'none';
             }
         }
 
         function copyOutreach() {
-            navigator.clipboard.writeText(document.getElementById('outreachMessage').textContent);
-            const btn = document.querySelector('.copy-btn');
-            btn.textContent = '✓ Copied!';
-            setTimeout(() => btn.textContent = '📋 Copy', 2000);
+            const msg = document.getElementById('outreachMessage').textContent;
+            if (msg && msg !== 'Select a contact and generate a message to get started.' && msg !== 'Please select a contact first.') {
+                navigator.clipboard.writeText(msg);
+                const btn = document.querySelector('.copy-btn');
+                btn.innerHTML = '✓ Copied!';
+                setTimeout(() => btn.innerHTML = '📋 Copy', 2000);
+            }
         }
 
         // Initialize
         renderAccounts();
+        renderPlaybooks();
         populateCompanyDropdown();
     </script>
 </body>
