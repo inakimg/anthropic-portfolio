@@ -14,14 +14,18 @@
             --color-bg: #1a1a1a;
             --color-surface: #242424;
             --color-surface-2: #2d2d2d;
+            --color-surface-3: #363636;
             --color-text: #f5f5f5;
             --color-text-muted: #999;
             --color-accent: #CC785C;
             --color-accent-soft: rgba(204, 120, 92, 0.15);
             --color-border: #3a3a3a;
             --color-blue: #5B8DEF;
+            --color-blue-soft: rgba(91, 141, 239, 0.15);
             --color-green: #4CAF50;
+            --color-green-soft: rgba(76, 175, 80, 0.15);
             --color-amber: #FFB74D;
+            --color-amber-soft: rgba(255, 183, 77, 0.15);
             --color-purple: #9C7CF4;
             --font-serif: 'Instrument Serif', Georgia, serif;
             --font-sans: 'DM Sans', -apple-system, sans-serif;
@@ -38,7 +42,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 24px;
         }
@@ -55,7 +59,7 @@
             margin: 0 12px;
         }
 
-        nav a:hover { color: var(--color-accent); }
+        nav a:hover, nav a.active { color: var(--color-accent); }
 
         header {
             text-align: center;
@@ -70,6 +74,13 @@
             margin-bottom: 12px;
         }
 
+        .subtitle {
+            color: var(--color-text-muted);
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto 24px;
+        }
+
         .stats {
             display: flex;
             justify-content: center;
@@ -77,6 +88,7 @@
             color: var(--color-text-muted);
             font-size: 0.9rem;
             margin-bottom: 24px;
+            flex-wrap: wrap;
         }
 
         .stats span { display: flex; align-items: center; gap: 6px; }
@@ -123,6 +135,12 @@
             color: white;
         }
 
+        /* Roadmap View */
+        .roadmap-view { display: block; }
+        .day-view { display: none; }
+        .day-view.active { display: block; }
+        .roadmap-view.hidden { display: none; }
+
         .week-section {
             margin-bottom: 48px;
         }
@@ -144,10 +162,10 @@
             font-size: 1.2rem;
         }
 
-        .week-icon.foundations { background: rgba(91, 141, 239, 0.2); }
-        .week-icon.build { background: rgba(76, 175, 80, 0.2); }
+        .week-icon.foundations { background: var(--color-blue-soft); }
+        .week-icon.build { background: var(--color-green-soft); }
         .week-icon.integrate { background: rgba(156, 124, 244, 0.2); }
-        .week-icon.launch { background: rgba(255, 183, 77, 0.2); }
+        .week-icon.launch { background: var(--color-amber-soft); }
 
         .week-title {
             font-family: var(--font-serif);
@@ -192,7 +210,7 @@
         }
 
         .day-card.completed::after {
-            content: '✓';
+            content: '\2713';
             position: absolute;
             top: 12px;
             right: 12px;
@@ -224,6 +242,249 @@
             color: var(--color-text-muted);
         }
 
+        /* Day View Styles */
+        .day-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 32px;
+        }
+
+        .day-selector-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--color-border);
+            background: var(--color-surface);
+            color: var(--color-text-muted);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .day-selector-btn:hover {
+            border-color: var(--color-accent);
+            color: var(--color-text);
+        }
+
+        .day-selector-btn.active {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+            color: white;
+        }
+
+        .day-selector-btn.completed {
+            background: var(--color-green);
+            border-color: var(--color-green);
+            color: white;
+        }
+
+        .day-detail {
+            display: none;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        .day-detail.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .day-detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .day-detail-header h2 {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: 400;
+        }
+
+        .day-type-badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .day-type-badge.learn { background: var(--color-blue-soft); color: var(--color-blue); }
+        .day-type-badge.build { background: var(--color-green-soft); color: var(--color-green); }
+        .day-type-badge.write { background: var(--color-amber-soft); color: var(--color-amber); }
+
+        .day-objective {
+            background: var(--color-surface-2);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .day-objective h3 {
+            font-size: 0.85rem;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .day-objective p {
+            color: var(--color-text);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .blocks-section {
+            margin-bottom: 24px;
+        }
+
+        .blocks-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .time-estimate {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            font-weight: 400;
+        }
+
+        .block-item {
+            background: var(--color-surface-2);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .block-item h4 {
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .block-number {
+            background: var(--color-accent);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .block-item p {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .block-item ul {
+            padding-left: 20px;
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+        }
+
+        .block-item li {
+            margin-bottom: 6px;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .resource-link {
+            background: var(--color-surface-3);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            text-decoration: none;
+            color: var(--color-text);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .resource-link:hover {
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+        }
+
+        .resource-link .icon {
+            font-size: 1.1rem;
+        }
+
+        .deliverable-section {
+            background: var(--color-accent-soft);
+            border: 1px solid var(--color-accent);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .deliverable-section h3 {
+            color: var(--color-accent);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+        }
+
+        .deliverable-section p {
+            color: var(--color-text);
+            font-size: 0.95rem;
+        }
+
+        .mark-complete-btn {
+            background: var(--color-green);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 14px 28px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+        }
+
+        .mark-complete-btn:hover {
+            background: #3d9140;
+        }
+
+        .mark-complete-btn.completed {
+            background: var(--color-surface-2);
+            color: var(--color-green);
+            border: 2px solid var(--color-green);
+        }
+
         .legend {
             display: flex;
             justify-content: center;
@@ -231,6 +492,7 @@
             margin-top: 40px;
             padding-top: 24px;
             border-top: 1px solid var(--color-border);
+            flex-wrap: wrap;
         }
 
         .legend-item {
@@ -264,6 +526,9 @@
             header h1 { font-size: 1.8rem; }
             .stats { flex-wrap: wrap; justify-content: center; }
             .day-grid { grid-template-columns: 1fr; }
+            .day-detail { padding: 20px; }
+            .day-detail-header h2 { font-size: 1.4rem; }
+            .resources-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -272,18 +537,20 @@
         <nav>
             <a href="index.html">Home</a>
             <a href="why-anthropic.html">Why Anthropic</a>
-            <a href="sea-gtm-strategy.html">GTM Strategy</a>
-            <a href="dn-sales-assistant/index.html">Sales Assistant</a>
             <a href="blog.html">Writing</a>
         </nav>
 
         <header>
             <h1>Claude Mastery Plan</h1>
+            <p class="subtitle">
+                A structured 24-day journey from Claude basics to production expertise.
+                Built for sellers who want to truly understand the product they're selling.
+            </p>
             <div class="stats">
-                <span>📅 24 days</span>
-                <span>🛠️ 3 projects</span>
-                <span>📜 8 certificates</span>
-                <span>🎯 1 job at Anthropic</span>
+                <span>24 days</span>
+                <span>3 projects</span>
+                <span>8 certificates</span>
+                <span>1 job at Anthropic</span>
             </div>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
@@ -294,260 +561,1352 @@
         </header>
 
         <div class="view-toggle">
-            <button class="toggle-btn active" onclick="setView('roadmap')">Roadmap</button>
-            <button class="toggle-btn" onclick="setView('calendar')">Day View</button>
+            <button class="toggle-btn active" id="roadmapBtn" onclick="setView('roadmap')">Roadmap</button>
+            <button class="toggle-btn" id="dayBtn" onclick="setView('day')">Day View</button>
         </div>
 
-        <!-- Week 1: Foundations -->
-        <div class="week-section">
-            <div class="week-header">
-                <div class="week-icon foundations">📚</div>
-                <div>
-                    <div class="week-title">Foundations</div>
-                    <div class="week-subtitle">Week 1 · Day 1-6</div>
+        <!-- ROADMAP VIEW -->
+        <div class="roadmap-view" id="roadmapView">
+            <!-- Week 1: Foundations -->
+            <div class="week-section">
+                <div class="week-header">
+                    <div class="week-icon foundations"></div>
+                    <div>
+                        <div class="week-title">Foundations</div>
+                        <div class="week-subtitle">Week 1 | Day 1-6</div>
+                    </div>
+                    <div class="week-progress" id="week1Progress">0%</div>
                 </div>
-                <div class="week-progress">0%</div>
+                <div class="day-grid">
+                    <div class="day-card" data-day="1" onclick="openDayDetail(1)">
+                        <div class="day-label learn">Day 1</div>
+                        <div class="day-title">Meet Claude Properly</div>
+                        <div class="day-desc">System prompts, personas, Claude's character</div>
+                    </div>
+                    <div class="day-card" data-day="2" onclick="openDayDetail(2)">
+                        <div class="day-label learn">Day 2</div>
+                        <div class="day-title">Prompting is the Product</div>
+                        <div class="day-desc">Advanced prompting techniques deep dive</div>
+                    </div>
+                    <div class="day-card" data-day="3" onclick="openDayDetail(3)">
+                        <div class="day-label build">Day 3</div>
+                        <div class="day-title">Console + API Basics</div>
+                        <div class="day-desc">First API calls, workbench exploration</div>
+                    </div>
+                    <div class="day-card" data-day="4" onclick="openDayDetail(4)">
+                        <div class="day-label learn">Day 4</div>
+                        <div class="day-title">API Deep Dive</div>
+                        <div class="day-desc">Streaming, tools, vision, extended thinking</div>
+                    </div>
+                    <div class="day-card" data-day="5" onclick="openDayDetail(5)">
+                        <div class="day-label build">Day 5</div>
+                        <div class="day-title">Claude Code Mastery</div>
+                        <div class="day-desc">Terminal-based coding, agentic workflows</div>
+                    </div>
+                    <div class="day-card" data-day="6" onclick="openDayDetail(6)">
+                        <div class="day-label learn">Day 6</div>
+                        <div class="day-title">DeepLearning.AI Course</div>
+                        <div class="day-desc">Course completion + week consolidation</div>
+                    </div>
+                </div>
             </div>
-            <div class="day-grid">
-                <div class="day-card" onclick="toggleComplete(this)">
-                    <div class="day-label learn">Day 1</div>
-                    <div class="day-title">Meet Claude Properly</div>
-                    <div class="day-desc">System prompts, personas, best practices</div>
+
+            <!-- Week 2: Build -->
+            <div class="week-section">
+                <div class="week-header">
+                    <div class="week-icon build"></div>
+                    <div>
+                        <div class="week-title">Build</div>
+                        <div class="week-subtitle">Week 2 | Day 7-12</div>
+                    </div>
+                    <div class="week-progress" id="week2Progress">0%</div>
                 </div>
-                <div class="day-card" onclick="toggleComplete(this)">
-                    <div class="day-label learn">Day 2</div>
-                    <div class="day-title">Prompting is the Product</div>
-                    <div class="day-desc">Advanced prompting techniques</div>
+                <div class="day-grid">
+                    <div class="day-card" data-day="7" onclick="openDayDetail(7)">
+                        <div class="day-label build">Day 7</div>
+                        <div class="day-title">Project 1: ASEAN AI Map</div>
+                        <div class="day-desc">Data gathering, architecture planning</div>
+                    </div>
+                    <div class="day-card" data-day="8" onclick="openDayDetail(8)">
+                        <div class="day-label build">Day 8</div>
+                        <div class="day-title">Project 1: Ship It</div>
+                        <div class="day-desc">Build, test, and deploy</div>
+                    </div>
+                    <div class="day-card" data-day="9" onclick="openDayDetail(9)">
+                        <div class="day-label learn">Day 9</div>
+                        <div class="day-title">Claude on Vertex AI</div>
+                        <div class="day-desc">GCP integration, enterprise deployment</div>
+                    </div>
+                    <div class="day-card" data-day="10" onclick="openDayDetail(10)">
+                        <div class="day-label build">Day 10</div>
+                        <div class="day-title">Project 2: Sales Assistant</div>
+                        <div class="day-desc">BDR tool architecture and kickoff</div>
+                    </div>
+                    <div class="day-card" data-day="11" onclick="openDayDetail(11)">
+                        <div class="day-label build">Day 11</div>
+                        <div class="day-title">Project 2: Ship It</div>
+                        <div class="day-desc">Complete features, polish, deploy</div>
+                    </div>
+                    <div class="day-card" data-day="12" onclick="openDayDetail(12)">
+                        <div class="day-label learn">Day 12</div>
+                        <div class="day-title">MCP Deep Dive</div>
+                        <div class="day-desc">Model Context Protocol mastery</div>
+                    </div>
                 </div>
-                <div class="day-card" onclick="toggleComplete(this)">
-                    <div class="day-label build">Day 3</div>
-                    <div class="day-title">Console + API (Day 1)</div>
-                    <div class="day-desc">First API calls, playground</div>
+            </div>
+
+            <!-- Week 3: Integrate -->
+            <div class="week-section">
+                <div class="week-header">
+                    <div class="week-icon integrate"></div>
+                    <div>
+                        <div class="week-title">Integrate</div>
+                        <div class="week-subtitle">Week 3 | Day 13-18</div>
+                    </div>
+                    <div class="week-progress" id="week3Progress">0%</div>
                 </div>
-                <div class="day-card" onclick="toggleComplete(this)">
-                    <div class="day-label learn">Day 4</div>
-                    <div class="day-title">API Deep Dive</div>
-                    <div class="day-desc">Streaming, tools, vision</div>
+                <div class="day-grid">
+                    <div class="day-card" data-day="13" onclick="openDayDetail(13)">
+                        <div class="day-label build">Day 13</div>
+                        <div class="day-title">Cowork Exploration</div>
+                        <div class="day-desc">Multi-agent orchestration, parallel work</div>
+                    </div>
+                    <div class="day-card" data-day="14" onclick="openDayDetail(14)">
+                        <div class="day-label build">Day 14</div>
+                        <div class="day-title">Project 3: GTM Playbook</div>
+                        <div class="day-desc">Strategic planning with Claude</div>
+                    </div>
+                    <div class="day-card" data-day="15" onclick="openDayDetail(15)">
+                        <div class="day-label build">Day 15</div>
+                        <div class="day-title">Portfolio Foundation</div>
+                        <div class="day-desc">Website architecture, content strategy</div>
+                    </div>
+                    <div class="day-card" data-day="16" onclick="openDayDetail(16)">
+                        <div class="day-label write">Day 16</div>
+                        <div class="day-title">Content Creation</div>
+                        <div class="day-desc">Blog post, case studies, writing style</div>
+                    </div>
+                    <div class="day-card" data-day="17" onclick="openDayDetail(17)">
+                        <div class="day-label learn">Day 17</div>
+                        <div class="day-title">Enterprise Deep Dive</div>
+                        <div class="day-desc">Security, compliance, SOC 2, scale</div>
+                    </div>
+                    <div class="day-card" data-day="18" onclick="openDayDetail(18)">
+                        <div class="day-label build">Day 18</div>
+                        <div class="day-title">Consolidation</div>
+                        <div class="day-desc">Review learnings, prepare for launch</div>
+                    </div>
                 </div>
-                <div class="day-card" onclick="toggleComplete(this)">
-                    <div class="day-label build">Day 5</div>
-                    <div class="day-title">Claude Code</div>
-                    <div class="day-desc">Terminal-based coding assistant</div>
+            </div>
+
+            <!-- Week 4: Launch -->
+            <div class="week-section">
+                <div class="week-header">
+                    <div class="week-icon launch"></div>
+                    <div>
+                        <div class="week-title">Launch</div>
+                        <div class="week-subtitle">Week 4 | Day 19-24</div>
+                    </div>
+                    <div class="week-progress" id="week4Progress">0%</div>
                 </div>
-                <div class="day-card" onclick="toggleComplete(this)">
-                    <div class="day-label learn">Day 6</div>
-                    <div class="day-title">DeepLearning.AI + Consolidation</div>
-                    <div class="day-desc">Course completion, review</div>
+                <div class="day-grid">
+                    <div class="day-card" data-day="19" onclick="openDayDetail(19)">
+                        <div class="day-label write">Day 19</div>
+                        <div class="day-title">LinkedIn Launch</div>
+                        <div class="day-desc">Public announcement, network activation</div>
+                    </div>
+                    <div class="day-card" data-day="20" onclick="openDayDetail(20)">
+                        <div class="day-label write">Day 20</div>
+                        <div class="day-title">Outreach Campaign</div>
+                        <div class="day-desc">Connect with Anthropic team, share work</div>
+                    </div>
+                    <div class="day-card" data-day="21" onclick="openDayDetail(21)">
+                        <div class="day-label learn">Day 21</div>
+                        <div class="day-title">Advanced Features</div>
+                        <div class="day-desc">Computer use, artifacts, extended thinking</div>
+                    </div>
+                    <div class="day-card" data-day="22" onclick="openDayDetail(22)">
+                        <div class="day-label learn">Day 22</div>
+                        <div class="day-title">Competitive Intelligence</div>
+                        <div class="day-desc">GPT vs Claude vs Gemini analysis</div>
+                    </div>
+                    <div class="day-card" data-day="23" onclick="openDayDetail(23)">
+                        <div class="day-label write">Day 23</div>
+                        <div class="day-title">Interview Prep</div>
+                        <div class="day-desc">Stories, practice, Anthropic research</div>
+                    </div>
+                    <div class="day-card" data-day="24" onclick="openDayDetail(24)">
+                        <div class="day-label write">Day 24</div>
+                        <div class="day-title">Final Polish</div>
+                        <div class="day-desc">Ship everything, celebrate, what's next</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-dot learn"></div>
+                    <span>LEARN - Theory & concepts</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot build"></div>
+                    <span>BUILD - Hands-on projects</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot write"></div>
+                    <span>WRITE - Content & communication</span>
                 </div>
             </div>
         </div>
 
-        <!-- Week 2: Build -->
-        <div class="week-section">
-            <div class="week-header">
-                <div class="week-icon build">⚒️</div>
-                <div>
-                    <div class="week-title">Build</div>
-                    <div class="week-subtitle">Week 2 · Day 7-12</div>
-                </div>
-                <div class="week-progress">0%</div>
+        <!-- DAY VIEW -->
+        <div class="day-view" id="dayView">
+            <div class="day-selector" id="daySelector">
+                <!-- Generated by JS -->
             </div>
-            <div class="day-grid">
-                <div class="day-card" onclick="toggleComplete(this)">
-                    <div class="day-label build">Day 7</div>
-                    <div class="day-title">Project 1: ASEAN AI Map</div>
-                    <div class="day-desc">Kickoff, data gathering</div>
-                </div>
-                <div class="day-card" onclick="toggleComplete(this)">
-                    <div class="day-label build">Day 8</div>
-                    <div class="day-title">Project 1: Ship It</div>
-                    <div class="day-desc">Build and deploy</div>
-                </div>
-                <div class="day-card" onclick="toggleComplete(this)">
-                    <div class="day-label learn">Day 9</div>
-                    <div class="day-title">Claude on Vertex AI</div>
-                    <div class="day-desc">GCP integration deep dive</div>
-                </div>
-                <div class="day-card" onclick="toggleComplete(this)">
-                    <div class="day-label build">Day 10</div>
-                    <div class="day-title">Project 2: AI Sales Assistant</div>
-                    <div class="day-desc">BDR tool kickoff</div>
-                </div>
-                <div class="day-card" onclick="toggleComplete(this)">
-                    <div class="day-label build">Day 11</div>
-                    <div class="day-title">Project 2: Ship It</div>
-                    <div class="day-desc">Complete and polish</div>
-                </div>
-                <div class="day-card" onclick="toggleComplete(this)">
-                    <div class="day-label learn">Day 12</div>
-                    <div class="day-title">MCP Deep Dive + Enterprise</div>
-                    <div class="day-desc">Model Context Protocol</div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Week 3: Integrate -->
-        <div class="week-section">
-            <div class="week-header">
-                <div class="week-icon integrate">🔗</div>
-                <div>
-                    <div class="week-title">Integrate</div>
-                    <div class="week-subtitle">Week 3 · Day 13-18</div>
-                </div>
-                <div class="week-progress">0%</div>
-            </div>
-            <div class="day-grid">
-                <div class="day-card" onclick="toggleComplete(this)">
-                    <div class="day-label build">Day 13</div>
-                    <div class="day-title">Cowork Exploration</div>
-                    <div class="day-desc">Multi-agent workflows</div>
-                </div>
-                <div class="day-card" onclick="toggleComplete(this)">
-                    <div class="day-label build">Day 14</div>
-                    <div class="day-title">Project 3: Partner Playbook</div>
-                    <div class="day-desc">GTM strategy kickoff</div>
-                </div>
-                <div class="day-card" onclick="toggleComplete(this)">
-                    <div class="day-label build">Day 15</div>
-                    <div class="day-title">Project 3: Ship + Website Start</div>
-                    <div class="day-desc">Portfolio foundation</div>
-                </div>
-                <div class="day-card" onclick="toggleComplete(this)">
-                    <div class="day-label write">Day 16</div>
-                    <div class="day-title">Website Polish + Content</div>
-                    <div class="day-desc">Refine and write</div>
-                </div>
-                <div class="day-card" onclick="toggleComplete(this)">
-                    <div class="day-label learn">Day 17</div>
-                    <div class="day-title">Enterprise Depth Day</div>
-                    <div class="day-desc">Security, compliance, scale</div>
-                </div>
-                <div class="day-card" onclick="toggleComplete(this)">
-                    <div class="day-label build">Day 18</div>
-                    <div class="day-title">Consolidation + App Prep</div>
-                    <div class="day-desc">Review and prepare</div>
-                </div>
-            </div>
-        </div>
+            <div id="dayDetailsContainer">
+                <!-- Day 1 -->
+                <div class="day-detail" data-day="1">
+                    <div class="day-detail-header">
+                        <h2>Day 1: Meet Claude Properly</h2>
+                        <span class="day-type-badge learn">LEARN</span>
+                    </div>
 
-        <!-- Week 4: Launch -->
-        <div class="week-section">
-            <div class="week-header">
-                <div class="week-icon launch">🚀</div>
-                <div>
-                    <div class="week-title">Launch</div>
-                    <div class="week-subtitle">Week 4 · Day 19-24</div>
-                </div>
-                <div class="week-progress">0%</div>
-            </div>
-            <div class="day-grid">
-                <div class="day-card" onclick="toggleComplete(this)">
-                    <div class="day-label write">Day 19</div>
-                    <div class="day-title">LinkedIn Launch</div>
-                    <div class="day-desc">Public announcement</div>
-                </div>
-                <div class="day-card" onclick="toggleComplete(this)">
-                    <div class="day-label write">Day 20</div>
-                    <div class="day-title">Outreach + Content</div>
-                    <div class="day-desc">Connect and share</div>
-                </div>
-                <div class="day-card" onclick="toggleComplete(this)">
-                    <div class="day-label learn">Day 21</div>
-                    <div class="day-title">Advanced Claude Features</div>
-                    <div class="day-desc">Computer use, artifacts</div>
-                </div>
-                <div class="day-card" onclick="toggleComplete(this)">
-                    <div class="day-label learn">Day 22</div>
-                    <div class="day-title">Competitive Intelligence</div>
-                    <div class="day-desc">GPT vs Claude vs Gemini</div>
-                </div>
-                <div class="day-card" onclick="toggleComplete(this)">
-                    <div class="day-label write">Day 23</div>
-                    <div class="day-title">Interview Prep</div>
-                    <div class="day-desc">Stories, practice, research</div>
-                </div>
-                <div class="day-card" onclick="toggleComplete(this)">
-                    <div class="day-label write">Day 24</div>
-                    <div class="day-title">Final Polish + What's Next</div>
-                    <div class="day-desc">Ship and celebrate</div>
-                </div>
-            </div>
-        </div>
+                    <div class="day-objective">
+                        <h3>Learning Objective</h3>
+                        <p>Understand Claude's architecture, character, and how it differs from other LLMs. Learn to write effective system prompts that shape Claude's behavior for specific use cases.</p>
+                    </div>
 
-        <div class="legend">
-            <div class="legend-item">
-                <div class="legend-dot learn"></div>
-                <span>LEARN (blue)</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-dot build"></div>
-                <span>BUILD (green)</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-dot write"></div>
-                <span>WRITE (amber)</span>
+                    <div class="blocks-section">
+                        <h3>Learning Blocks <span class="time-estimate">~3 hours total</span></h3>
+
+                        <div class="block-item">
+                            <h4><span class="block-number">1</span> Claude's Character (45 min)</h4>
+                            <p>Read Anthropic's official documentation on Claude's character and values. Understand what makes Claude different - the emphasis on being helpful, harmless, and honest.</p>
+                            <div class="resources-grid">
+                                <a href="https://docs.anthropic.com/en/docs/about-claude/claude-is" target="_blank" class="resource-link">
+                                    <span class="icon"></span> Claude's Character
+                                </a>
+                                <a href="https://www.anthropic.com/research/claude-character" target="_blank" class="resource-link">
+                                    <span class="icon"></span> Character Research Paper
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="block-item">
+                            <h4><span class="block-number">2</span> System Prompts Deep Dive (45 min)</h4>
+                            <p>Learn how system prompts work and how to craft them effectively. Understand the difference between system prompts and user messages.</p>
+                            <ul>
+                                <li>System prompt structure and best practices</li>
+                                <li>Setting tone, style, and constraints</li>
+                                <li>Role-playing and persona creation</li>
+                            </ul>
+                            <div class="resources-grid">
+                                <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching#system-prompts" target="_blank" class="resource-link">
+                                    <span class="icon"></span> System Prompt Guide
+                                </a>
+                                <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview" target="_blank" class="resource-link">
+                                    <span class="icon"></span> Prompt Engineering
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="block-item">
+                            <h4><span class="block-number">3</span> Hands-On Practice (45 min)</h4>
+                            <p>Create 3 different system prompts for different use cases:</p>
+                            <ul>
+                                <li>A technical documentation writer</li>
+                                <li>A sales discovery call assistant</li>
+                                <li>A code review expert</li>
+                            </ul>
+                        </div>
+
+                        <div class="block-item">
+                            <h4><span class="block-number">4</span> Constitutional AI (45 min)</h4>
+                            <p>Understand how Claude is trained differently - Constitutional AI and RLHF. This is Anthropic's key differentiator.</p>
+                            <div class="resources-grid">
+                                <a href="https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback" target="_blank" class="resource-link">
+                                    <span class="icon"></span> Constitutional AI Paper
+                                </a>
+                                <a href="https://www.anthropic.com/news/claudes-constitution" target="_blank" class="resource-link">
+                                    <span class="icon"></span> Claude's Constitution
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="deliverable-section">
+                        <h3>Day Deliverable</h3>
+                        <p>Create a document with 3 polished system prompts. Test each in Claude.ai and note what works well vs needs refinement. Save these for your portfolio.</p>
+                    </div>
+
+                    <button class="mark-complete-btn" onclick="toggleDayComplete(1)">Mark Day Complete</button>
+                </div>
+
+                <!-- Day 2 -->
+                <div class="day-detail" data-day="2">
+                    <div class="day-detail-header">
+                        <h2>Day 2: Prompting is the Product</h2>
+                        <span class="day-type-badge learn">LEARN</span>
+                    </div>
+
+                    <div class="day-objective">
+                        <h3>Learning Objective</h3>
+                        <p>Master advanced prompting techniques. Learn chain-of-thought, few-shot learning, and structured outputs. Understand how to get consistent, high-quality results.</p>
+                    </div>
+
+                    <div class="blocks-section">
+                        <h3>Learning Blocks <span class="time-estimate">~3.5 hours total</span></h3>
+
+                        <div class="block-item">
+                            <h4><span class="block-number">1</span> Chain-of-Thought Prompting (45 min)</h4>
+                            <p>Learn how to make Claude "think out loud" for better reasoning on complex tasks.</p>
+                            <ul>
+                                <li>When to use CoT vs direct answers</li>
+                                <li>Structuring reasoning steps</li>
+                                <li>Using XML tags for clarity</li>
+                            </ul>
+                            <div class="resources-grid">
+                                <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/chain-of-thought" target="_blank" class="resource-link">
+                                    <span class="icon"></span> Chain of Thought Guide
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="block-item">
+                            <h4><span class="block-number">2</span> Few-Shot Learning (45 min)</h4>
+                            <p>Learn to provide examples that shape Claude's output format and style.</p>
+                            <ul>
+                                <li>Selecting effective examples</li>
+                                <li>Example formatting best practices</li>
+                                <li>When few-shot beats zero-shot</li>
+                            </ul>
+                            <div class="resources-grid">
+                                <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/multishot-prompting" target="_blank" class="resource-link">
+                                    <span class="icon"></span> Multishot Prompting
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="block-item">
+                            <h4><span class="block-number">3</span> Structured Outputs (45 min)</h4>
+                            <p>Get Claude to output JSON, XML, and other structured formats reliably.</p>
+                            <ul>
+                                <li>JSON mode and when to use it</li>
+                                <li>XML tags for complex structures</li>
+                                <li>Validation and error handling</li>
+                            </ul>
+                            <div class="resources-grid">
+                                <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags" target="_blank" class="resource-link">
+                                    <span class="icon"></span> XML Tags Guide
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="block-item">
+                            <h4><span class="block-number">4</span> Prompt Library Study (60 min)</h4>
+                            <p>Study Anthropic's official prompt library. Analyze what makes these prompts effective.</p>
+                            <div class="resources-grid">
+                                <a href="https://docs.anthropic.com/en/prompt-library" target="_blank" class="resource-link">
+                                    <span class="icon"></span> Anthropic Prompt Library
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="deliverable-section">
+                        <h3>Day Deliverable</h3>
+                        <p>Create a "Prompt Playbook" with 5 reusable prompts for common sales tasks: discovery call prep, objection handling, email drafting, competitive analysis, and account research.</p>
+                    </div>
+
+                    <button class="mark-complete-btn" onclick="toggleDayComplete(2)">Mark Day Complete</button>
+                </div>
+
+                <!-- Day 3 -->
+                <div class="day-detail" data-day="3">
+                    <div class="day-detail-header">
+                        <h2>Day 3: Console + API Basics</h2>
+                        <span class="day-type-badge build">BUILD</span>
+                    </div>
+
+                    <div class="day-objective">
+                        <h3>Learning Objective</h3>
+                        <p>Get hands-on with the Anthropic Console and make your first API calls. Understand the developer experience and what customers will be working with.</p>
+                    </div>
+
+                    <div class="blocks-section">
+                        <h3>Learning Blocks <span class="time-estimate">~3 hours total</span></h3>
+
+                        <div class="block-item">
+                            <h4><span class="block-number">1</span> Console Exploration (45 min)</h4>
+                            <p>Set up your Anthropic Console account and explore all features.</p>
+                            <ul>
+                                <li>Account setup and API key management</li>
+                                <li>Workbench exploration</li>
+                                <li>Model selection and parameters</li>
+                            </ul>
+                            <div class="resources-grid">
+                                <a href="https://console.anthropic.com/" target="_blank" class="resource-link">
+                                    <span class="icon"></span> Anthropic Console
+                                </a>
+                                <a href="https://docs.anthropic.com/en/docs/initial-setup" target="_blank" class="resource-link">
+                                    <span class="icon"></span> Getting Started
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="block-item">
+                            <h4><span class="block-number">2</span> First API Call (45 min)</h4>
+                            <p>Make your first API call using curl or the SDK.</p>
+                            <ul>
+                                <li>Authentication and headers</li>
+                                <li>Request/response structure</li>
+                                <li>Understanding tokens and pricing</li>
+                            </ul>
+                            <div class="resources-grid">
+                                <a href="https://docs.anthropic.com/en/api/getting-started" target="_blank" class="resource-link">
+                                    <span class="icon"></span> API Quickstart
+                                </a>
+                                <a href="https://docs.anthropic.com/en/docs/about-claude/models" target="_blank" class="resource-link">
+                                    <span class="icon"></span> Models & Pricing
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="block-item">
+                            <h4><span class="block-number">3</span> Workbench Deep Dive (45 min)</h4>
+                            <p>Use the Workbench to test prompts, compare models, and export code.</p>
+                            <ul>
+                                <li>Testing different models</li>
+                                <li>Temperature and parameter tuning</li>
+                                <li>Exporting to code</li>
+                            </ul>
+                        </div>
+
+                        <div class="block-item">
+                            <h4><span class="block-number">4</span> Build Something Simple (45 min)</h4>
+                            <p>Build a simple script that calls the API to do something useful - email summarizer, meeting notes generator, etc.</p>
+                        </div>
+                    </div>
+
+                    <div class="deliverable-section">
+                        <h3>Day Deliverable</h3>
+                        <p>A working script that calls the Claude API. Screenshot your Console dashboard showing API usage. Document any friction points you encountered - these are customer objections you'll need to handle.</p>
+                    </div>
+
+                    <button class="mark-complete-btn" onclick="toggleDayComplete(3)">Mark Day Complete</button>
+                </div>
+
+                <!-- Day 4 -->
+                <div class="day-detail" data-day="4">
+                    <div class="day-detail-header">
+                        <h2>Day 4: API Deep Dive</h2>
+                        <span class="day-type-badge learn">LEARN</span>
+                    </div>
+
+                    <div class="day-objective">
+                        <h3>Learning Objective</h3>
+                        <p>Master advanced API features: streaming, tool use, vision, and extended thinking. These are the features that unlock real production use cases.</p>
+                    </div>
+
+                    <div class="blocks-section">
+                        <h3>Learning Blocks <span class="time-estimate">~4 hours total</span></h3>
+
+                        <div class="block-item">
+                            <h4><span class="block-number">1</span> Streaming Responses (45 min)</h4>
+                            <p>Implement streaming for better UX in production applications.</p>
+                            <div class="resources-grid">
+                                <a href="https://docs.anthropic.com/en/api/streaming" target="_blank" class="resource-link">
+                                    <span class="icon"></span> Streaming Guide
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="block-item">
+                            <h4><span class="block-number">2</span> Tool Use / Function Calling (60 min)</h4>
+                            <p>Learn how Claude can call external tools and APIs - this is key for agentic use cases.</p>
+                            <ul>
+                                <li>Defining tools with JSON schemas</li>
+                                <li>Handling tool calls and responses</li>
+                                <li>Multi-turn tool conversations</li>
+                            </ul>
+                            <div class="resources-grid">
+                                <a href="https://docs.anthropic.com/en/docs/build-with-claude/tool-use/overview" target="_blank" class="resource-link">
+                                    <span class="icon"></span> Tool Use Overview
+                                </a>
+                                <a href="https://docs.anthropic.com/en/docs/build-with-claude/tool-use/tool-use-examples" target="_blank" class="resource-link">
+                                    <span class="icon"></span> Tool Use Examples
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="block-item">
+                            <h4><span class="block-number">3</span> Vision Capabilities (45 min)</h4>
+                            <p>Explore Claude's ability to understand images - diagrams, screenshots, documents.</p>
+                            <div class="resources-grid">
+                                <a href="https://docs.anthropic.com/en/docs/build-with-claude/vision" target="_blank" class="resource-link">
+                                    <span class="icon"></span> Vision Guide
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="block-item">
+                            <h4><span class="block-number">4</span> Extended Thinking (60 min)</h4>
+                            <p>Understand Claude's extended thinking mode for complex reasoning tasks.</p>
+                            <div class="resources-grid">
+                                <a href="https://docs.anthropic.com/en/docs/build-with-claude/extended-thinking" target="_blank" class="resource-link">
+                                    <span class="icon"></span> Extended Thinking
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="deliverable-section">
+                        <h3>Day Deliverable</h3>
+                        <p>Build a small demo that uses at least one advanced feature (tool use, vision, or streaming). This becomes a talking point in customer conversations.</p>
+                    </div>
+
+                    <button class="mark-complete-btn" onclick="toggleDayComplete(4)">Mark Day Complete</button>
+                </div>
+
+                <!-- Day 5 -->
+                <div class="day-detail" data-day="5">
+                    <div class="day-detail-header">
+                        <h2>Day 5: Claude Code Mastery</h2>
+                        <span class="day-type-badge build">BUILD</span>
+                    </div>
+
+                    <div class="day-objective">
+                        <h3>Learning Objective</h3>
+                        <p>Become proficient with Claude Code - the terminal-based coding assistant. Learn agentic workflows and how to build real applications with AI assistance.</p>
+                    </div>
+
+                    <div class="blocks-section">
+                        <h3>Learning Blocks <span class="time-estimate">~4 hours total</span></h3>
+
+                        <div class="block-item">
+                            <h4><span class="block-number">1</span> Claude Code Setup (30 min)</h4>
+                            <p>Install and configure Claude Code. Understand the terminal workflow.</p>
+                            <div class="resources-grid">
+                                <a href="https://docs.anthropic.com/en/docs/claude-code" target="_blank" class="resource-link">
+                                    <span class="icon"></span> Claude Code Docs
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="block-item">
+                            <h4><span class="block-number">2</span> Basic Workflows (60 min)</h4>
+                            <p>Learn the core Claude Code workflows:</p>
+                            <ul>
+                                <li>Code generation and editing</li>
+                                <li>File management and navigation</li>
+                                <li>Running commands and tests</li>
+                                <li>Understanding context and memory</li>
+                            </ul>
+                        </div>
+
+                        <div class="block-item">
+                            <h4><span class="block-number">3</span> Agentic Coding (90 min)</h4>
+                            <p>Let Claude Code handle complex, multi-step tasks autonomously.</p>
+                            <ul>
+                                <li>Planning and executing multi-file changes</li>
+                                <li>Debugging and fixing issues</li>
+                                <li>Refactoring codebases</li>
+                            </ul>
+                        </div>
+
+                        <div class="block-item">
+                            <h4><span class="block-number">4</span> Build a Tool (60 min)</h4>
+                            <p>Use Claude Code to build a small but complete utility - a CLI tool, a simple web scraper, or a data processor.</p>
+                        </div>
+                    </div>
+
+                    <div class="deliverable-section">
+                        <h3>Day Deliverable</h3>
+                        <p>A working utility built entirely with Claude Code assistance. Document your workflow - what prompts worked, where you needed to guide Claude, what surprised you.</p>
+                    </div>
+
+                    <button class="mark-complete-btn" onclick="toggleDayComplete(5)">Mark Day Complete</button>
+                </div>
+
+                <!-- Day 6 -->
+                <div class="day-detail" data-day="6">
+                    <div class="day-detail-header">
+                        <h2>Day 6: DeepLearning.AI Course</h2>
+                        <span class="day-type-badge learn">LEARN</span>
+                    </div>
+
+                    <div class="day-objective">
+                        <h3>Learning Objective</h3>
+                        <p>Complete the official DeepLearning.AI course on Claude. Consolidate Week 1 learnings and earn your first certificate.</p>
+                    </div>
+
+                    <div class="blocks-section">
+                        <h3>Learning Blocks <span class="time-estimate">~4 hours total</span></h3>
+
+                        <div class="block-item">
+                            <h4><span class="block-number">1</span> DeepLearning.AI Course (3 hours)</h4>
+                            <p>Complete the full "Prompt Engineering with Claude" course.</p>
+                            <div class="resources-grid">
+                                <a href="https://www.deeplearning.ai/short-courses/prompt-engineering-with-anthropic-claude/" target="_blank" class="resource-link">
+                                    <span class="icon"></span> Prompt Engineering Course
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="block-item">
+                            <h4><span class="block-number">2</span> Week 1 Consolidation (60 min)</h4>
+                            <p>Review everything from Days 1-5:</p>
+                            <ul>
+                                <li>Organize notes and resources</li>
+                                <li>Test yourself on key concepts</li>
+                                <li>Identify gaps for further learning</li>
+                                <li>Update your prompt playbook</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="deliverable-section">
+                        <h3>Day Deliverable</h3>
+                        <p>DeepLearning.AI course completion certificate. A "Week 1 Summary" document with key learnings and your updated prompt playbook.</p>
+                    </div>
+
+                    <button class="mark-complete-btn" onclick="toggleDayComplete(6)">Mark Day Complete</button>
+                </div>
+
+                <!-- Day 7-24: Abbreviated for space, following same structure -->
+                <div class="day-detail" data-day="7">
+                    <div class="day-detail-header">
+                        <h2>Day 7: Project 1 - ASEAN AI Map</h2>
+                        <span class="day-type-badge build">BUILD</span>
+                    </div>
+                    <div class="day-objective">
+                        <h3>Learning Objective</h3>
+                        <p>Start building a real project: an interactive ASEAN digital native ecosystem map. Plan architecture and gather data.</p>
+                    </div>
+                    <div class="blocks-section">
+                        <h3>Learning Blocks</h3>
+                        <div class="block-item">
+                            <h4><span class="block-number">1</span> Project Planning (60 min)</h4>
+                            <p>Define the scope: what accounts, what data, what filters. Use Claude to help brainstorm the architecture.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">2</span> Data Gathering (90 min)</h4>
+                            <p>Research SEA digital natives. Use Claude to help structure and validate the data.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">3</span> Architecture Design (60 min)</h4>
+                            <p>Design the HTML/CSS/JS structure. Keep it simple - no frameworks.</p>
+                        </div>
+                    </div>
+                    <div class="deliverable-section">
+                        <h3>Day Deliverable</h3>
+                        <p>Project spec document. Account data in structured format. Basic HTML skeleton.</p>
+                    </div>
+                    <button class="mark-complete-btn" onclick="toggleDayComplete(7)">Mark Day Complete</button>
+                </div>
+
+                <div class="day-detail" data-day="8">
+                    <div class="day-detail-header">
+                        <h2>Day 8: Project 1 - Ship It</h2>
+                        <span class="day-type-badge build">BUILD</span>
+                    </div>
+                    <div class="day-objective">
+                        <h3>Learning Objective</h3>
+                        <p>Complete and deploy the ASEAN map. Learn to ship fast and iterate.</p>
+                    </div>
+                    <div class="blocks-section">
+                        <h3>Learning Blocks</h3>
+                        <div class="block-item">
+                            <h4><span class="block-number">1</span> Build Core Features (2 hours)</h4>
+                            <p>Implement filtering, account cards, and country selection using Claude Code.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">2</span> Polish & Test (60 min)</h4>
+                            <p>Mobile responsiveness, visual refinements, cross-browser testing.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">3</span> Deploy (30 min)</h4>
+                            <p>Deploy to GitHub Pages or similar. Make it live.</p>
+                        </div>
+                    </div>
+                    <div class="deliverable-section">
+                        <h3>Day Deliverable</h3>
+                        <p>Live, working ASEAN ecosystem map. Share the URL!</p>
+                    </div>
+                    <button class="mark-complete-btn" onclick="toggleDayComplete(8)">Mark Day Complete</button>
+                </div>
+
+                <div class="day-detail" data-day="9">
+                    <div class="day-detail-header">
+                        <h2>Day 9: Claude on Vertex AI</h2>
+                        <span class="day-type-badge learn">LEARN</span>
+                    </div>
+                    <div class="day-objective">
+                        <h3>Learning Objective</h3>
+                        <p>Understand how Claude works on Google Cloud's Vertex AI. This is critical for enterprise sales.</p>
+                    </div>
+                    <div class="blocks-section">
+                        <h3>Learning Blocks</h3>
+                        <div class="block-item">
+                            <h4><span class="block-number">1</span> Vertex AI Overview (45 min)</h4>
+                            <div class="resources-grid">
+                                <a href="https://cloud.google.com/vertex-ai/generative-ai/docs/partner-models/use-claude" target="_blank" class="resource-link">
+                                    <span class="icon"></span> Claude on Vertex AI
+                                </a>
+                            </div>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">2</span> Enterprise Features (60 min)</h4>
+                            <p>VPC-SC, private endpoints, data residency, IAM integration.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">3</span> Pricing & Comparison (45 min)</h4>
+                            <p>Understand pricing differences vs direct API. When to recommend each.</p>
+                        </div>
+                    </div>
+                    <div class="deliverable-section">
+                        <h3>Day Deliverable</h3>
+                        <p>One-pager: "When to use Claude direct API vs Vertex AI" - this becomes a sales asset.</p>
+                    </div>
+                    <button class="mark-complete-btn" onclick="toggleDayComplete(9)">Mark Day Complete</button>
+                </div>
+
+                <div class="day-detail" data-day="10">
+                    <div class="day-detail-header">
+                        <h2>Day 10: Project 2 - Sales Assistant</h2>
+                        <span class="day-type-badge build">BUILD</span>
+                    </div>
+                    <div class="day-objective">
+                        <h3>Learning Objective</h3>
+                        <p>Start building a DN Sales Assistant - account database, outreach generator, and playbooks.</p>
+                    </div>
+                    <div class="blocks-section">
+                        <h3>Learning Blocks</h3>
+                        <div class="block-item">
+                            <h4><span class="block-number">1</span> Feature Scoping (45 min)</h4>
+                            <p>Define MVP: account discovery, outreach generation, playbooks.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">2</span> Data Structure (45 min)</h4>
+                            <p>Design the account and contact data model.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">3</span> Core Build (90 min)</h4>
+                            <p>Build the account discovery tab with filtering.</p>
+                        </div>
+                    </div>
+                    <div class="deliverable-section">
+                        <h3>Day Deliverable</h3>
+                        <p>Working account discovery feature with filtering and LinkedIn integration.</p>
+                    </div>
+                    <button class="mark-complete-btn" onclick="toggleDayComplete(10)">Mark Day Complete</button>
+                </div>
+
+                <div class="day-detail" data-day="11">
+                    <div class="day-detail-header">
+                        <h2>Day 11: Project 2 - Ship It</h2>
+                        <span class="day-type-badge build">BUILD</span>
+                    </div>
+                    <div class="day-objective">
+                        <h3>Learning Objective</h3>
+                        <p>Complete the Sales Assistant with outreach generation and playbooks.</p>
+                    </div>
+                    <div class="blocks-section">
+                        <h3>Learning Blocks</h3>
+                        <div class="block-item">
+                            <h4><span class="block-number">1</span> Outreach Generator (90 min)</h4>
+                            <p>Build the LinkedIn message generator with contact selection and value prop customization.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">2</span> Playbooks Tab (60 min)</h4>
+                            <p>Create expandable playbook cards for OpenAI displacement, fintech, healthtech.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">3</span> Polish & Ship (60 min)</h4>
+                            <p>Final touches and deployment.</p>
+                        </div>
+                    </div>
+                    <div class="deliverable-section">
+                        <h3>Day Deliverable</h3>
+                        <p>Complete, deployed Sales Assistant tool.</p>
+                    </div>
+                    <button class="mark-complete-btn" onclick="toggleDayComplete(11)">Mark Day Complete</button>
+                </div>
+
+                <div class="day-detail" data-day="12">
+                    <div class="day-detail-header">
+                        <h2>Day 12: MCP Deep Dive</h2>
+                        <span class="day-type-badge learn">LEARN</span>
+                    </div>
+                    <div class="day-objective">
+                        <h3>Learning Objective</h3>
+                        <p>Master Model Context Protocol - Anthropic's standard for connecting Claude to external systems.</p>
+                    </div>
+                    <div class="blocks-section">
+                        <h3>Learning Blocks</h3>
+                        <div class="block-item">
+                            <h4><span class="block-number">1</span> MCP Fundamentals (60 min)</h4>
+                            <div class="resources-grid">
+                                <a href="https://www.anthropic.com/news/model-context-protocol" target="_blank" class="resource-link">
+                                    <span class="icon"></span> MCP Announcement
+                                </a>
+                                <a href="https://modelcontextprotocol.io/" target="_blank" class="resource-link">
+                                    <span class="icon"></span> MCP Documentation
+                                </a>
+                            </div>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">2</span> MCP Servers (60 min)</h4>
+                            <p>Explore existing MCP servers: filesystem, GitHub, Slack, databases.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">3</span> Building Custom MCP (90 min)</h4>
+                            <p>Build a simple MCP server that connects to a data source of your choice.</p>
+                        </div>
+                    </div>
+                    <div class="deliverable-section">
+                        <h3>Day Deliverable</h3>
+                        <p>Working MCP integration. Document use cases for enterprise customers.</p>
+                    </div>
+                    <button class="mark-complete-btn" onclick="toggleDayComplete(12)">Mark Day Complete</button>
+                </div>
+
+                <!-- Days 13-24 with similar structure -->
+                <div class="day-detail" data-day="13">
+                    <div class="day-detail-header">
+                        <h2>Day 13: Cowork Exploration</h2>
+                        <span class="day-type-badge build">BUILD</span>
+                    </div>
+                    <div class="day-objective">
+                        <h3>Learning Objective</h3>
+                        <p>Learn multi-agent orchestration with Claude Code's Cowork feature.</p>
+                    </div>
+                    <div class="blocks-section">
+                        <h3>Learning Blocks</h3>
+                        <div class="block-item">
+                            <h4><span class="block-number">1</span> Cowork Basics (60 min)</h4>
+                            <p>Set up multiple agents working in parallel on different tasks.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">2</span> Parallel Development (90 min)</h4>
+                            <p>Build two features simultaneously with different agents.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">3</span> Coordination Patterns (60 min)</h4>
+                            <p>Learn how to coordinate between agents and merge their work.</p>
+                        </div>
+                    </div>
+                    <div class="deliverable-section">
+                        <h3>Day Deliverable</h3>
+                        <p>Document your cowork workflow. Note productivity gains and challenges.</p>
+                    </div>
+                    <button class="mark-complete-btn" onclick="toggleDayComplete(13)">Mark Day Complete</button>
+                </div>
+
+                <div class="day-detail" data-day="14">
+                    <div class="day-detail-header">
+                        <h2>Day 14: Project 3 - GTM Playbook</h2>
+                        <span class="day-type-badge build">BUILD</span>
+                    </div>
+                    <div class="day-objective">
+                        <h3>Learning Objective</h3>
+                        <p>Create a comprehensive SEA GTM strategy document using Claude as a strategic thinking partner.</p>
+                    </div>
+                    <div class="blocks-section">
+                        <h3>Learning Blocks</h3>
+                        <div class="block-item">
+                            <h4><span class="block-number">1</span> Market Analysis (90 min)</h4>
+                            <p>Use Claude to analyze SEA markets: Singapore, Indonesia, Vietnam, Thailand, Philippines, Malaysia.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">2</span> Competitive Positioning (60 min)</h4>
+                            <p>Define positioning vs OpenAI, Google, Azure in the SEA context.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">3</span> 90-Day Plan (60 min)</h4>
+                            <p>Create a concrete first-90-days plan for an Anthropic AE in Singapore.</p>
+                        </div>
+                    </div>
+                    <div class="deliverable-section">
+                        <h3>Day Deliverable</h3>
+                        <p>Complete GTM strategy page for your portfolio.</p>
+                    </div>
+                    <button class="mark-complete-btn" onclick="toggleDayComplete(14)">Mark Day Complete</button>
+                </div>
+
+                <div class="day-detail" data-day="15">
+                    <div class="day-detail-header">
+                        <h2>Day 15: Portfolio Foundation</h2>
+                        <span class="day-type-badge build">BUILD</span>
+                    </div>
+                    <div class="day-objective">
+                        <h3>Learning Objective</h3>
+                        <p>Build the main portfolio website structure.</p>
+                    </div>
+                    <div class="blocks-section">
+                        <h3>Learning Blocks</h3>
+                        <div class="block-item">
+                            <h4><span class="block-number">1</span> Information Architecture (45 min)</h4>
+                            <p>Plan the site structure, navigation, and content hierarchy.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">2</span> Design System (60 min)</h4>
+                            <p>Define colors, typography, and component patterns. Align with Anthropic brand.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">3</span> Build Homepage (90 min)</h4>
+                            <p>Create the main landing page with hero, experience, and projects sections.</p>
+                        </div>
+                    </div>
+                    <div class="deliverable-section">
+                        <h3>Day Deliverable</h3>
+                        <p>Working homepage with navigation to all portfolio pieces.</p>
+                    </div>
+                    <button class="mark-complete-btn" onclick="toggleDayComplete(15)">Mark Day Complete</button>
+                </div>
+
+                <div class="day-detail" data-day="16">
+                    <div class="day-detail-header">
+                        <h2>Day 16: Content Creation</h2>
+                        <span class="day-type-badge write">WRITE</span>
+                    </div>
+                    <div class="day-objective">
+                        <h3>Learning Objective</h3>
+                        <p>Create compelling content - blog post, case studies, and "Why Anthropic" page.</p>
+                    </div>
+                    <div class="blocks-section">
+                        <h3>Learning Blocks</h3>
+                        <div class="block-item">
+                            <h4><span class="block-number">1</span> Writing Style Analysis (45 min)</h4>
+                            <p>Have Claude analyze your writing across documents. Create your "writing DNA".</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">2</span> Blog Post (90 min)</h4>
+                            <p>Write "What I Learned Building with Claude Code" - genuine, helpful, not salesy.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">3</span> Why Anthropic Page (60 min)</h4>
+                            <p>Create the mission alignment page. Show don't tell.</p>
+                        </div>
+                    </div>
+                    <div class="deliverable-section">
+                        <h3>Day Deliverable</h3>
+                        <p>Published blog post and Why Anthropic page.</p>
+                    </div>
+                    <button class="mark-complete-btn" onclick="toggleDayComplete(16)">Mark Day Complete</button>
+                </div>
+
+                <div class="day-detail" data-day="17">
+                    <div class="day-detail-header">
+                        <h2>Day 17: Enterprise Deep Dive</h2>
+                        <span class="day-type-badge learn">LEARN</span>
+                    </div>
+                    <div class="day-objective">
+                        <h3>Learning Objective</h3>
+                        <p>Understand enterprise requirements: security, compliance, scale, procurement.</p>
+                    </div>
+                    <div class="blocks-section">
+                        <h3>Learning Blocks</h3>
+                        <div class="block-item">
+                            <h4><span class="block-number">1</span> Security & Compliance (60 min)</h4>
+                            <p>SOC 2, GDPR, data handling, security whitepapers.</p>
+                            <div class="resources-grid">
+                                <a href="https://www.anthropic.com/trust-center" target="_blank" class="resource-link">
+                                    <span class="icon"></span> Anthropic Trust Center
+                                </a>
+                            </div>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">2</span> Enterprise Features (60 min)</h4>
+                            <p>Admin controls, usage analytics, team management, SSO.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">3</span> Procurement Patterns (45 min)</h4>
+                            <p>How enterprises buy: direct, marketplace, partner. Common objections.</p>
+                        </div>
+                    </div>
+                    <div class="deliverable-section">
+                        <h3>Day Deliverable</h3>
+                        <p>Enterprise FAQ document addressing common security and compliance questions.</p>
+                    </div>
+                    <button class="mark-complete-btn" onclick="toggleDayComplete(17)">Mark Day Complete</button>
+                </div>
+
+                <div class="day-detail" data-day="18">
+                    <div class="day-detail-header">
+                        <h2>Day 18: Consolidation</h2>
+                        <span class="day-type-badge build">BUILD</span>
+                    </div>
+                    <div class="day-objective">
+                        <h3>Learning Objective</h3>
+                        <p>Review all learnings, polish deliverables, prepare for the launch phase.</p>
+                    </div>
+                    <div class="blocks-section">
+                        <h3>Learning Blocks</h3>
+                        <div class="block-item">
+                            <h4><span class="block-number">1</span> Portfolio Review (60 min)</h4>
+                            <p>Test all pages, fix bugs, ensure consistent navigation.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">2</span> Knowledge Review (60 min)</h4>
+                            <p>Review notes, fill gaps, prepare talking points.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">3</span> GitHub Setup (45 min)</h4>
+                            <p>Clean repository, good README, GitHub Pages deployment.</p>
+                        </div>
+                    </div>
+                    <div class="deliverable-section">
+                        <h3>Day Deliverable</h3>
+                        <p>Polished portfolio ready for public launch. Clean GitHub repo.</p>
+                    </div>
+                    <button class="mark-complete-btn" onclick="toggleDayComplete(18)">Mark Day Complete</button>
+                </div>
+
+                <div class="day-detail" data-day="19">
+                    <div class="day-detail-header">
+                        <h2>Day 19: LinkedIn Launch</h2>
+                        <span class="day-type-badge write">WRITE</span>
+                    </div>
+                    <div class="day-objective">
+                        <h3>Learning Objective</h3>
+                        <p>Launch your portfolio publicly. Share your journey and learnings.</p>
+                    </div>
+                    <div class="blocks-section">
+                        <h3>Learning Blocks</h3>
+                        <div class="block-item">
+                            <h4><span class="block-number">1</span> Launch Post (60 min)</h4>
+                            <p>Write a compelling LinkedIn post about building with Claude Code. Focus on learnings, not self-promotion.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">2</span> Network Activation (45 min)</h4>
+                            <p>Share with relevant communities, tag appropriately, engage with comments.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">3</span> Profile Update (30 min)</h4>
+                            <p>Update LinkedIn profile to reflect your Claude expertise.</p>
+                        </div>
+                    </div>
+                    <div class="deliverable-section">
+                        <h3>Day Deliverable</h3>
+                        <p>Published LinkedIn post. Updated profile.</p>
+                    </div>
+                    <button class="mark-complete-btn" onclick="toggleDayComplete(19)">Mark Day Complete</button>
+                </div>
+
+                <div class="day-detail" data-day="20">
+                    <div class="day-detail-header">
+                        <h2>Day 20: Outreach Campaign</h2>
+                        <span class="day-type-badge write">WRITE</span>
+                    </div>
+                    <div class="day-objective">
+                        <h3>Learning Objective</h3>
+                        <p>Connect with Anthropic team members and share your work.</p>
+                    </div>
+                    <div class="blocks-section">
+                        <h3>Learning Blocks</h3>
+                        <div class="block-item">
+                            <h4><span class="block-number">1</span> Target Research (45 min)</h4>
+                            <p>Identify relevant Anthropic team members on LinkedIn. Focus on SEA/APAC, sales, and partnerships.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">2</span> Personalized Outreach (90 min)</h4>
+                            <p>Craft thoughtful, personalized connection requests. No generic templates.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">3</span> Follow-up Plan (30 min)</h4>
+                            <p>Plan follow-up touchpoints if no response.</p>
+                        </div>
+                    </div>
+                    <div class="deliverable-section">
+                        <h3>Day Deliverable</h3>
+                        <p>5-10 personalized outreach messages sent.</p>
+                    </div>
+                    <button class="mark-complete-btn" onclick="toggleDayComplete(20)">Mark Day Complete</button>
+                </div>
+
+                <div class="day-detail" data-day="21">
+                    <div class="day-detail-header">
+                        <h2>Day 21: Advanced Features</h2>
+                        <span class="day-type-badge learn">LEARN</span>
+                    </div>
+                    <div class="day-objective">
+                        <h3>Learning Objective</h3>
+                        <p>Explore cutting-edge features: computer use, artifacts, extended thinking in production.</p>
+                    </div>
+                    <div class="blocks-section">
+                        <h3>Learning Blocks</h3>
+                        <div class="block-item">
+                            <h4><span class="block-number">1</span> Computer Use (90 min)</h4>
+                            <p>Understand how Claude can control computers - use cases, limitations, safety.</p>
+                            <div class="resources-grid">
+                                <a href="https://docs.anthropic.com/en/docs/build-with-claude/computer-use" target="_blank" class="resource-link">
+                                    <span class="icon"></span> Computer Use Docs
+                                </a>
+                            </div>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">2</span> Artifacts (45 min)</h4>
+                            <p>Explore Claude's artifact system for code, visualizations, and documents.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">3</span> Production Patterns (60 min)</h4>
+                            <p>Learn about extended thinking budget, caching, and optimization.</p>
+                        </div>
+                    </div>
+                    <div class="deliverable-section">
+                        <h3>Day Deliverable</h3>
+                        <p>Demo or write-up of an advanced feature use case.</p>
+                    </div>
+                    <button class="mark-complete-btn" onclick="toggleDayComplete(21)">Mark Day Complete</button>
+                </div>
+
+                <div class="day-detail" data-day="22">
+                    <div class="day-detail-header">
+                        <h2>Day 22: Competitive Intelligence</h2>
+                        <span class="day-type-badge learn">LEARN</span>
+                    </div>
+                    <div class="day-objective">
+                        <h3>Learning Objective</h3>
+                        <p>Deep dive on competitive positioning: Claude vs GPT-4 vs Gemini.</p>
+                    </div>
+                    <div class="blocks-section">
+                        <h3>Learning Blocks</h3>
+                        <div class="block-item">
+                            <h4><span class="block-number">1</span> OpenAI Analysis (60 min)</h4>
+                            <p>GPT-4, GPT-4 Turbo, GPT-4o: strengths, weaknesses, pricing, positioning.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">2</span> Google Analysis (60 min)</h4>
+                            <p>Gemini Pro, Gemini Ultra: GCP integration, pricing, enterprise features.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">3</span> Battle Cards (60 min)</h4>
+                            <p>Create competitive battle cards for common scenarios.</p>
+                        </div>
+                    </div>
+                    <div class="deliverable-section">
+                        <h3>Day Deliverable</h3>
+                        <p>Competitive battle cards for OpenAI and Google.</p>
+                    </div>
+                    <button class="mark-complete-btn" onclick="toggleDayComplete(22)">Mark Day Complete</button>
+                </div>
+
+                <div class="day-detail" data-day="23">
+                    <div class="day-detail-header">
+                        <h2>Day 23: Interview Prep</h2>
+                        <span class="day-type-badge write">WRITE</span>
+                    </div>
+                    <div class="day-objective">
+                        <h3>Learning Objective</h3>
+                        <p>Prepare for Anthropic interviews: stories, research, practice.</p>
+                    </div>
+                    <div class="blocks-section">
+                        <h3>Learning Blocks</h3>
+                        <div class="block-item">
+                            <h4><span class="block-number">1</span> Story Preparation (90 min)</h4>
+                            <p>Prepare STAR stories for: biggest win, hardest loss, building something new, working with technical teams.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">2</span> Anthropic Deep Research (60 min)</h4>
+                            <p>Read recent Anthropic blog posts, research papers, and news. Know the company.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">3</span> Mock Practice (60 min)</h4>
+                            <p>Practice with Claude as interviewer. Get feedback on your answers.</p>
+                        </div>
+                    </div>
+                    <div class="deliverable-section">
+                        <h3>Day Deliverable</h3>
+                        <p>Interview prep document with polished stories and talking points.</p>
+                    </div>
+                    <button class="mark-complete-btn" onclick="toggleDayComplete(23)">Mark Day Complete</button>
+                </div>
+
+                <div class="day-detail" data-day="24">
+                    <div class="day-detail-header">
+                        <h2>Day 24: Final Polish</h2>
+                        <span class="day-type-badge write">WRITE</span>
+                    </div>
+                    <div class="day-objective">
+                        <h3>Learning Objective</h3>
+                        <p>Final review, ship everything, celebrate, plan what's next.</p>
+                    </div>
+                    <div class="blocks-section">
+                        <h3>Learning Blocks</h3>
+                        <div class="block-item">
+                            <h4><span class="block-number">1</span> Final Polish (60 min)</h4>
+                            <p>Last pass on all portfolio pieces. Fix any remaining issues.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">2</span> Documentation (45 min)</h4>
+                            <p>Document your journey: what you built, what you learned, what's next.</p>
+                        </div>
+                        <div class="block-item">
+                            <h4><span class="block-number">3</span> Celebration & Planning (30 min)</h4>
+                            <p>You did it! Plan your continued learning and next steps.</p>
+                        </div>
+                    </div>
+                    <div class="deliverable-section">
+                        <h3>Day Deliverable</h3>
+                        <p>Complete, polished portfolio. A sense of accomplishment. Ready for Anthropic.</p>
+                    </div>
+                    <button class="mark-complete-btn" onclick="toggleDayComplete(24)">Mark Day Complete</button>
+                </div>
             </div>
         </div>
 
         <footer>
-            <p>Start tomorrow: Open the dashboard → tap Day 1 → Block 1. One block at a time. 45 minutes. Break. Next block. ✍️</p>
+            <p>Start today: Open Day 1 | Click a block | 45 minutes at a time | Build momentum.</p>
             <p style="margin-top: 12px;">
-                <a href="index.html">← Back to Portfolio</a> ·
+                <a href="index.html">Back to Portfolio</a> |
                 Built with <a href="https://claude.ai">Claude Code</a>
             </p>
         </footer>
     </div>
 
     <script>
-        function toggleComplete(card) {
-            card.classList.toggle('completed');
+        const TOTAL_DAYS = 24;
+        let completedDays = [];
+        let currentView = 'roadmap';
+        let currentDay = 1;
+
+        // Initialize
+        function init() {
+            loadProgress();
+            generateDaySelector();
             updateProgress();
-            saveProgress();
+            updateDayCards();
         }
 
-        function updateProgress() {
-            const total = document.querySelectorAll('.day-card').length;
-            const completed = document.querySelectorAll('.day-card.completed').length;
-            const percent = Math.round((completed / total) * 100);
+        // View switching
+        function setView(view) {
+            currentView = view;
 
+            document.getElementById('roadmapBtn').classList.toggle('active', view === 'roadmap');
+            document.getElementById('dayBtn').classList.toggle('active', view === 'day');
+
+            document.getElementById('roadmapView').classList.toggle('hidden', view !== 'roadmap');
+            document.getElementById('dayView').classList.toggle('active', view === 'day');
+
+            if (view === 'day') {
+                showDayDetail(currentDay);
+            }
+        }
+
+        // Day selector generation
+        function generateDaySelector() {
+            const container = document.getElementById('daySelector');
+            let html = '';
+            for (let i = 1; i <= TOTAL_DAYS; i++) {
+                const isCompleted = completedDays.includes(i);
+                const completedClass = isCompleted ? 'completed' : '';
+                const activeClass = i === currentDay ? 'active' : '';
+                html += `<button class="day-selector-btn ${completedClass} ${activeClass}" data-day="${i}" onclick="showDayDetail(${i})">${i}</button>`;
+            }
+            container.innerHTML = html;
+        }
+
+        // Show day detail
+        function showDayDetail(day) {
+            currentDay = day;
+
+            // Update selector buttons
+            document.querySelectorAll('.day-selector-btn').forEach(btn => {
+                btn.classList.toggle('active', parseInt(btn.dataset.day) === day);
+            });
+
+            // Show corresponding detail
+            document.querySelectorAll('.day-detail').forEach(detail => {
+                detail.classList.toggle('active', parseInt(detail.dataset.day) === day);
+            });
+
+            // Update complete button state
+            updateCompleteButtons();
+        }
+
+        // Open day detail from roadmap
+        function openDayDetail(day) {
+            currentDay = day;
+            setView('day');
+            showDayDetail(day);
+        }
+
+        // Toggle day complete
+        function toggleDayComplete(day) {
+            const index = completedDays.indexOf(day);
+            if (index > -1) {
+                completedDays.splice(index, 1);
+            } else {
+                completedDays.push(day);
+            }
+            saveProgress();
+            updateProgress();
+            updateDayCards();
+            generateDaySelector();
+            updateCompleteButtons();
+            showDayDetail(currentDay);
+        }
+
+        // Update complete buttons
+        function updateCompleteButtons() {
+            document.querySelectorAll('.mark-complete-btn').forEach(btn => {
+                const detail = btn.closest('.day-detail');
+                if (detail) {
+                    const day = parseInt(detail.dataset.day);
+                    const isCompleted = completedDays.includes(day);
+                    btn.classList.toggle('completed', isCompleted);
+                    btn.textContent = isCompleted ? 'Completed!' : 'Mark Day Complete';
+                }
+            });
+        }
+
+        // Update day cards in roadmap view
+        function updateDayCards() {
+            document.querySelectorAll('.day-card').forEach(card => {
+                const day = parseInt(card.dataset.day);
+                card.classList.toggle('completed', completedDays.includes(day));
+            });
+        }
+
+        // Update progress
+        function updateProgress() {
+            const percent = Math.round((completedDays.length / TOTAL_DAYS) * 100);
             document.getElementById('progressFill').style.width = percent + '%';
             document.getElementById('progressPercent').textContent = percent + '%';
 
-            // Update week progress
-            document.querySelectorAll('.week-section').forEach(section => {
-                const weekTotal = section.querySelectorAll('.day-card').length;
-                const weekCompleted = section.querySelectorAll('.day-card.completed').length;
-                const weekPercent = Math.round((weekCompleted / weekTotal) * 100);
-                section.querySelector('.week-progress').textContent = weekPercent + '%';
+            // Week progress
+            const weeks = [
+                { id: 'week1Progress', days: [1,2,3,4,5,6] },
+                { id: 'week2Progress', days: [7,8,9,10,11,12] },
+                { id: 'week3Progress', days: [13,14,15,16,17,18] },
+                { id: 'week4Progress', days: [19,20,21,22,23,24] }
+            ];
+
+            weeks.forEach(week => {
+                const weekCompleted = week.days.filter(d => completedDays.includes(d)).length;
+                const weekPercent = Math.round((weekCompleted / week.days.length) * 100);
+                const el = document.getElementById(week.id);
+                if (el) el.textContent = weekPercent + '%';
             });
         }
 
+        // Save/Load progress
         function saveProgress() {
-            const completed = [];
-            document.querySelectorAll('.day-card').forEach((card, index) => {
-                if (card.classList.contains('completed')) completed.push(index);
-            });
-            localStorage.setItem('claudeMasteryProgress', JSON.stringify(completed));
+            localStorage.setItem('claudeMasteryProgress', JSON.stringify(completedDays));
         }
 
         function loadProgress() {
             const saved = localStorage.getItem('claudeMasteryProgress');
             if (saved) {
-                const completed = JSON.parse(saved);
-                document.querySelectorAll('.day-card').forEach((card, index) => {
-                    if (completed.includes(index)) card.classList.add('completed');
-                });
-                updateProgress();
+                completedDays = JSON.parse(saved);
             }
         }
 
-        function setView(view) {
-            document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            // Future: implement calendar view
-        }
-
-        loadProgress();
+        // Initialize on load
+        init();
     </script>
 </body>
 </html>
