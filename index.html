@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iñaki Moreno - Enterprise AI Sales, Southeast Asia</title>
-    <meta name="description" content="Senior Field Sales Representative at Google Cloud, specializing in AI for digital natives across Southeast Asia. 500%+ quota, 40+ AI deals, 7+ years in ASEAN.">
+    <title>Iñaki Moreno - Building AI that helps businesses grow</title>
+    <meta name="description" content="Enterprise AI sales in Southeast Asia. 40+ AI deals led end-to-end, helping startups unlock new value streams with responsible AI deployment.">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,12 +13,15 @@
 
     <style>
         :root {
-            --color-bg: #FDFBF7;
-            --color-text: #1a1a1a;
-            --color-text-muted: #666;
-            --color-accent: #D4622B;
-            --color-accent-soft: #F5E6DC;
-            --color-border: #e5e0d8;
+            /* Anthropic-inspired palette with warm personal touch */
+            --color-bg: #FAF9F5;
+            --color-surface: #FFFFFF;
+            --color-text: #1F2328;
+            --color-text-muted: #57606A;
+            --color-accent: #CC785C;  /* Anthropic's warm orange */
+            --color-accent-soft: rgba(204, 120, 92, 0.12);
+            --color-border: #D8DEE4;
+            --color-slate: #24292F;
             --font-serif: 'Instrument Serif', Georgia, serif;
             --font-sans: 'DM Sans', -apple-system, sans-serif;
         }
@@ -37,12 +40,12 @@
             font-family: var(--font-sans);
             background: var(--color-bg);
             color: var(--color-text);
-            line-height: 1.6;
+            line-height: 1.7;
             font-size: 16px;
         }
 
         .container {
-            max-width: 680px;
+            max-width: 700px;
             margin: 0 auto;
             padding: 0 24px;
         }
@@ -85,8 +88,8 @@
         }
 
         .hero-photo {
-            width: 140px;
-            height: 140px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
             object-fit: cover;
             object-position: center top;
@@ -96,21 +99,22 @@
 
         .hero-text h1 {
             font-family: var(--font-serif);
-            font-size: 2.5rem;
+            font-size: 2.4rem;
             font-weight: 400;
             margin-bottom: 16px;
             letter-spacing: -0.02em;
+            color: var(--color-slate);
         }
 
         .hero-text p {
             color: var(--color-text-muted);
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             margin-bottom: 16px;
         }
 
         .hero-text p strong {
             color: var(--color-text);
-            font-weight: 600;
+            font-weight: 500;
         }
 
         .social-links {
@@ -122,7 +126,7 @@
         .social-links a {
             color: var(--color-text);
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -134,8 +138,8 @@
         }
 
         .social-links a svg {
-            width: 18px;
-            height: 18px;
+            width: 17px;
+            height: 17px;
         }
 
         /* Sections */
@@ -149,12 +153,12 @@
             font-size: 1.5rem;
             font-weight: 400;
             margin-bottom: 20px;
-            color: var(--color-text);
+            color: var(--color-slate);
         }
 
-        /* Why Anthropic Section */
+        /* Why Section */
         .why-content {
-            font-size: 1.05rem;
+            font-size: 1.02rem;
             line-height: 1.8;
         }
 
@@ -162,48 +166,40 @@
             margin-bottom: 14px;
         }
 
-        /* Track Record */
-        .track-record {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+        /* Impact Stories - replacing Track Record */
+        .impact-section {
+            margin-bottom: 24px;
         }
 
-        .track-item {
-            text-align: center;
-            padding: 20px 10px;
-            background: white;
-            border-radius: 12px;
-            border: 1px solid var(--color-border);
-        }
-
-        .track-item .number {
+        .impact-highlight {
             font-family: var(--font-serif);
-            font-size: 2rem;
-            color: var(--color-accent);
-            line-height: 1;
-            margin-bottom: 6px;
+            font-size: 1.3rem;
+            color: var(--color-slate);
+            margin-bottom: 16px;
+            line-height: 1.5;
         }
 
-        .track-item .label {
+        .impact-detail {
             color: var(--color-text-muted);
-            font-size: 0.85rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
         }
 
         /* Quote Box */
         .quote-box {
-            background: white;
-            border-left: 4px solid var(--color-accent);
+            background: var(--color-surface);
+            border-left: 3px solid var(--color-accent);
             padding: 20px 24px;
             margin: 24px 0;
-            border-radius: 0 12px 12px 0;
+            border-radius: 0 10px 10px 0;
         }
 
         .quote-box p {
             font-style: italic;
-            margin-bottom: 8px;
-            font-size: 1rem;
+            margin-bottom: 10px;
+            font-size: 0.98rem;
             color: var(--color-text);
+            line-height: 1.7;
         }
 
         .quote-box .attribution {
@@ -216,7 +212,7 @@
         .experience-list {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 24px;
         }
 
         .experience-item {
@@ -228,6 +224,7 @@
             font-weight: 600;
             font-size: 1rem;
             margin-bottom: 4px;
+            color: var(--color-slate);
         }
 
         .experience-item .company {
@@ -250,15 +247,15 @@
         /* Projects Grid */
         .projects-grid {
             display: grid;
-            gap: 16px;
+            gap: 14px;
         }
 
         .project-card {
-            background: white;
+            background: var(--color-surface);
             border: 1px solid var(--color-border);
-            border-radius: 12px;
-            padding: 20px 24px;
-            transition: all 0.3s ease;
+            border-radius: 10px;
+            padding: 18px 22px;
+            transition: all 0.25s ease;
             text-decoration: none;
             color: inherit;
             display: flex;
@@ -269,35 +266,36 @@
         .project-card:hover {
             border-color: var(--color-accent);
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.05);
         }
 
         .project-card h3 {
-            font-size: 1rem;
+            font-size: 0.98rem;
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
+            color: var(--color-slate);
         }
 
         .project-card p {
             color: var(--color-text-muted);
-            font-size: 0.9rem;
+            font-size: 0.88rem;
         }
 
         .project-tag {
             background: var(--color-accent-soft);
             color: var(--color-accent);
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             font-weight: 500;
-            padding: 6px 12px;
-            border-radius: 20px;
+            padding: 5px 11px;
+            border-radius: 16px;
             white-space: nowrap;
         }
 
         /* CTA Section */
         .cta-section {
-            background: white;
-            border: 2px solid var(--color-accent);
-            border-radius: 16px;
+            background: var(--color-surface);
+            border: 1px solid var(--color-accent);
+            border-radius: 14px;
             padding: 32px;
             text-align: center;
             margin: 40px 0;
@@ -309,7 +307,7 @@
 
         .cta-section p {
             color: var(--color-text-muted);
-            font-size: 1.05rem;
+            font-size: 1rem;
             margin-bottom: 20px;
         }
 
@@ -317,7 +315,7 @@
             display: inline-block;
             background: var(--color-accent);
             color: white;
-            padding: 14px 32px;
+            padding: 13px 28px;
             border-radius: 8px;
             text-decoration: none;
             font-weight: 500;
@@ -325,7 +323,7 @@
         }
 
         .cta-button:hover {
-            background: #b8531f;
+            background: #b5684d;
             transform: translateY(-2px);
         }
 
@@ -346,6 +344,23 @@
             text-decoration: none;
         }
 
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-accent);
+        }
+
         /* Mobile */
         @media (max-width: 600px) {
             .hero-content {
@@ -362,14 +377,10 @@
                 justify-content: center;
             }
 
-            .track-record {
-                grid-template-columns: 1fr 1fr;
-            }
-
             .project-card {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 12px;
+                gap: 10px;
             }
         }
     </style>
@@ -380,8 +391,9 @@
         <nav>
             <a href="index.html" class="active">Home</a>
             <a href="why-anthropic.html">Why Anthropic</a>
-            <a href="asean-map.html">ASEAN Map</a>
-            <a href="dn-sales-assistant/index.html">Sales Assistant</a>
+            <a href="sea-gtm-strategy.html">GTM Strategy</a>
+            <a href="claude-mastery.html">Claude Mastery</a>
+            <a href="dn-sales-assistant/index.html">Tools</a>
             <a href="blog.html">Writing</a>
         </nav>
 
@@ -392,22 +404,22 @@
                 <div class="hero-text">
                     <h1>Iñaki Moreno</h1>
                     <p>
-                        <strong>Senior Field Sales Rep</strong> at Google Cloud Singapore.
                         I help <strong>digital natives and AI startups</strong> across Southeast Asia
-                        ship faster, reduce engineering overhead, and deploy AI that actually sticks.
+                        deploy AI that unlocks new value streams — not just experiments, but production systems
+                        that become core to how they operate.
                     </p>
                     <p>
-                        <strong>7+ years in ASEAN</strong>. Originally from Barcelona.
-                        <strong>Master Contributor at AI Singapore</strong> — training startups and NGOs on responsible AI.
+                        <strong>7+ years in ASEAN</strong>. Currently at Google Cloud Singapore.
+                        <strong>Master Contributor at AI Singapore</strong> — mentoring startups on responsible AI.
                     </p>
                     <div class="social-links">
                         <a href="https://linkedin.com/in/inakimg" target="_blank">
                             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                             LinkedIn
                         </a>
-                        <a href="https://github.com/inakimg" target="_blank">
+                        <a href="https://github.com/inakimg/anthropic-portfolio" target="_blank">
                             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                            GitHub
+                            Source Code
                         </a>
                         <a href="mailto:imorenogirona@gmail.com">
                             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
@@ -423,43 +435,49 @@
             <h2>Why Anthropic, Why Singapore</h2>
             <div class="why-content">
                 <p>
-                    I want to be Anthropic's <strong>first Account Executive for Digital Natives in Singapore</strong>.
+                    I want to be Anthropic's <strong>first Account Executive for Digital Natives in Singapore</strong> —
+                    to shape the Southeast Asia market strategy from the ground up.
                 </p>
                 <p>
-                    I'm a <strong>power AI user</strong> who leverages Claude daily — for account research, deal strategy,
-                    and building tools like this website. I don't just talk about AI; I ship with it.
-                    I've closed <strong>40+ AI deals end-to-end</strong>, including production deployments with
-                    <strong>RAG, agentic systems, and multi-model architectures</strong>.
+                    I use Claude daily. Not as a novelty, but as infrastructure — for deal strategy, account research,
+                    and building tools like this website. When you work with AI every day, you understand what customers
+                    actually need to make it work.
                 </p>
                 <p>
-                    <a href="why-anthropic.html" style="color: var(--color-accent);">Read more about why Anthropic →</a>
+                    <a href="why-anthropic.html" style="color: var(--color-accent);">Read more about mission alignment →</a>
                 </p>
             </div>
         </section>
 
-        <!-- Track Record -->
-        <section id="track">
-            <h2>Track Record</h2>
-            <div class="track-record">
-                <div class="track-item">
-                    <div class="number">500%+</div>
-                    <div class="label">Quota 2024</div>
-                </div>
-                <div class="track-item">
-                    <div class="number">40+</div>
-                    <div class="label">AI deals closed E2E</div>
-                </div>
-                <div class="track-item">
-                    <div class="number">Top 1%</div>
-                    <div class="label">Cloud Club globally</div>
-                </div>
+        <!-- Customer Impact - replacing metrics-heavy Track Record -->
+        <section id="impact">
+            <h2>How I Help Customers</h2>
+
+            <div class="impact-section">
+                <p class="impact-highlight">
+                    40+ AI deals led end-to-end — helping startups unlock new value streams throughout their businesses.
+                </p>
+                <p class="impact-detail">
+                    From first conversation to production deployment. RAG systems, agentic architectures, multi-model setups.
+                    I become a trusted partner who helps customers embed AI and uncover its full range of capabilities.
+                </p>
             </div>
 
             <div class="quote-box">
-                <p>"Iñaki helped us move from fragmented GPT and Anthropic APIs to a unified architecture
-                on Vertex AI. We got governance, security, and the scalability we needed to grow.
-                The complexity router he designed cut our costs while improving response quality."</p>
-                <div class="attribution">— Engineering Lead, AI-native startup (OpenAI displacement deal)</div>
+                <p>"Iñaki helped us move from fragmented AI APIs to a unified architecture.
+                We got the governance and security we needed, plus a complexity router that
+                cut costs while improving response quality. He understood our business, not just the tech."</p>
+                <div class="attribution">— Engineering Lead, AI-native startup</div>
+            </div>
+
+            <div class="impact-section">
+                <p class="impact-highlight">
+                    Built GTM from the ground up — twice.
+                </p>
+                <p class="impact-detail">
+                    First in Iberia (Spain & Portugal), then for Digital Natives in Southeast Asia.
+                    I know what it takes to establish best practices and go-to-market approaches that scale.
+                </p>
             </div>
         </section>
 
@@ -471,20 +489,22 @@
                     <h3>Senior Field Sales Representative — Digital Natives & AI Startups</h3>
                     <div class="company">Google Cloud Singapore</div>
                     <div class="period">2020 - Present</div>
-                    <p>50+ accounts across SEA. Full cycle: prospecting → closing → expansion.
+                    <p>50+ accounts across SEA. Full cycle from prospecting to closing to expansion.
                     Specialize in AI-native workloads. Verticals: Web3, robotics, healthtech, SaaS, fintech.</p>
                 </div>
                 <div class="experience-item">
                     <h3>Account Executive — Iberia Territory</h3>
                     <div class="company">Google Cloud Dublin</div>
                     <div class="period">2016 - 2020</div>
-                    <p>Built GTM for Spain & Portugal from ground up. 145% avg quota. 50+ new logos.</p>
+                    <p>Built the GTM motion for Spain & Portugal from scratch. 50+ new logos.
+                    Playbook later adopted by regional FSRs.</p>
                 </div>
                 <div class="experience-item">
                     <h3>Master Contributor</h3>
                     <div class="company">AI Singapore</div>
                     <div class="period">2023 - Present</div>
-                    <p>Volunteer mentor. Train startups and NGOs on <strong>responsible AI adoption</strong> and safety principles.</p>
+                    <p>Volunteer mentor. Help startups and NGOs adopt AI responsibly —
+                    because how we deploy AI matters as much as what we deploy.</p>
                 </div>
             </div>
         </section>
@@ -492,25 +512,43 @@
         <!-- Built with Claude -->
         <section id="projects">
             <h2>Built with Claude</h2>
+            <p style="color: var(--color-text-muted); margin-bottom: 20px; font-size: 0.95rem;">
+                These aren't mockups. They're working tools I use, built entirely with Claude Code.
+                <a href="https://github.com/inakimg/anthropic-portfolio" target="_blank" style="color: var(--color-accent);">View source →</a>
+            </p>
             <div class="projects-grid">
+                <a href="sea-gtm-strategy.html" class="project-card">
+                    <div>
+                        <h3>SEA GTM Strategy</h3>
+                        <p>How I'd build Anthropic's market presence in Southeast Asia</p>
+                    </div>
+                    <span class="project-tag">Strategy →</span>
+                </a>
+                <a href="claude-mastery.html" class="project-card">
+                    <div>
+                        <h3>Claude Mastery Plan</h3>
+                        <p>24-day learning roadmap: courses, projects, certificates</p>
+                    </div>
+                    <span class="project-tag">Interactive →</span>
+                </a>
                 <a href="dn-sales-assistant/index.html" class="project-card">
                     <div>
                         <h3>DN Sales Assistant</h3>
-                        <p>BDR tool: funded accounts, C-level contacts, playbooks, outreach</p>
+                        <p>BDR tool: target accounts, outreach generator, playbooks</p>
                     </div>
                     <span class="project-tag">Try it →</span>
                 </a>
                 <a href="asean-map.html" class="project-card">
                     <div>
                         <h3>ASEAN Ecosystem Map</h3>
-                        <p>Interactive map of enterprise digital natives by vertical</p>
+                        <p>Interactive map of digital natives by vertical and country</p>
                     </div>
                     <span class="project-tag">Explore →</span>
                 </a>
                 <a href="blog.html" class="project-card">
                     <div>
                         <h3>What I Learned Building with Claude Code</h3>
-                        <p>First-hand lessons from shipping real projects</p>
+                        <p>Lessons from shipping real projects with AI</p>
                     </div>
                     <span class="project-tag">Read →</span>
                 </a>
@@ -519,18 +557,23 @@
 
         <!-- CTA -->
         <div class="cta-section">
-            <h2>Let's Build Anthropic in Southeast Asia</h2>
+            <h2>Let's Build Together</h2>
             <p>
-                The role I want doesn't exist yet. I'm reaching out because I'm the right person to create it.
+                I want to shape Anthropic's success in Southeast Asia.
+                There's always a way — you just need to find it.
             </p>
             <a href="mailto:imorenogirona@gmail.com" class="cta-button">Get in Touch</a>
         </div>
 
         <!-- Footer -->
         <footer>
+            <div class="footer-links">
+                <a href="https://github.com/inakimg/anthropic-portfolio" target="_blank">GitHub</a>
+                <a href="https://linkedin.com/in/inakimg" target="_blank">LinkedIn</a>
+                <a href="mailto:imorenogirona@gmail.com">Email</a>
+            </div>
             <p class="footer-meta">
-                Built with <a href="https://claude.ai" target="_blank">Claude Code</a> ·
-                Singapore · 2025
+                2,242 lines of code · Built with <a href="https://claude.ai" target="_blank">Claude Code</a> · Singapore
             </p>
         </footer>
     </div>

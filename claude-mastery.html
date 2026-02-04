@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Mastery Plan - 24 Days to Expertise</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-bg: #1a1a1a;
+            --color-surface: #242424;
+            --color-surface-2: #2d2d2d;
+            --color-text: #f5f5f5;
+            --color-text-muted: #999;
+            --color-accent: #CC785C;
+            --color-accent-soft: rgba(204, 120, 92, 0.15);
+            --color-border: #3a3a3a;
+            --color-blue: #5B8DEF;
+            --color-green: #4CAF50;
+            --color-amber: #FFB74D;
+            --color-purple: #9C7CF4;
+            --font-serif: 'Instrument Serif', Georgia, serif;
+            --font-sans: 'DM Sans', -apple-system, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        nav {
+            padding: 16px 0 32px;
+            text-align: center;
+        }
+
+        nav a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin: 0 12px;
+        }
+
+        nav a:hover { color: var(--color-accent); }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-family: var(--font-serif);
+            font-size: 2.4rem;
+            font-weight: 400;
+            color: var(--color-accent);
+            margin-bottom: 12px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+        }
+
+        .stats span { display: flex; align-items: center; gap: 6px; }
+
+        .progress-bar {
+            background: var(--color-surface);
+            border-radius: 8px;
+            height: 8px;
+            max-width: 400px;
+            margin: 0 auto 16px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--color-accent), var(--color-amber));
+            height: 100%;
+            width: 0%;
+            border-radius: 8px;
+            transition: width 0.5s ease;
+        }
+
+        .view-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 40px;
+        }
+
+        .toggle-btn {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            color: var(--color-text-muted);
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .toggle-btn:hover { border-color: var(--color-text-muted); }
+        .toggle-btn.active {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+            color: white;
+        }
+
+        .week-section {
+            margin-bottom: 48px;
+        }
+
+        .week-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .week-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .week-icon.foundations { background: rgba(91, 141, 239, 0.2); }
+        .week-icon.build { background: rgba(76, 175, 80, 0.2); }
+        .week-icon.integrate { background: rgba(156, 124, 244, 0.2); }
+        .week-icon.launch { background: rgba(255, 183, 77, 0.2); }
+
+        .week-title {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            color: var(--color-text);
+        }
+
+        .week-subtitle {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+
+        .week-progress {
+            margin-left: auto;
+            color: var(--color-accent);
+            font-weight: 600;
+        }
+
+        .day-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .day-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .day-card:hover {
+            border-color: var(--color-accent);
+            transform: translateY(-2px);
+        }
+
+        .day-card.completed {
+            border-color: var(--color-green);
+        }
+
+        .day-card.completed::after {
+            content: '✓';
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            color: var(--color-green);
+            font-weight: 700;
+        }
+
+        .day-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 6px;
+        }
+
+        .day-label.learn { color: var(--color-blue); }
+        .day-label.build { color: var(--color-green); }
+        .day-label.write { color: var(--color-amber); }
+
+        .day-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--color-text);
+            margin-bottom: 4px;
+        }
+
+        .day-desc {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+
+        .legend-dot.learn { background: var(--color-blue); }
+        .legend-dot.build { background: var(--color-green); }
+        .legend-dot.write { background: var(--color-amber); }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+        }
+
+        footer a { color: var(--color-accent); text-decoration: none; }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .stats { flex-wrap: wrap; justify-content: center; }
+            .day-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="why-anthropic.html">Why Anthropic</a>
+            <a href="sea-gtm-strategy.html">GTM Strategy</a>
+            <a href="dn-sales-assistant/index.html">Sales Assistant</a>
+            <a href="blog.html">Writing</a>
+        </nav>
+
+        <header>
+            <h1>Claude Mastery Plan</h1>
+            <div class="stats">
+                <span>📅 24 days</span>
+                <span>🛠️ 3 projects</span>
+                <span>📜 8 certificates</span>
+                <span>🎯 1 job at Anthropic</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p style="color: var(--color-text-muted); font-size: 0.9rem;">
+                Overall Progress: <span id="progressPercent">0%</span>
+            </p>
+        </header>
+
+        <div class="view-toggle">
+            <button class="toggle-btn active" onclick="setView('roadmap')">Roadmap</button>
+            <button class="toggle-btn" onclick="setView('calendar')">Day View</button>
+        </div>
+
+        <!-- Week 1: Foundations -->
+        <div class="week-section">
+            <div class="week-header">
+                <div class="week-icon foundations">📚</div>
+                <div>
+                    <div class="week-title">Foundations</div>
+                    <div class="week-subtitle">Week 1 · Day 1-6</div>
+                </div>
+                <div class="week-progress">0%</div>
+            </div>
+            <div class="day-grid">
+                <div class="day-card" onclick="toggleComplete(this)">
+                    <div class="day-label learn">Day 1</div>
+                    <div class="day-title">Meet Claude Properly</div>
+                    <div class="day-desc">System prompts, personas, best practices</div>
+                </div>
+                <div class="day-card" onclick="toggleComplete(this)">
+                    <div class="day-label learn">Day 2</div>
+                    <div class="day-title">Prompting is the Product</div>
+                    <div class="day-desc">Advanced prompting techniques</div>
+                </div>
+                <div class="day-card" onclick="toggleComplete(this)">
+                    <div class="day-label build">Day 3</div>
+                    <div class="day-title">Console + API (Day 1)</div>
+                    <div class="day-desc">First API calls, playground</div>
+                </div>
+                <div class="day-card" onclick="toggleComplete(this)">
+                    <div class="day-label learn">Day 4</div>
+                    <div class="day-title">API Deep Dive</div>
+                    <div class="day-desc">Streaming, tools, vision</div>
+                </div>
+                <div class="day-card" onclick="toggleComplete(this)">
+                    <div class="day-label build">Day 5</div>
+                    <div class="day-title">Claude Code</div>
+                    <div class="day-desc">Terminal-based coding assistant</div>
+                </div>
+                <div class="day-card" onclick="toggleComplete(this)">
+                    <div class="day-label learn">Day 6</div>
+                    <div class="day-title">DeepLearning.AI + Consolidation</div>
+                    <div class="day-desc">Course completion, review</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Week 2: Build -->
+        <div class="week-section">
+            <div class="week-header">
+                <div class="week-icon build">⚒️</div>
+                <div>
+                    <div class="week-title">Build</div>
+                    <div class="week-subtitle">Week 2 · Day 7-12</div>
+                </div>
+                <div class="week-progress">0%</div>
+            </div>
+            <div class="day-grid">
+                <div class="day-card" onclick="toggleComplete(this)">
+                    <div class="day-label build">Day 7</div>
+                    <div class="day-title">Project 1: ASEAN AI Map</div>
+                    <div class="day-desc">Kickoff, data gathering</div>
+                </div>
+                <div class="day-card" onclick="toggleComplete(this)">
+                    <div class="day-label build">Day 8</div>
+                    <div class="day-title">Project 1: Ship It</div>
+                    <div class="day-desc">Build and deploy</div>
+                </div>
+                <div class="day-card" onclick="toggleComplete(this)">
+                    <div class="day-label learn">Day 9</div>
+                    <div class="day-title">Claude on Vertex AI</div>
+                    <div class="day-desc">GCP integration deep dive</div>
+                </div>
+                <div class="day-card" onclick="toggleComplete(this)">
+                    <div class="day-label build">Day 10</div>
+                    <div class="day-title">Project 2: AI Sales Assistant</div>
+                    <div class="day-desc">BDR tool kickoff</div>
+                </div>
+                <div class="day-card" onclick="toggleComplete(this)">
+                    <div class="day-label build">Day 11</div>
+                    <div class="day-title">Project 2: Ship It</div>
+                    <div class="day-desc">Complete and polish</div>
+                </div>
+                <div class="day-card" onclick="toggleComplete(this)">
+                    <div class="day-label learn">Day 12</div>
+                    <div class="day-title">MCP Deep Dive + Enterprise</div>
+                    <div class="day-desc">Model Context Protocol</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Week 3: Integrate -->
+        <div class="week-section">
+            <div class="week-header">
+                <div class="week-icon integrate">🔗</div>
+                <div>
+                    <div class="week-title">Integrate</div>
+                    <div class="week-subtitle">Week 3 · Day 13-18</div>
+                </div>
+                <div class="week-progress">0%</div>
+            </div>
+            <div class="day-grid">
+                <div class="day-card" onclick="toggleComplete(this)">
+                    <div class="day-label build">Day 13</div>
+                    <div class="day-title">Cowork Exploration</div>
+                    <div class="day-desc">Multi-agent workflows</div>
+                </div>
+                <div class="day-card" onclick="toggleComplete(this)">
+                    <div class="day-label build">Day 14</div>
+                    <div class="day-title">Project 3: Partner Playbook</div>
+                    <div class="day-desc">GTM strategy kickoff</div>
+                </div>
+                <div class="day-card" onclick="toggleComplete(this)">
+                    <div class="day-label build">Day 15</div>
+                    <div class="day-title">Project 3: Ship + Website Start</div>
+                    <div class="day-desc">Portfolio foundation</div>
+                </div>
+                <div class="day-card" onclick="toggleComplete(this)">
+                    <div class="day-label write">Day 16</div>
+                    <div class="day-title">Website Polish + Content</div>
+                    <div class="day-desc">Refine and write</div>
+                </div>
+                <div class="day-card" onclick="toggleComplete(this)">
+                    <div class="day-label learn">Day 17</div>
+                    <div class="day-title">Enterprise Depth Day</div>
+                    <div class="day-desc">Security, compliance, scale</div>
+                </div>
+                <div class="day-card" onclick="toggleComplete(this)">
+                    <div class="day-label build">Day 18</div>
+                    <div class="day-title">Consolidation + App Prep</div>
+                    <div class="day-desc">Review and prepare</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Week 4: Launch -->
+        <div class="week-section">
+            <div class="week-header">
+                <div class="week-icon launch">🚀</div>
+                <div>
+                    <div class="week-title">Launch</div>
+                    <div class="week-subtitle">Week 4 · Day 19-24</div>
+                </div>
+                <div class="week-progress">0%</div>
+            </div>
+            <div class="day-grid">
+                <div class="day-card" onclick="toggleComplete(this)">
+                    <div class="day-label write">Day 19</div>
+                    <div class="day-title">LinkedIn Launch</div>
+                    <div class="day-desc">Public announcement</div>
+                </div>
+                <div class="day-card" onclick="toggleComplete(this)">
+                    <div class="day-label write">Day 20</div>
+                    <div class="day-title">Outreach + Content</div>
+                    <div class="day-desc">Connect and share</div>
+                </div>
+                <div class="day-card" onclick="toggleComplete(this)">
+                    <div class="day-label learn">Day 21</div>
+                    <div class="day-title">Advanced Claude Features</div>
+                    <div class="day-desc">Computer use, artifacts</div>
+                </div>
+                <div class="day-card" onclick="toggleComplete(this)">
+                    <div class="day-label learn">Day 22</div>
+                    <div class="day-title">Competitive Intelligence</div>
+                    <div class="day-desc">GPT vs Claude vs Gemini</div>
+                </div>
+                <div class="day-card" onclick="toggleComplete(this)">
+                    <div class="day-label write">Day 23</div>
+                    <div class="day-title">Interview Prep</div>
+                    <div class="day-desc">Stories, practice, research</div>
+                </div>
+                <div class="day-card" onclick="toggleComplete(this)">
+                    <div class="day-label write">Day 24</div>
+                    <div class="day-title">Final Polish + What's Next</div>
+                    <div class="day-desc">Ship and celebrate</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-dot learn"></div>
+                <span>LEARN (blue)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot build"></div>
+                <span>BUILD (green)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot write"></div>
+                <span>WRITE (amber)</span>
+            </div>
+        </div>
+
+        <footer>
+            <p>Start tomorrow: Open the dashboard → tap Day 1 → Block 1. One block at a time. 45 minutes. Break. Next block. ✍️</p>
+            <p style="margin-top: 12px;">
+                <a href="index.html">← Back to Portfolio</a> ·
+                Built with <a href="https://claude.ai">Claude Code</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleComplete(card) {
+            card.classList.toggle('completed');
+            updateProgress();
+            saveProgress();
+        }
+
+        function updateProgress() {
+            const total = document.querySelectorAll('.day-card').length;
+            const completed = document.querySelectorAll('.day-card.completed').length;
+            const percent = Math.round((completed / total) * 100);
+
+            document.getElementById('progressFill').style.width = percent + '%';
+            document.getElementById('progressPercent').textContent = percent + '%';
+
+            // Update week progress
+            document.querySelectorAll('.week-section').forEach(section => {
+                const weekTotal = section.querySelectorAll('.day-card').length;
+                const weekCompleted = section.querySelectorAll('.day-card.completed').length;
+                const weekPercent = Math.round((weekCompleted / weekTotal) * 100);
+                section.querySelector('.week-progress').textContent = weekPercent + '%';
+            });
+        }
+
+        function saveProgress() {
+            const completed = [];
+            document.querySelectorAll('.day-card').forEach((card, index) => {
+                if (card.classList.contains('completed')) completed.push(index);
+            });
+            localStorage.setItem('claudeMasteryProgress', JSON.stringify(completed));
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem('claudeMasteryProgress');
+            if (saved) {
+                const completed = JSON.parse(saved);
+                document.querySelectorAll('.day-card').forEach((card, index) => {
+                    if (completed.includes(index)) card.classList.add('completed');
+                });
+                updateProgress();
+            }
+        }
+
+        function setView(view) {
+            document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            // Future: implement calendar view
+        }
+
+        loadProgress();
+    </script>
+</body>
+</html>
