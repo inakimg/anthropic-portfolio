@@ -21,11 +21,11 @@ My application to be Anthropic's **first Account Executive for Digital Natives i
 
 ## About Me
 
-**Iñaki Moreno** - Senior Field Sales Rep at Google Cloud Singapore
+**Iñaki Moreno** - Senior Digital Natives Field Sales Enterprise at Google Cloud Singapore
 
-- 500%+ quota 2024
-- 40+ AI deals closed end-to-end
-- 7+ years in ASEAN
+
+- 40+ AI startups and DNs transformed end-to-end
+- 8+ years in ASEAN
 - Master Contributor at AI Singapore
 
 ## Links
