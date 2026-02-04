@@ -12,8 +12,8 @@
             --color-bg: #FDFBF7;
             --color-text: #1a1a1a;
             --color-text-muted: #666;
-            --color-accent: #D4622B;
-            --color-accent-soft: #F5E6DC;
+            --color-accent: #CC785C;
+            --color-accent-soft: rgba(204, 120, 92, 0.1);
             --color-border: #e5e0d8;
             --font-serif: 'Instrument Serif', Georgia, serif;
             --font-sans: 'DM Sans', -apple-system, sans-serif;
@@ -77,35 +77,6 @@
             font-weight: 600;
         }
 
-        .quote-block {
-            background: white;
-            border-left: 4px solid var(--color-accent);
-            padding: 24px;
-            margin: 24px 0;
-            border-radius: 0 12px 12px 0;
-            font-family: var(--font-serif);
-            font-size: 1.2rem;
-            font-style: italic;
-        }
-
-        .reason-card {
-            background: white;
-            border: 1px solid var(--color-border);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 16px;
-        }
-        .reason-card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-            color: var(--color-text);
-        }
-        .reason-card p {
-            color: var(--color-text-muted);
-            margin-bottom: 0;
-            font-size: 1rem;
-        }
-
         .personal-note {
             background: var(--color-accent-soft);
             border-radius: 12px;
@@ -115,6 +86,93 @@
         .personal-note h3 {
             color: var(--color-accent);
             margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+        .personal-note p {
+            margin-bottom: 12px;
+        }
+        .personal-note p:last-child {
+            margin-bottom: 0;
+        }
+
+        .reason-card {
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+        .reason-card .number {
+            display: inline-block;
+            background: var(--color-accent);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+        .reason-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            color: var(--color-text);
+            display: inline;
+        }
+        .reason-card p {
+            color: var(--color-text-muted);
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+        .reason-card p:last-child {
+            margin-bottom: 0;
+        }
+        .reason-card ul {
+            margin: 12px 0;
+            padding-left: 20px;
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+        }
+        .reason-card li {
+            margin-bottom: 6px;
+        }
+
+        .journey-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .journey-item {
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+        .journey-item.highlight {
+            border-color: var(--color-accent);
+            background: var(--color-accent-soft);
+        }
+        .journey-item .year {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            margin-bottom: 4px;
+        }
+        .journey-item .role {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 4px;
+        }
+        .journey-item .result {
+            font-size: 0.8rem;
+            color: var(--color-accent);
+        }
+        .journey-item .result.fail {
+            color: var(--color-text-muted);
         }
 
         footer {
@@ -133,6 +191,7 @@
 
         @media (max-width: 600px) {
             .page-header h1 { font-size: 2rem; }
+            .journey-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -152,68 +211,14 @@
         <section>
             <h2>The Mission Resonates</h2>
             <p>
-                I've been in tech long enough to see the pattern: <strong>OpenAI wants to build AGI.
-                Google wants to win search. Anthropic wants to make sure AI goes well for humanity.</strong>
+                <strong>OpenAI wants to build AGI. Google wants to win search.
+                Anthropic wants to make sure AI goes well for humanity.</strong>
             </p>
             <p>
-                That's not marketing copy to me. When I read what Dario says about building AI that's
-                actually safe and beneficial, it just resonates. That's the work I want to be doing full-time.
+                That's not marketing copy to me. Constitutional AI, values trained IN not just filtered out,
+                transparent research — this is how you build trust at scale. That's the work I want to be doing.
             </p>
-            <div class="quote-block">
-                "I volunteer as a Master contributor with AI Singapore because I genuinely care about
-                AI being built responsibly — exactly why Anthropic's mission resonates."
-            </div>
-        </section>
 
-        <section>
-            <h2>Research-First Culture</h2>
-            <p>
-                Anthropic is a <strong>research lab</strong> that happens to ship products — not a product
-                company that does research on the side. The founders are researchers. The culture is different.
-            </p>
-            <p>
-                I've seen what happens when companies treat AI as just another feature to ship. Anthropic's
-                approach — <strong>Constitutional AI</strong>, values trained IN not just filtered out,
-                transparent documentation — this is how you build trust at scale.
-            </p>
-        </section>
-
-        <section>
-            <h2>Why I'm the Right Fit</h2>
-
-            <div class="reason-card">
-                <h3>I've Helped Customers Win Against OpenAI</h3>
-                <p>I've designed production architectures where Claude handles the complex reasoning
-                while volume tasks go elsewhere. My customers don't just adopt AI — they build
-                systems that make their businesses better. I understand where Claude excels and
-                how to position it honestly.</p>
-            </div>
-
-            <div class="reason-card">
-                <h3>I'm a Power User, Not Just a Seller</h3>
-                <p>Claude Code, Claude.ai, MCP integrations — I use these daily for real work.
-                Deal strategy, account research, building tools. This entire portfolio?
-                3,550 lines of code built with Claude Code. I understand what makes the product
-                genuinely useful because I depend on it.</p>
-            </div>
-
-            <div class="reason-card">
-                <h3>I Know ASEAN Like My Own Backyard</h3>
-                <p>8+ years in Singapore. Relationships with founders, VCs, engineering leaders
-                across 6 countries. I understand both the tech AND the local business culture.
-                Building trust in SEA requires presence, responsiveness, and genuine helpfulness —
-                not just features.</p>
-            </div>
-
-            <div class="reason-card">
-                <h3>I Build Things From Scratch</h3>
-                <p>Built GTM from zero in Iberia. Did it again for Digital Natives in SEA.
-                Transformed 40+ AI startups end-to-end — from first conversation to production deployment.
-                I know what it takes to establish best practices that scale because I've done it twice.</p>
-            </div>
-        </section>
-
-        <section>
             <div class="personal-note">
                 <h3>The Personal Reason</h3>
                 <p>
@@ -221,23 +226,88 @@
                     <strong>it's about the world my daughter will grow up in</strong>.
                 </p>
                 <p>
-                    I want to work on AI that's beneficial for humanity long-term. Not because it's
-                    a good thing to say in an interview, but because I actually believe it matters.
+                    I volunteer as a Master Contributor at AI Singapore because I genuinely believe
+                    responsible AI matters. This isn't something I say in interviews — it's something I do.
                 </p>
             </div>
         </section>
 
         <section>
-            <h2>What I'd Bring</h2>
-            <p>
-                The Anthropic job posting for India mentions wanting someone who can "find their way to
-                the right people, educate them about LLMs, and help them succeed." That's exactly what
-                I've been doing — just with Claude on Vertex AI instead of direct.
-            </p>
-            <p>
+            <h2>I Can Contribute to Anthropic in 3 Ways</h2>
+
+            <div class="reason-card">
+                <span class="number">1</span>
+                <h3>I Help Customers Embed AI Into Core Business Workflows</h3>
+                <p>
+                    40+ AI deployments across SEA startups and digital natives. Not proof-of-concepts
+                    that sit on a shelf — production systems that drive real value.
+                </p>
+                <ul>
+                    <li><strong>RAG architectures</strong> for knowledge retrieval and customer support</li>
+                    <li><strong>Agentic workflows</strong> for complex multi-step automation</li>
+                    <li><strong>Grounding & retrieval</strong> to reduce hallucinations in production</li>
+                    <li><strong>Model routing</strong> — Claude for reasoning, lighter models for volume</li>
+                    <li><strong>TCO optimization</strong> — right-sizing compute, caching, batching</li>
+                    <li><strong>Enterprise readiness</strong> — security reviews, compliance, data residency</li>
+                </ul>
+                <p>
+                    I understand where Claude excels (nuanced reasoning, long context, safety) and
+                    how to position it honestly against alternatives.
+                </p>
+            </div>
+
+            <div class="reason-card">
+                <span class="number">2</span>
+                <h3>I Know ASEAN Like My Own Backyard</h3>
+                <p>
+                    8+ years in Singapore. Relationships with founders, VCs, and engineering leaders
+                    across 6 countries. I understand both the tech AND the local business culture.
+                </p>
+                <p>
+                    Building trust in SEA requires presence, responsiveness, and genuine helpfulness —
+                    not just features. I've built this credibility over years, and it compounds.
+                </p>
+            </div>
+
+            <div class="reason-card">
+                <span class="number">3</span>
+                <h3>I'm a Builder and Power User</h3>
+                <p>
+                    I don't just sell AI — I build with it daily. Claude Code, Claude.ai, MCP integrations.
+                    This entire portfolio is 5,600+ lines of code built with Claude.
+                </p>
+
+                <div class="journey-grid">
+                    <div class="journey-item">
+                        <div class="year">2015-2019</div>
+                        <div class="role">Google Ads</div>
+                        <div class="result fail">Learning curve</div>
+                    </div>
+                    <div class="journey-item">
+                        <div class="year">2019-2021</div>
+                        <div class="role">Cloud Transition</div>
+                        <div class="result fail">Ramping up</div>
+                    </div>
+                    <div class="journey-item highlight">
+                        <div class="year">2021-Present</div>
+                        <div class="role">AI + DN Sales</div>
+                        <div class="result">Cloud Club</div>
+                    </div>
+                </div>
+
+                <p>
+                    I failed many times before finding my fit. The transition from Ads to Cloud was hard —
+                    but I ramped fast by obsessing over customer value. 40+ AI startups transformed
+                    end-to-end. That's what got me to Cloud Club.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <p style="font-size: 1.1rem; text-align: center; color: var(--color-text);">
                 <strong>I'm ready to do it full-time, for Anthropic, in Southeast Asia.</strong>
             </p>
-            <p>
+            <p style="text-align: center; color: var(--color-text-muted);">
                 There's always a way. You just need to find it.
             </p>
         </section>
