@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASEAN GTM Strategy - Iñaki Moreno</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        :root {
+            --color-bg: #FDFBF7;
+            --color-surface: #ffffff;
+            --color-surface-2: #f9f7f4;
+            --color-border: #e5e0d8;
+            --color-text: #1a1a1a;
+            --color-muted: #666;
+            --color-accent: #CC785C;
+            --color-accent-soft: rgba(204, 120, 92, 0.1);
+            --color-fsi: #3b82f6;
+            --color-hcls: #ec4899;
+            --color-edu: #10b981;
+            --color-commercial: #f59e0b;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            padding: 16px 0;
+            margin-bottom: 16px;
+        }
+        nav a {
+            color: var(--color-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        nav a:hover { color: var(--color-accent); }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .header p {
+            color: var(--color-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Tab Navigation */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            background: var(--color-surface-2);
+            padding: 6px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            overflow-x: auto;
+        }
+        .tab {
+            flex: 1;
+            min-width: 120px;
+            padding: 12px 16px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--color-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .tab:hover {
+            background: white;
+            color: var(--color-text);
+        }
+        .tab.active {
+            background: white;
+            color: var(--color-accent);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .tab-icon {
+            margin-right: 6px;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Map */
+        #map {
+            height: 400px;
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+        .custom-marker {
+            background: var(--color-accent);
+            border: 3px solid white;
+            border-radius: 50%;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+            cursor: pointer;
+        }
+        .custom-marker.p2 { background: #f59e0b; }
+        .custom-marker.p3 { background: #6b7280; }
+        .custom-marker.active { transform: scale(1.3); }
+
+        .leaflet-popup-content-wrapper { border-radius: 12px; }
+        .leaflet-popup-content { margin: 12px 16px; font-family: 'Inter', sans-serif; }
+        .popup-content { text-align: center; }
+        .popup-content .flag { font-size: 2rem; }
+        .popup-content h3 { font-size: 1rem; margin: 4px 0; }
+        .popup-content .priority {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+            background: var(--color-accent);
+        }
+        .popup-content .priority.p2 { background: #f59e0b; }
+        .popup-content .priority.p3 { background: #6b7280; }
+
+        /* Cards */
+        .card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+        .card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        /* Priority Timeline */
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .timeline-phase {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .timeline-phase h4 {
+            color: var(--color-accent);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+        .timeline-phase .markets {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+        .timeline-phase ul {
+            list-style: none;
+        }
+        .timeline-phase li {
+            font-size: 0.85rem;
+            color: var(--color-muted);
+            padding: 4px 0;
+            padding-left: 16px;
+            position: relative;
+        }
+        .timeline-phase li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+        }
+
+        /* Country Panel */
+        .country-panel {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .country-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .country-header h2 {
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .country-header .flag { font-size: 1.5rem; }
+        .priority-badge {
+            background: var(--color-accent);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .priority-badge.p2 { background: #f59e0b; }
+        .priority-badge.p3 { background: #6b7280; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .stat {
+            background: var(--color-surface-2);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+        .stat .value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--color-accent);
+        }
+        .stat .label {
+            font-size: 0.7rem;
+            color: var(--color-muted);
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        /* Vertical Cards */
+        .vertical-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .vertical-card:hover {
+            border-color: var(--color-accent);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        .vertical-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .vertical-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+        .vertical-icon.fsi { background: rgba(59,130,246,0.15); }
+        .vertical-icon.hcls { background: rgba(236,72,153,0.15); }
+        .vertical-icon.edu { background: rgba(16,185,129,0.15); }
+        .vertical-icon.commercial { background: rgba(245,158,11,0.15); }
+
+        .vertical-card p {
+            font-size: 0.85rem;
+            color: var(--color-muted);
+            margin-bottom: 12px;
+        }
+        .vertical-accounts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .account-chip {
+            background: var(--color-surface-2);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            color: var(--color-muted);
+        }
+
+        /* Account Cards */
+        .accounts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 16px;
+        }
+        .account-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.2s;
+        }
+        .account-card:hover {
+            border-color: var(--color-accent);
+        }
+        .account-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        .account-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .account-logo {
+            width: 36px;
+            height: 36px;
+            background: var(--color-surface-2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--color-accent);
+        }
+        .account-header h4 { font-size: 1rem; }
+        .vertical-tag {
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+        .vertical-tag.fsi { background: rgba(59,130,246,0.15); color: var(--color-fsi); }
+        .vertical-tag.hcls { background: rgba(236,72,153,0.15); color: var(--color-hcls); }
+        .vertical-tag.edu { background: rgba(16,185,129,0.15); color: var(--color-edu); }
+        .vertical-tag.commercial { background: rgba(245,158,11,0.15); color: var(--color-commercial); }
+
+        .account-desc {
+            font-size: 0.85rem;
+            color: var(--color-muted);
+            margin-bottom: 12px;
+        }
+        .opportunity-box {
+            background: var(--color-accent-soft);
+            border-radius: 8px;
+            padding: 12px;
+        }
+        .opportunity-box h5 {
+            font-size: 0.7rem;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .opportunity-box p {
+            font-size: 0.85rem;
+        }
+
+        /* Horizontal Solutions */
+        .solution-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+        .solution-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .solution-card .subtitle {
+            color: var(--color-muted);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .solution-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+        .feature {
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+        }
+        .feature-icon {
+            color: var(--color-accent);
+            font-size: 0.9rem;
+            margin-top: 2px;
+        }
+        .feature span {
+            font-size: 0.85rem;
+            color: var(--color-muted);
+        }
+
+        /* Tools Section */
+        .tool-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .tool-card:hover {
+            border-color: var(--color-accent);
+            transform: translateY(-2px);
+        }
+        .tool-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--color-accent-soft);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 12px;
+        }
+        .tool-card h4 {
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+        .tool-card p {
+            font-size: 0.8rem;
+            color: var(--color-muted);
+        }
+        .tool-card .status {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 4px 10px;
+            background: rgba(16,185,129,0.15);
+            color: #10b981;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .tool-card .status.demo { background: rgba(59,130,246,0.15); color: #3b82f6; }
+
+        /* Filter Buttons */
+        .filters {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .filter-btn {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--color-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-btn:hover {
+            border-color: var(--color-text);
+            color: var(--color-text);
+        }
+        .filter-btn.active {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--color-border);
+            text-align: center;
+            color: var(--color-muted);
+            font-size: 0.85rem;
+        }
+        footer a { color: var(--color-accent); text-decoration: none; }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .timeline { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            #map { height: 300px; }
+        }
+        @media (max-width: 600px) {
+            .tabs { flex-wrap: wrap; }
+            .tab { min-width: 100px; flex: 1 1 auto; }
+            .accounts-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="why-anthropic.html">Why Anthropic</a>
+            <a href="blog.html">Writing</a>
+        </nav>
+
+        <div class="header">
+            <h1>ASEAN Go-To-Market Strategy</h1>
+            <p>65+ accounts across 6 markets, mapped to Anthropic's verticals and solutions</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('markets')">
+                <span class="tab-icon">🗺️</span>Priority Markets
+            </button>
+            <button class="tab" onclick="showTab('verticals')">
+                <span class="tab-icon">🏢</span>Verticals
+            </button>
+            <button class="tab" onclick="showTab('solutions')">
+                <span class="tab-icon">⚡</span>Solutions
+            </button>
+            <button class="tab" onclick="showTab('tools')">
+                <span class="tab-icon">🛠️</span>Sales Tools
+            </button>
+        </div>
+
+        <!-- TAB 1: MARKETS -->
+        <div id="tab-markets" class="tab-content active">
+            <div id="map"></div>
+
+            <!-- Priority Timeline -->
+            <div class="timeline">
+                <div class="timeline-phase">
+                    <h4>Phase 1 · Months 1-6</h4>
+                    <div class="markets">🇸🇬 Singapore + 🇮🇩 Indonesia</div>
+                    <ul>
+                        <li>5-8 lighthouse accounts</li>
+                        <li>FSI + AI-native focus</li>
+                        <li>Build ROI case studies</li>
+                    </ul>
+                </div>
+                <div class="timeline-phase">
+                    <h4>Phase 2 · Months 6-12</h4>
+                    <div class="markets">🇹🇭 Thailand + 🇻🇳 Vietnam</div>
+                    <ul>
+                        <li>Expand with playbook</li>
+                        <li>Partner activation</li>
+                        <li>15-20 deployments</li>
+                    </ul>
+                </div>
+                <div class="timeline-phase">
+                    <h4>Phase 3 · Year 2</h4>
+                    <div class="markets">🇵🇭 Philippines + 🇲🇾 Malaysia</div>
+                    <ul>
+                        <li>BPO transformation</li>
+                        <li>Government + Banking</li>
+                        <li>50% partner-sourced</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Country Panel -->
+            <div class="country-panel">
+                <div class="country-header">
+                    <h2><span class="flag" id="countryFlag">🇸🇬</span> <span id="countryName">Singapore</span></h2>
+                    <span class="priority-badge" id="countryPriority">P1 Priority</span>
+                </div>
+                <div class="stats-grid" id="countryStats">
+                    <div class="stat"><div class="value">$423B</div><div class="label">GDP</div></div>
+                    <div class="stat"><div class="value">MAS</div><div class="label">Regulator</div></div>
+                    <div class="stat"><div class="value">PDPA</div><div class="label">Data Law</div></div>
+                    <div class="stat"><div class="value">English</div><div class="label">Language</div></div>
+                </div>
+            </div>
+
+            <!-- Accounts by Vertical -->
+            <h3 style="margin-bottom: 16px;">Top Accounts by Vertical</h3>
+            <div class="filters" id="marketFilters">
+                <button class="filter-btn active" onclick="filterMarketAccounts('all')">All</button>
+                <button class="filter-btn" onclick="filterMarketAccounts('fsi')">Financial Services</button>
+                <button class="filter-btn" onclick="filterMarketAccounts('hcls')">Healthcare</button>
+                <button class="filter-btn" onclick="filterMarketAccounts('commercial')">Commercial</button>
+            </div>
+            <div class="accounts-grid" id="marketAccounts"></div>
+        </div>
+
+        <!-- TAB 2: VERTICALS -->
+        <div id="tab-verticals" class="tab-content">
+            <div class="card" style="margin-bottom: 24px; background: var(--color-accent-soft); border-color: var(--color-accent);">
+                <h3 style="margin-bottom: 8px;">🎯 Digital Natives = My Focus</h3>
+                <p style="font-size: 0.9rem; color: var(--color-text);">
+                    Anthropic has two sales motions: <strong>Digital Natives</strong> (startups, tech-forward companies) and <strong>Industries</strong> (traditional enterprises).
+                    As the first AE for SEA, I'd focus on Digital Natives — they move fast, have technical teams ready to deploy, and can become lighthouse customers.
+                </p>
+            </div>
+
+            <h3 style="margin-bottom: 16px;">How Digital Natives map to Anthropic's Industry Solutions</h3>
+
+            <div class="card-grid">
+                <!-- Fintech / AI-Native -->
+                <div class="vertical-card" onclick="showVerticalDetail('fintech')">
+                    <h3>
+                        <div class="vertical-icon fsi">💳</div>
+                        Fintech & AI-Native
+                    </h3>
+                    <p>Digital-first finance. Fast movers. Can adopt <strong>Claude for Financial Services</strong>.</p>
+                    <div class="vertical-accounts">
+                        <span class="account-chip">Grab</span>
+                        <span class="account-chip">GoTo</span>
+                        <span class="account-chip">GCash</span>
+                        <span class="account-chip">MoMo</span>
+                        <span class="account-chip">Nansen</span>
+                    </div>
+                </div>
+
+                <!-- HealthTech -->
+                <div class="vertical-card" onclick="showVerticalDetail('healthtech')">
+                    <h3>
+                        <div class="vertical-icon hcls">🩺</div>
+                        HealthTech
+                    </h3>
+                    <p>Telehealth, digital health. Can adopt <strong>Claude for Healthcare</strong> + Life Sciences connectors.</p>
+                    <div class="vertical-accounts">
+                        <span class="account-chip">Halodoc</span>
+                        <span class="account-chip">Doctor Anywhere</span>
+                        <span class="account-chip">mClinica</span>
+                    </div>
+                </div>
+
+                <!-- DevTools / AI Infra -->
+                <div class="vertical-card" onclick="showVerticalDetail('devtools')">
+                    <h3>
+                        <div class="vertical-icon" style="background: rgba(139,92,246,0.15);">⚡</div>
+                        DevTools & AI Infra
+                    </h3>
+                    <p>Building on AI. Perfect for <strong>Claude Code</strong> and API deployments.</p>
+                    <div class="vertical-accounts">
+                        <span class="account-chip">Kata.ai</span>
+                        <span class="account-chip">Advance.AI</span>
+                        <span class="account-chip">FPT Software</span>
+                        <span class="account-chip">Sertis</span>
+                    </div>
+                </div>
+
+                <!-- E-commerce / Marketplaces -->
+                <div class="vertical-card" onclick="showVerticalDetail('ecommerce')">
+                    <h3>
+                        <div class="vertical-icon commercial">🛒</div>
+                        E-commerce & Marketplaces
+                    </h3>
+                    <p>High-volume, content moderation, seller tools. <strong>Claude for Enterprise</strong>.</p>
+                    <div class="vertical-accounts">
+                        <span class="account-chip">Shopee</span>
+                        <span class="account-chip">Carousell</span>
+                        <span class="account-chip">Lazada</span>
+                        <span class="account-chip">Tiki</span>
+                    </div>
+                </div>
+
+                <!-- Cybersecurity -->
+                <div class="vertical-card" onclick="showVerticalDetail('cyber')">
+                    <h3>
+                        <div class="vertical-icon" style="background: rgba(239,68,68,0.15);">🔒</div>
+                        Cybersecurity
+                    </h3>
+                    <p>Anthropic invests heavily here. Threat analysis, vulnerability discovery.</p>
+                    <div class="vertical-accounts">
+                        <span class="account-chip">Horangi</span>
+                        <span class="account-chip">Group-IB</span>
+                        <span class="account-chip">Ensign InfoSec</span>
+                    </div>
+                </div>
+
+                <!-- BPO / Services -->
+                <div class="vertical-card" onclick="showVerticalDetail('bpo')">
+                    <h3>
+                        <div class="vertical-icon edu">👥</div>
+                        BPO & AI Services
+                    </h3>
+                    <p>Agent augmentation at scale. Massive transformation opportunity.</p>
+                    <div class="vertical-accounts">
+                        <span class="account-chip">TaskUs</span>
+                        <span class="account-chip">Concentrix</span>
+                        <span class="account-chip">TDCX</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vertical Detail Panel -->
+            <div id="verticalDetail" class="card" style="margin-top: 24px; display: none;">
+                <h3 id="verticalTitle">Fintech in ASEAN</h3>
+                <div id="verticalContent"></div>
+            </div>
+        </div>
+
+        <!-- TAB 3: SOLUTIONS -->
+        <div id="tab-solutions" class="tab-content">
+            <p style="color: var(--color-muted); margin-bottom: 24px;">
+                Anthropic's products — how I'd position them for ASEAN Digital Natives:
+            </p>
+
+            <!-- Claude Code -->
+            <div class="solution-card">
+                <h3>
+                    <span style="font-size: 1.5rem;">⌨️</span>
+                    Claude Code
+                </h3>
+                <p class="subtitle">Agentic coding tool — lives in terminal, understands your codebase</p>
+                <div class="solution-features">
+                    <div class="feature">
+                        <span class="feature-icon">→</span>
+                        <span>2-10x development velocity (Altana case study)</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">→</span>
+                        <span>Code modernization, git workflows, debugging</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">→</span>
+                        <span>Enterprise-ready on AWS/GCP</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">→</span>
+                        <span>Premium seats now in AWS Marketplace</span>
+                    </div>
+                </div>
+                <p style="margin-top: 16px; font-size: 0.85rem; color: var(--color-muted);">
+                    <strong>ASEAN targets:</strong> Grab, GoTo, Sea Group, VNG, FPT Software — large engineering orgs
+                </p>
+            </div>
+
+            <!-- Claude for Financial Services -->
+            <div class="solution-card">
+                <h3>
+                    <span style="font-size: 1.5rem;">💹</span>
+                    Claude for Financial Services
+                </h3>
+                <p class="subtitle">Industry-specific solution — launched July 2025, Anthropic's first vertical product</p>
+                <div class="solution-features">
+                    <div class="feature">
+                        <span class="feature-icon">→</span>
+                        <span>Connectors: Snowflake, S&P, Morningstar, Databricks</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">→</span>
+                        <span>Claude for Excel (beta) — analyze in sidebar</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">→</span>
+                        <span>AIG: 5x faster underwriting, 75% → 90% accuracy</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">→</span>
+                        <span>NBIM: 20% productivity = 213K hours saved</span>
+                    </div>
+                </div>
+                <p style="margin-top: 16px; font-size: 0.85rem; color: var(--color-muted);">
+                    <strong>ASEAN targets:</strong> Grab, GoTo, GCash, MoMo, Nansen — fintech with compliance needs
+                </p>
+            </div>
+
+            <!-- Claude for Healthcare -->
+            <div class="solution-card">
+                <h3>
+                    <span style="font-size: 1.5rem;">🏥</span>
+                    Claude for Healthcare
+                </h3>
+                <p class="subtitle">HIPAA-ready for providers, payers, consumers — launched Jan 2026</p>
+                <div class="solution-features">
+                    <div class="feature">
+                        <span class="feature-icon">→</span>
+                        <span>CMS Coverage Database connector</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">→</span>
+                        <span>HealthEx partnership — patient medical records</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">→</span>
+                        <span>Prior auth, claim denials, coverage verification</span>
+                    </div>
+                </div>
+                <p style="margin-top: 16px; font-size: 0.85rem; color: var(--color-muted);">
+                    <strong>ASEAN targets:</strong> Halodoc, Doctor Anywhere — telehealth leaders
+                </p>
+            </div>
+
+            <!-- Claude for Life Sciences -->
+            <div class="solution-card">
+                <h3>
+                    <span style="font-size: 1.5rem;">🧬</span>
+                    Claude for Life Sciences
+                </h3>
+                <p class="subtitle">Scientific connectors for drug discovery, clinical trials, research</p>
+                <div class="solution-features">
+                    <div class="feature">
+                        <span class="feature-icon">→</span>
+                        <span>Benchling, PubMed, BioRender, 10x Genomics</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">→</span>
+                        <span>Medidata, ClinicalTrials.gov connectors</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">→</span>
+                        <span>ChEMBL, Open Targets for drug development</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">→</span>
+                        <span>Opus 4.5: scientific figures, comp bio, proteins</span>
+                    </div>
+                </div>
+                <p style="margin-top: 16px; font-size: 0.85rem; color: var(--color-muted);">
+                    <strong>Partners:</strong> AstraZeneca, Sanofi, Genmab, Veeva — ASEAN pharma expansion opportunity
+                </p>
+            </div>
+
+            <!-- Cybersecurity -->
+            <div class="solution-card">
+                <h3>
+                    <span style="font-size: 1.5rem;">🔒</span>
+                    Cybersecurity Capabilities
+                </h3>
+                <p class="subtitle">Anthropic invests heavily in AI for cyber defenders</p>
+                <div class="solution-features">
+                    <div class="feature">
+                        <span class="feature-icon">→</span>
+                        <span>Claude Sonnet 4.5: vulnerability discovery + patching</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">→</span>
+                        <span>HackerOne: 44% faster vulnerability response</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">→</span>
+                        <span>Threat analysis, malware investigation</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">→</span>
+                        <span>Frontier Red Team researches AI security risks</span>
+                    </div>
+                </div>
+                <p style="margin-top: 16px; font-size: 0.85rem; color: var(--color-muted);">
+                    <strong>ASEAN targets:</strong> Horangi, Group-IB, Ensign — growing cybersec market
+                </p>
+            </div>
+
+            <!-- Use Cases Matrix -->
+            <h3 style="margin: 32px 0 16px;">Solution × Use Case Matrix</h3>
+            <div class="card" style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--color-border);">
+                            <th style="text-align: left; padding: 12px; color: var(--color-muted);">Use Case</th>
+                            <th style="text-align: center; padding: 12px;">Code</th>
+                            <th style="text-align: center; padding: 12px;">FSI</th>
+                            <th style="text-align: center; padding: 12px;">Health</th>
+                            <th style="text-align: center; padding: 12px;">Life Sci</th>
+                            <th style="text-align: center; padding: 12px;">Cyber</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid var(--color-border);">
+                            <td style="padding: 12px;">Code modernization</td>
+                            <td style="text-align: center; padding: 12px; color: var(--color-accent);">✓</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--color-border);">
+                            <td style="padding: 12px;">Fraud detection</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                            <td style="text-align: center; padding: 12px; color: var(--color-accent);">✓</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--color-border);">
+                            <td style="padding: 12px;">Underwriting</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                            <td style="text-align: center; padding: 12px; color: var(--color-accent);">✓</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--color-border);">
+                            <td style="padding: 12px;">Prior authorization</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                            <td style="text-align: center; padding: 12px; color: var(--color-accent);">✓</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--color-border);">
+                            <td style="padding: 12px;">Drug discovery</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                            <td style="text-align: center; padding: 12px; color: var(--color-accent);">✓</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--color-border);">
+                            <td style="padding: 12px;">Vulnerability analysis</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                            <td style="text-align: center; padding: 12px; color: var(--color-accent);">✓</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px;">Customer support</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                            <td style="text-align: center; padding: 12px; color: var(--color-accent);">✓</td>
+                            <td style="text-align: center; padding: 12px; color: var(--color-accent);">✓</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                            <td style="text-align: center; padding: 12px;">-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB 4: TOOLS -->
+        <div id="tab-tools" class="tab-content">
+            <p style="color: var(--color-muted); margin-bottom: 24px;">
+                Sales tools I built to work faster. Simple things that work.
+            </p>
+
+            <div class="card-grid">
+                <a href="dn-sales-assistant/index.html" class="tool-card" style="text-decoration: none; color: inherit;">
+                    <div class="tool-icon">🤖</div>
+                    <h4>DN Sales Assistant</h4>
+                    <p>Account research, objection handling, email drafts</p>
+                    <span class="status">Working</span>
+                </a>
+
+                <div class="tool-card">
+                    <div class="tool-icon">📧</div>
+                    <h4>Outreach Generator</h4>
+                    <p>Personalized sequences based on account intel</p>
+                    <span class="status demo">In Progress</span>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">📊</div>
+                    <h4>Competitor Intel</h4>
+                    <p>OpenAI vs Claude positioning by use case</p>
+                    <span class="status demo">In Progress</span>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🎯</div>
+                    <h4>ROI Calculator</h4>
+                    <p>Productivity gains by role and vertical</p>
+                    <span class="status demo">In Progress</span>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 24px; text-align: center;">
+                <p style="color: var(--color-muted); font-size: 0.9rem;">
+                    <strong>Philosophy:</strong> Better simple than perfect, as long as it works.
+                    <br>These tools are built with Claude — proof of what the product can do.
+                </p>
+            </div>
+        </div>
+
+        <footer>
+            <a href="index.html">← Back to Portfolio</a> ·
+            Built with <a href="https://claude.ai">Claude Code</a>
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Market Data
+        const markets = {
+            singapore: {
+                flag: '🇸🇬', name: 'Singapore', priority: 'P1',
+                lat: 1.3521, lng: 103.8198,
+                gdp: '$423B', regulator: 'MAS', dataLaw: 'PDPA', language: 'English',
+                accounts: [
+                    { name: 'DBS Bank', logo: 'DBS', vertical: 'fsi', desc: 'Largest bank in SEA. Heavy AI investment.', opportunity: 'Knowledge assistants, document processing, compliance' },
+                    { name: 'Grab', logo: 'G', vertical: 'fsi', desc: 'SEA superapp. Payments, delivery, mobility.', opportunity: 'Fraud detection, multilingual support, driver comms' },
+                    { name: 'Sea Group', logo: 'SE', vertical: 'commercial', desc: 'Shopee, Garena, SeaMoney.', opportunity: 'E-commerce AI, content moderation, seller support' },
+                    { name: 'Singtel', logo: 'ST', vertical: 'commercial', desc: 'Largest telco. Regional presence.', opportunity: 'Customer service, network ops, call center AI' },
+                    { name: 'Nansen', logo: 'N', vertical: 'fsi', desc: 'Blockchain analytics platform.', opportunity: 'Deep reasoning, agentic research, report gen' },
+                    { name: 'Lazada', logo: 'L', vertical: 'commercial', desc: 'E-commerce leader. 6 markets.', opportunity: 'Seller tools, customer service, product AI' }
+                ]
+            },
+            indonesia: {
+                flag: '🇮🇩', name: 'Indonesia', priority: 'P1',
+                lat: -6.2088, lng: 106.8456,
+                gdp: '$1.3T', regulator: 'OJK/BI', dataLaw: 'UU PDP', language: 'Bahasa',
+                accounts: [
+                    { name: 'GoTo', logo: 'GT', vertical: 'fsi', desc: 'GoPay, Gojek, Tokopedia merged.', opportunity: 'Bahasa NLP, fraud detection, merchant tools' },
+                    { name: 'BCA', logo: 'BCA', vertical: 'fsi', desc: 'Largest private bank.', opportunity: 'Customer service, document processing, compliance' },
+                    { name: 'Halodoc', logo: 'HD', vertical: 'hcls', desc: 'Largest telehealth. 20M+ users.', opportunity: 'Symptom triage, doctor matching, records' },
+                    { name: 'Telkomsel', logo: 'TS', vertical: 'commercial', desc: '170M subscribers.', opportunity: 'Call center transformation, network AI' },
+                    { name: 'Blibli', logo: 'B', vertical: 'commercial', desc: 'E-commerce. Djarum group.', opportunity: 'Product discovery, seller tools, search' }
+                ]
+            },
+            thailand: {
+                flag: '🇹🇭', name: 'Thailand', priority: 'P2',
+                lat: 13.7563, lng: 100.5018,
+                gdp: '$500B', regulator: 'BOT/SEC', dataLaw: 'PDPA', language: 'Thai',
+                accounts: [
+                    { name: 'SCB (SCBX)', logo: 'SCB', vertical: 'fsi', desc: 'Oldest Thai bank. Digital transformation.', opportunity: 'Digital banking, customer service, compliance' },
+                    { name: 'Ascend Money', logo: 'TM', vertical: 'fsi', desc: 'TrueMoney. 50M+ users.', opportunity: 'Cross-border, Thai NLP, fraud' },
+                    { name: 'Line Man Wongnai', logo: 'LW', vertical: 'commercial', desc: 'Food delivery + reviews.', opportunity: 'Recommendations, driver ops, support' }
+                ]
+            },
+            vietnam: {
+                flag: '🇻🇳', name: 'Vietnam', priority: 'P2',
+                lat: 10.8231, lng: 106.6297,
+                gdp: '$400B', regulator: 'SBV', dataLaw: 'Cybersecurity Law', language: 'Vietnamese',
+                accounts: [
+                    { name: 'VNPay', logo: 'VP', vertical: 'fsi', desc: 'Largest payment gateway.', opportunity: 'Fraud detection, Vietnamese NLP' },
+                    { name: 'FPT Software', logo: 'FPT', vertical: 'commercial', desc: 'Largest IT services.', opportunity: 'Partner for delivery, joint GTM' },
+                    { name: 'MoMo', logo: 'MM', vertical: 'fsi', desc: 'Leading e-wallet. 30M+ users.', opportunity: 'Fraud, mini-app ecosystem, merchant' }
+                ]
+            },
+            philippines: {
+                flag: '🇵🇭', name: 'Philippines', priority: 'P3',
+                lat: 14.5995, lng: 120.9842,
+                gdp: '$400B', regulator: 'BSP', dataLaw: 'Data Privacy Act', language: 'Filipino/English',
+                accounts: [
+                    { name: 'GCash', logo: 'GC', vertical: 'fsi', desc: 'Dominant wallet. 80M+ users.', opportunity: 'Fraud at scale, Filipino support' },
+                    { name: 'TaskUs', logo: 'TU', vertical: 'commercial', desc: 'AI-enabled BPO. 45K employees.', opportunity: 'Agent augmentation at scale' },
+                    { name: 'Maya', logo: 'MY', vertical: 'fsi', desc: 'Digital bank. PayMaya rebrand.', opportunity: 'Banking AI, customer service' }
+                ]
+            },
+            malaysia: {
+                flag: '🇲🇾', name: 'Malaysia', priority: 'P3',
+                lat: 3.1390, lng: 101.6869,
+                gdp: '$370B', regulator: 'BNM', dataLaw: 'PDPA MY', language: 'Malay/English',
+                accounts: [
+                    { name: 'Maybank', logo: 'MB', vertical: 'fsi', desc: 'Largest bank in SEA by assets.', opportunity: 'Digital banking, document processing' },
+                    { name: 'Touch n Go', logo: 'TNG', vertical: 'fsi', desc: 'Leading e-wallet. 20M+ users.', opportunity: 'Credit scoring, customer service' },
+                    { name: 'Carsome', logo: 'CS', vertical: 'commercial', desc: 'Car marketplace. Regional.', opportunity: 'Vehicle inspection, pricing AI' }
+                ]
+            }
+        };
+
+        let currentMarket = 'singapore';
+        let currentFilter = 'all';
+        let map;
+        let markers = {};
+
+        // Tab Navigation
+        function showTab(tabId) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
+            document.getElementById('tab-' + tabId).classList.add('active');
+
+            if (tabId === 'markets' && map) {
+                setTimeout(() => map.invalidateSize(), 100);
+            }
+        }
+
+        // Initialize Map
+        function initMap() {
+            map = L.map('map').setView([5, 108], 4);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap &copy; CARTO',
+                subdomains: 'abcd',
+                maxZoom: 19
+            }).addTo(map);
+
+            Object.keys(markets).forEach(key => {
+                const m = markets[key];
+                const priorityClass = m.priority.toLowerCase();
+                const icon = L.divIcon({
+                    className: 'custom-marker ' + priorityClass + (key === currentMarket ? ' active' : ''),
+                    iconSize: [24, 24],
+                    iconAnchor: [12, 12]
+                });
+
+                const marker = L.marker([m.lat, m.lng], { icon })
+                    .addTo(map)
+                    .bindPopup(`
+                        <div class="popup-content">
+                            <div class="flag">${m.flag}</div>
+                            <h3>${m.name}</h3>
+                            <span class="priority ${priorityClass}">${m.priority}</span>
+                        </div>
+                    `);
+
+                marker.on('click', () => selectMarket(key));
+                markers[key] = marker;
+            });
+        }
+
+        function selectMarket(key) {
+            currentMarket = key;
+            currentFilter = 'all';
+
+            // Update markers
+            Object.keys(markers).forEach(k => {
+                const m = markets[k];
+                const icon = L.divIcon({
+                    className: 'custom-marker ' + m.priority.toLowerCase() + (k === key ? ' active' : ''),
+                    iconSize: k === key ? [32, 32] : [24, 24],
+                    iconAnchor: k === key ? [16, 16] : [12, 12]
+                });
+                markers[k].setIcon(icon);
+            });
+
+            map.panTo([markets[key].lat, markets[key].lng]);
+            updateCountryPanel();
+            renderMarketAccounts();
+
+            // Reset filter buttons
+            document.querySelectorAll('#marketFilters .filter-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('#marketFilters .filter-btn').classList.add('active');
+        }
+
+        function updateCountryPanel() {
+            const m = markets[currentMarket];
+            document.getElementById('countryFlag').textContent = m.flag;
+            document.getElementById('countryName').textContent = m.name;
+
+            const badge = document.getElementById('countryPriority');
+            badge.textContent = m.priority + ' Priority';
+            badge.className = 'priority-badge' + (m.priority === 'P2' ? ' p2' : m.priority === 'P3' ? ' p3' : '');
+
+            document.getElementById('countryStats').innerHTML = `
+                <div class="stat"><div class="value">${m.gdp}</div><div class="label">GDP</div></div>
+                <div class="stat"><div class="value">${m.regulator}</div><div class="label">Regulator</div></div>
+                <div class="stat"><div class="value">${m.dataLaw}</div><div class="label">Data Law</div></div>
+                <div class="stat"><div class="value">${m.language}</div><div class="label">Language</div></div>
+            `;
+        }
+
+        function filterMarketAccounts(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('#marketFilters .filter-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            renderMarketAccounts();
+        }
+
+        function renderMarketAccounts() {
+            const m = markets[currentMarket];
+            const accounts = currentFilter === 'all'
+                ? m.accounts
+                : m.accounts.filter(a => a.vertical === currentFilter);
+
+            document.getElementById('marketAccounts').innerHTML = accounts.map(a => `
+                <div class="account-card">
+                    <div class="account-header">
+                        <div class="account-name">
+                            <div class="account-logo">${a.logo}</div>
+                            <h4>${a.name}</h4>
+                        </div>
+                        <span class="vertical-tag ${a.vertical}">${getVerticalName(a.vertical)}</span>
+                    </div>
+                    <p class="account-desc">${a.desc}</p>
+                    <div class="opportunity-box">
+                        <h5>AI Opportunity</h5>
+                        <p>${a.opportunity}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getVerticalName(v) {
+            return { fsi: 'FSI', hcls: 'HCLS', edu: 'Education', commercial: 'Commercial' }[v] || v;
+        }
+
+        // Vertical Detail
+        function showVerticalDetail(vertical) {
+            const panel = document.getElementById('verticalDetail');
+            const title = document.getElementById('verticalTitle');
+            const content = document.getElementById('verticalContent');
+
+            const verticals = {
+                fintech: {
+                    title: 'Fintech & AI-Native in ASEAN',
+                    content: `
+                        <p style="margin-bottom: 16px;"><strong>Why they're perfect:</strong> Technical teams, move fast, already using AI, can be lighthouse customers.</p>
+                        <ul style="margin-left: 20px; color: var(--color-muted);">
+                            <li><strong>Superapps:</strong> Grab, GoTo — fraud, multilingual support, merchant tools</li>
+                            <li><strong>Wallets:</strong> GCash, MoMo, TrueMoney — fraud at scale, 50-80M+ users</li>
+                            <li><strong>Crypto/Web3:</strong> Nansen (already Claude user!) — agentic research</li>
+                        </ul>
+                        <p style="margin-top: 16px; font-size: 0.85rem; color: var(--color-muted);">
+                            <strong>Solution:</strong> Claude for Financial Services — Snowflake, S&P, Morningstar connectors
+                        </p>
+                    `
+                },
+                healthtech: {
+                    title: 'HealthTech in ASEAN',
+                    content: `
+                        <p style="margin-bottom: 16px;"><strong>Why they matter:</strong> High-trust sector. Anthropic just launched Claude for Healthcare (Jan 2026).</p>
+                        <ul style="margin-left: 20px; color: var(--color-muted);">
+                            <li><strong>Telehealth:</strong> Halodoc (20M+ users), Doctor Anywhere — symptom triage, records</li>
+                            <li><strong>Pharmacy:</strong> mClinica — supply chain, patient engagement</li>
+                        </ul>
+                        <p style="margin-top: 16px; font-size: 0.85rem; color: var(--color-muted);">
+                            <strong>Solution:</strong> Claude for Healthcare + Life Sciences connectors (PubMed, Benchling, etc.)
+                        </p>
+                    `
+                },
+                devtools: {
+                    title: 'DevTools & AI Infra in ASEAN',
+                    content: `
+                        <p style="margin-bottom: 16px;"><strong>Why they're strategic:</strong> Building on AI = natural partners. Can embed Claude deeply.</p>
+                        <ul style="margin-left: 20px; color: var(--color-muted);">
+                            <li><strong>Conversational AI:</strong> Kata.ai — Bahasa leader, LLM integration opportunity</li>
+                            <li><strong>Identity/Risk:</strong> Advance.AI — KYC automation, fraud scoring</li>
+                            <li><strong>IT Services:</strong> FPT Software (25K engineers) — partner for delivery</li>
+                            <li><strong>Data/Analytics:</strong> Sertis — enterprise AI consultancy in Thailand</li>
+                        </ul>
+                        <p style="margin-top: 16px; font-size: 0.85rem; color: var(--color-muted);">
+                            <strong>Solution:</strong> Claude Code + API — they'll build products on top
+                        </p>
+                    `
+                },
+                ecommerce: {
+                    title: 'E-commerce & Marketplaces in ASEAN',
+                    content: `
+                        <p style="margin-bottom: 16px;"><strong>Why they're high-volume:</strong> Content moderation, seller tools, customer support at scale.</p>
+                        <ul style="margin-left: 20px; color: var(--color-muted);">
+                            <li><strong>Giants:</strong> Shopee, Lazada — seller support, fraud, product AI</li>
+                            <li><strong>Classifieds:</strong> Carousell — trust & safety, scam detection</li>
+                            <li><strong>Local players:</strong> Tiki (Vietnam), Blibli (Indonesia)</li>
+                        </ul>
+                        <p style="margin-top: 16px; font-size: 0.85rem; color: var(--color-muted);">
+                            <strong>Case study:</strong> Zapier — 800+ internal Claude agents deployed
+                        </p>
+                    `
+                },
+                cyber: {
+                    title: 'Cybersecurity in ASEAN',
+                    content: `
+                        <p style="margin-bottom: 16px;"><strong>Why Anthropic cares:</strong> Frontier Red Team researches AI security. Claude Sonnet 4.5 built for vulnerability work.</p>
+                        <ul style="margin-left: 20px; color: var(--color-muted);">
+                            <li><strong>Cloud Security:</strong> Horangi — threat analysis, compliance automation</li>
+                            <li><strong>Threat Intel:</strong> Group-IB — fraud investigation, dark web</li>
+                            <li><strong>MSSP:</strong> Ensign InfoSecurity — largest in SEA</li>
+                        </ul>
+                        <p style="margin-top: 16px; font-size: 0.85rem; color: var(--color-muted);">
+                            <strong>Case study:</strong> HackerOne — 44% faster vulnerability response with Claude
+                        </p>
+                    `
+                },
+                bpo: {
+                    title: 'BPO & AI Services in ASEAN',
+                    content: `
+                        <p style="margin-bottom: 16px;"><strong>Massive opportunity:</strong> Philippines is BPO capital. Agent augmentation at scale.</p>
+                        <ul style="margin-left: 20px; color: var(--color-muted);">
+                            <li><strong>TaskUs:</strong> 45K employees, AI-enabled BPO, content moderation</li>
+                            <li><strong>Concentrix:</strong> Huge presence in PH and MY</li>
+                            <li><strong>TDCX:</strong> Customer experience, HQ in Singapore</li>
+                        </ul>
+                        <p style="margin-top: 16px; font-size: 0.85rem; color: var(--color-muted);">
+                            <strong>Case study:</strong> TELUS — 500K staff hours saved through workflow automation
+                        </p>
+                    `
+                }
+            };
+
+            title.textContent = verticals[vertical].title;
+            content.innerHTML = verticals[vertical].content;
+            panel.style.display = 'block';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initMap();
+            updateCountryPanel();
+            renderMarketAccounts();
+        });
+    </script>
+</body>
+</html>
