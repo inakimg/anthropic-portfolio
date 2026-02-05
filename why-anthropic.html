@@ -99,6 +99,61 @@
             text-decoration: none;
         }
 
+        .parallel {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 32px 0;
+        }
+        .parallel-card {
+            padding: 20px;
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+        }
+        .parallel-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--color-accent);
+            margin-bottom: 8px;
+        }
+        .parallel-card p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+            color: var(--color-text-muted);
+        }
+
+        .values-list {
+            margin: 24px 0;
+        }
+        .value-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            align-items: flex-start;
+        }
+        .value-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--color-accent-soft);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+            font-size: 0.7rem;
+        }
+        .value-text strong {
+            display: block;
+            margin-bottom: 2px;
+        }
+        .value-text span {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+        }
+
         .links-section {
             margin-top: 40px;
             padding-top: 32px;
@@ -162,6 +217,7 @@
 
         @media (max-width: 600px) {
             .page-header h1 { font-size: 2rem; }
+            .parallel { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -180,42 +236,89 @@
         <div class="content">
             <figure class="family-photo">
                 <img src="family-butcher.jpg" alt="Moreno Antolinos family at their butcher shop in Barcelona">
-                <figcaption>My family at <a href="https://www.cansaladers.cat/" target="_blank">Moreno Antolinos</a> — three generations of hard work</figcaption>
+                <figcaption>My family at <a href="https://www.cansaladers.cat/" target="_blank">Moreno Antolinos</a> — three generations of honest work</figcaption>
             </figure>
 
             <p>
                 I come from a butcher's family in Barcelona. My parents worked their whole lives
-                so I could have opportunities like this one.
+                so I could have opportunities like this one — to be part of the lab building the future of AI.
             </p>
 
             <p>
-                That's why I work the way I do. <strong>I may not have all the answers,
-                but I will always find a way.</strong> I might not be the smartest in the room,
-                but no one works harder than me.
-            </p>
-
-            <p>
-                These principles helped me close 40+ AI deployments across ASEAN. I learned why
-                deployments fail. I experienced the local and regulatory nuances firsthand —
-                by failing many times and getting back up.
+                That's why I work the way I do. <strong>I may not have all the answers, but I will always
+                find a way.</strong> I might not be the smartest in the room, but no one works harder than me.
             </p>
 
             <div class="highlight">
                 <p>
-                    <strong>I became a dad 13 months ago.</strong> AI safety isn't abstract anymore —
-                    it's about the world my daughter will grow up in.
+                    <strong>My parents taught me that trust is built one honest interaction at a time.</strong>
                 </p>
                 <p>
-                    Anthropic is doing the most important work in AI. Constitutional AI, interpretability
-                    research, building systems that are genuinely helpful and safe. I want to contribute
-                    to that mission. I want a seat on that bus.
+                    That's what drew me to Anthropic — a company building AI the same way my family
+                    built their business: with integrity, thinking about the long term, and giving customers
+                    what they actually need, not what's easiest to sell.
                 </p>
             </div>
 
             <p>
-                I played football semi-professionally in Spain's 3rd division before tech.
-                The discipline, the teamwork, the refusal to give up — that never left me.
-                It just found a new arena.
+                I worked at the butcher shop as a kid. Selling at the counter, I learned to give customers
+                what they wanted — not what you wanted to sell. That's exactly how Anthropic operates.
+                No ads. No engagement tricks. Just solving your problem as fast as possible.
+            </p>
+
+            <div class="parallel">
+                <div class="parallel-card">
+                    <h3>At the butcher shop</h3>
+                    <p>Never cut corners. Know every customer by name. Build trust that lasts generations.</p>
+                </div>
+                <div class="parallel-card">
+                    <h3>At Anthropic</h3>
+                    <p>Never cut corners on safety. Constitutional AI. Build trust that lasts generations.</p>
+                </div>
+            </div>
+
+            <p>
+                These principles helped me guide 40+ digital natives and startups to embed AI in ways
+                that drive the outcomes they actually care about. I learned why deployments fail.
+                I experienced ASEAN's regulatory nuances firsthand — by failing many times and getting back up.
+            </p>
+
+            <p>
+                <strong>I became a dad 13 months ago.</strong> AI safety isn't abstract anymore.
+                It's about the world my daughter will grow up in.
+            </p>
+
+            <h3 style="font-family: var(--font-serif); font-weight: 400; margin: 32px 0 16px; color: var(--color-accent);">
+                Values I share with Anthropic
+            </h3>
+
+            <div class="values-list">
+                <div class="value-item">
+                    <div class="value-icon">→</div>
+                    <div class="value-text">
+                        <strong>"I don't know"</strong>
+                        <span>Intellectual humility. Being open to learning. This is exactly who I am.</span>
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">→</div>
+                    <div class="value-text">
+                        <strong>Do the simple thing that works</strong>
+                        <span>Practical, robust solutions over complexity. My butcher family would agree.</span>
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">→</div>
+                    <div class="value-text">
+                        <strong>Long-term over short-term</strong>
+                        <span>The founders pledged 80% of their wealth to philanthropy. They're not here for a quick exit.</span>
+                    </div>
+                </div>
+            </div>
+
+            <p style="color: var(--color-text-muted); font-size: 0.95rem; margin-top: 32px;">
+                Dario Amodei is a researcher who had to focus on the business side — but he's still a researcher at heart.
+                That genuineness is rare. You can tell when a company really cares about something.
             </p>
 
             <p style="text-align: center; margin-top: 32px; font-size: 1.1rem;">
