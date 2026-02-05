@@ -13,12 +13,11 @@
 
     <style>
         :root {
-            /* Anthropic-inspired palette with warm personal touch */
             --color-bg: #FAF9F5;
             --color-surface: #FFFFFF;
             --color-text: #1F2328;
             --color-text-muted: #57606A;
-            --color-accent: #CC785C;  /* Anthropic's warm orange */
+            --color-accent: #CC785C;
             --color-accent-soft: rgba(204, 120, 92, 0.12);
             --color-border: #D8DEE4;
             --color-slate: #24292F;
@@ -26,16 +25,8 @@
             --font-sans: 'DM Sans', -apple-system, sans-serif;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: var(--font-sans);
             background: var(--color-bg);
@@ -43,14 +34,8 @@
             line-height: 1.7;
             font-size: 16px;
         }
+        .container { max-width: 700px; margin: 0 auto; padding: 0 24px; }
 
-        .container {
-            max-width: 700px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* Navigation */
         nav {
             padding: 20px 0;
             display: flex;
@@ -58,24 +43,18 @@
             justify-content: center;
             flex-wrap: wrap;
         }
-
         nav a {
             color: var(--color-text-muted);
             text-decoration: none;
             font-size: 0.9rem;
             transition: color 0.2s;
         }
+        nav a:hover, nav a.active { color: var(--color-accent); }
 
-        nav a:hover, nav a.active {
-            color: var(--color-accent);
-        }
-
-        /* Header / Hero */
         .hero {
             padding: 60px 0 50px;
             animation: fadeIn 0.8s ease-out;
         }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -86,7 +65,6 @@
             align-items: flex-start;
             gap: 32px;
         }
-
         .hero-photo {
             width: 130px;
             height: 130px;
@@ -96,7 +74,6 @@
             flex-shrink: 0;
             border: 3px solid var(--color-border);
         }
-
         .hero-text h1 {
             font-family: var(--font-serif);
             font-size: 2.4rem;
@@ -105,24 +82,26 @@
             letter-spacing: -0.02em;
             color: var(--color-slate);
         }
-
         .hero-text p {
             color: var(--color-text-muted);
             font-size: 1.05rem;
             margin-bottom: 16px;
         }
-
         .hero-text p strong {
             color: var(--color-text);
             font-weight: 500;
         }
-
+        .hero-tagline {
+            font-size: 1.15rem;
+            color: var(--color-text);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
         .social-links {
             display: flex;
             gap: 20px;
             flex-wrap: wrap;
         }
-
         .social-links a {
             color: var(--color-text);
             text-decoration: none;
@@ -132,22 +111,13 @@
             gap: 6px;
             transition: color 0.2s;
         }
+        .social-links a:hover { color: var(--color-accent); }
+        .social-links a svg { width: 17px; height: 17px; }
 
-        .social-links a:hover {
-            color: var(--color-accent);
-        }
-
-        .social-links a svg {
-            width: 17px;
-            height: 17px;
-        }
-
-        /* Sections */
         section {
             padding: 40px 0;
             border-top: 1px solid var(--color-border);
         }
-
         section h2 {
             font-family: var(--font-serif);
             font-size: 1.5rem;
@@ -156,100 +126,16 @@
             color: var(--color-slate);
         }
 
-        /* Why Section */
-        .why-content {
-            font-size: 1.02rem;
-            line-height: 1.8;
-        }
-
-        .why-content p {
-            margin-bottom: 14px;
-        }
-
-        /* Impact Stories - replacing Track Record */
-        .impact-section {
-            margin-bottom: 24px;
-        }
-
-        .impact-highlight {
-            font-family: var(--font-serif);
-            font-size: 1.3rem;
-            color: var(--color-slate);
-            margin-bottom: 16px;
-            line-height: 1.5;
-        }
-
-        .impact-detail {
-            color: var(--color-text-muted);
+        .meta-line {
             font-size: 0.95rem;
-            line-height: 1.7;
-        }
-
-        /* Quote Box */
-        .quote-box {
-            background: var(--color-surface);
-            border-left: 3px solid var(--color-accent);
-            padding: 20px 24px;
-            margin: 24px 0;
-            border-radius: 0 10px 10px 0;
-        }
-
-        .quote-box p {
-            font-style: italic;
-            margin-bottom: 10px;
-            font-size: 0.98rem;
-            color: var(--color-text);
-            line-height: 1.7;
-        }
-
-        .quote-box .attribution {
-            font-size: 0.85rem;
             color: var(--color-text-muted);
-            font-style: normal;
-        }
-
-        /* Experience Timeline */
-        .experience-list {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        .experience-item {
-            padding-left: 20px;
-            border-left: 2px solid var(--color-border);
-        }
-
-        .experience-item h3 {
-            font-weight: 600;
-            font-size: 1rem;
-            margin-bottom: 4px;
-            color: var(--color-slate);
-        }
-
-        .experience-item .company {
-            color: var(--color-accent);
-            font-size: 0.95rem;
-            margin-bottom: 4px;
-        }
-
-        .experience-item .period {
-            color: var(--color-text-muted);
-            font-size: 0.85rem;
             margin-bottom: 8px;
         }
-
-        .experience-item p {
-            color: var(--color-text-muted);
-            font-size: 0.95rem;
+        .meta-line strong {
+            color: var(--color-text);
         }
 
-        /* Projects Grid */
-        .projects-grid {
-            display: grid;
-            gap: 14px;
-        }
-
+        .projects-grid { display: grid; gap: 14px; }
         .project-card {
             background: var(--color-surface);
             border: 1px solid var(--color-border);
@@ -262,25 +148,21 @@
             justify-content: space-between;
             align-items: center;
         }
-
         .project-card:hover {
             border-color: var(--color-accent);
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0,0,0,0.05);
         }
-
         .project-card h3 {
             font-size: 0.98rem;
             font-weight: 600;
             margin-bottom: 3px;
             color: var(--color-slate);
         }
-
         .project-card p {
             color: var(--color-text-muted);
             font-size: 0.88rem;
         }
-
         .project-tag {
             background: var(--color-accent-soft);
             color: var(--color-accent);
@@ -291,7 +173,6 @@
             white-space: nowrap;
         }
 
-        /* CTA Section */
         .cta-section {
             background: var(--color-surface);
             border: 1px solid var(--color-accent);
@@ -300,17 +181,12 @@
             text-align: center;
             margin: 40px 0;
         }
-
-        .cta-section h2 {
-            margin-bottom: 12px;
-        }
-
+        .cta-section h2 { margin-bottom: 12px; }
         .cta-section p {
             color: var(--color-text-muted);
             font-size: 1rem;
             margin-bottom: 20px;
         }
-
         .cta-button {
             display: inline-block;
             background: var(--color-accent);
@@ -321,62 +197,42 @@
             font-weight: 500;
             transition: all 0.2s;
         }
-
         .cta-button:hover {
             background: #b5684d;
             transform: translateY(-2px);
         }
 
-        /* Footer */
         footer {
             padding: 40px 0;
             border-top: 1px solid var(--color-border);
             text-align: center;
         }
-
         .footer-meta {
             font-size: 0.85rem;
             color: var(--color-text-muted);
         }
-
-        .footer-meta a {
-            color: var(--color-accent);
-            text-decoration: none;
-        }
-
+        .footer-meta a { color: var(--color-accent); text-decoration: none; }
         .footer-links {
             display: flex;
             justify-content: center;
             gap: 20px;
             margin-bottom: 12px;
         }
-
         .footer-links a {
             color: var(--color-text-muted);
             text-decoration: none;
             font-size: 0.85rem;
         }
+        .footer-links a:hover { color: var(--color-accent); }
 
-        .footer-links a:hover {
-            color: var(--color-accent);
-        }
-
-        /* Mobile */
         @media (max-width: 600px) {
             .hero-content {
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
             }
-
-            .hero-text h1 {
-                font-size: 2rem;
-            }
-
-            .social-links {
-                justify-content: center;
-            }
-
+            .hero-text h1 { font-size: 2rem; }
+            .social-links { justify-content: center; }
             .project-card {
                 flex-direction: column;
                 align-items: flex-start;
@@ -387,27 +243,24 @@
 </head>
 <body>
     <div class="container">
-        <!-- Navigation -->
         <nav>
             <a href="index.html" class="active">Home</a>
             <a href="why-anthropic.html">Why Anthropic</a>
             <a href="blog.html">Writing</a>
         </nav>
 
-        <!-- Hero -->
         <header class="hero">
             <div class="hero-content">
                 <img src="profile.jpg" alt="Iñaki Moreno" class="hero-photo">
                 <div class="hero-text">
                     <h1>Iñaki Moreno</h1>
-                    <p>
-                        I help <strong>digital natives and AI startups</strong> across Southeast Asia
-                        deploy AI that unlocks new value streams — not just experiments, but production systems
-                        that become core to how they operate.
+                    <p class="hero-tagline">
+                        <strong>I want to help build AI that's safe for my daughter's generation.</strong>
+                        Anthropic is the company doing that work. I want a seat on that bus.
                     </p>
-                    <p>
+                    <p class="meta-line">
                         <strong>8+ years in ASEAN</strong>. Currently at Google Cloud Singapore.
-                        <strong>Master Contributor at AI Singapore</strong> — mentoring startups on responsible AI.
+                        <strong>Master Contributor at AI Singapore</strong> — supporting startups on responsible AI.
                     </p>
                     <div class="social-links">
                         <a href="https://linkedin.com/in/inakimg" target="_blank">
@@ -427,113 +280,26 @@
             </div>
         </header>
 
-        <!-- Why Anthropic (Short Version) -->
-        <section id="why">
-            <h2>Why Anthropic, Why Singapore</h2>
-            <div class="why-content">
-                <p>
-                    I want to be Anthropic's <strong>first Account Executive for Digital Natives in Singapore</strong> —
-                    to shape the Southeast Asia market strategy from the ground up.
-                </p>
-                <p>
-                    I use Claude daily. Not as a novelty, but as infrastructure — for deal strategy, account research,
-                    and building tools like this website. When you work with AI every day, you understand what customers
-                    actually need to make it work.
-                </p>
-                <p>
-                    <a href="why-anthropic.html" style="color: var(--color-accent);">Read more about mission alignment →</a>
-                </p>
-            </div>
-        </section>
-
-        <!-- Customer Impact - replacing metrics-heavy Track Record -->
-        <section id="impact">
-            <h2>How I Help Customers</h2>
-
-            <div class="impact-section">
-                <p class="impact-highlight">
-                    40+ AI deals led end-to-end — helping startups unlock new value streams throughout their businesses.
-                </p>
-                <p class="impact-detail">
-                    From first conversation to production deployment. RAG systems, agentic architectures, multi-model setups.
-                    I become a trusted partner who helps customers embed AI and uncover its full range of capabilities.
-                </p>
-            </div>
-
-            <div class="quote-box">
-                <p>"Iñaki helped us move from fragmented AI APIs to a unified architecture.
-                We got the governance and security we needed, plus a complexity router that
-                cut costs while improving response quality. He understood our business, not just the tech."</p>
-                <div class="attribution">— Engineering Lead, AI-native startup</div>
-            </div>
-
-            <div class="impact-section">
-                <p class="impact-highlight">
-                    Built GTM from the ground up — twice.
-                </p>
-                <p class="impact-detail">
-                    First in Iberia (Spain & Portugal), then for Digital Natives in Southeast Asia.
-                    I know what it takes to establish best practices and go-to-market approaches that scale.
-                </p>
-            </div>
-        </section>
-
-        <!-- Experience -->
-        <section id="experience">
-            <h2>Experience</h2>
-            <div class="experience-list">
-                <div class="experience-item">
-                    <h3>Senior Field Sales Representative — Digital Natives & AI Startups</h3>
-                    <div class="company">Google Cloud Singapore</div>
-                    <div class="period">2020 - Present</div>
-                    <p>50+ accounts across SEA. Full cycle from prospecting to closing to expansion.
-                    Specialize in AI-native workloads. Verticals: Web3, robotics, healthtech, SaaS, fintech.</p>
-                </div>
-                <div class="experience-item">
-                    <h3>Account Executive — Iberia Territory</h3>
-                    <div class="company">Google Cloud Dublin</div>
-                    <div class="period">2016 - 2020</div>
-                    <p>Built the GTM motion for Spain & Portugal from scratch. 50+ new logos.
-                    Playbook later adopted by regional FSRs.</p>
-                </div>
-                <div class="experience-item">
-                    <h3>Master Contributor</h3>
-                    <div class="company">AI Singapore</div>
-                    <div class="period">2023 - Present</div>
-                    <p>Volunteer mentor. Help startups and NGOs adopt AI responsibly —
-                    because how we deploy AI matters as much as what we deploy.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Built with Claude -->
         <section id="projects">
             <h2>Built with Claude</h2>
             <p style="color: var(--color-text-muted); margin-bottom: 20px; font-size: 0.95rem;">
-                These aren't mockups. They're working tools I use, built entirely with Claude Code.
+                Working tools, not mockups. 6,700+ lines of code.
                 <a href="https://github.com/inakimg/anthropic-portfolio" target="_blank" style="color: var(--color-accent);">View source →</a>
             </p>
             <div class="projects-grid">
+                <a href="why-anthropic.html" class="project-card">
+                    <div>
+                        <h3>Why Anthropic</h3>
+                        <p>Mission alignment & what I bring</p>
+                    </div>
+                    <span class="project-tag">Read →</span>
+                </a>
                 <a href="sea-gtm-strategy.html" class="project-card">
                     <div>
                         <h3>SEA GTM Strategy</h3>
-                        <p>How I'd build Anthropic's market presence in Southeast Asia</p>
+                        <p>How I'd build Anthropic's market in Southeast Asia</p>
                     </div>
                     <span class="project-tag">Strategy →</span>
-                </a>
-                <a href="claude-mastery.html" class="project-card">
-                    <div>
-                        <h3>Claude Mastery Plan</h3>
-                        <p>24-day deep dive roadmap with interactive tracking</p>
-                    </div>
-                    <span class="project-tag">Interactive →</span>
-                </a>
-                <a href="dn-sales-assistant/index.html" class="project-card">
-                    <div>
-                        <h3>DN Sales Assistant</h3>
-                        <p>BDR tool: accounts, LinkedIn outreach, playbooks</p>
-                    </div>
-                    <span class="project-tag">Try it →</span>
                 </a>
                 <a href="asean-map.html" class="project-card">
                     <div>
@@ -542,27 +308,29 @@
                     </div>
                     <span class="project-tag">Explore →</span>
                 </a>
-                <a href="anthropic-outreach.html" class="project-card">
+                <a href="dn-sales-assistant/index.html" class="project-card">
                     <div>
-                        <h3>Outreach Tracker</h3>
-                        <p>Personal tool: Anthropic contacts, message templates</p>
+                        <h3>DN Sales Assistant</h3>
+                        <p>BDR tool: accounts, outreach, playbooks</p>
                     </div>
-                    <span class="project-tag">Personal →</span>
+                    <span class="project-tag">Try it →</span>
+                </a>
+                <a href="claude-mastery.html" class="project-card">
+                    <div>
+                        <h3>Claude Mastery Plan</h3>
+                        <p>24-day learning roadmap with progress tracking</p>
+                    </div>
+                    <span class="project-tag">Interactive →</span>
                 </a>
             </div>
         </section>
 
-        <!-- CTA -->
         <div class="cta-section">
             <h2>Let's Build Together</h2>
-            <p>
-                I want to shape Anthropic's success in Southeast Asia.
-                There's always a way — you just need to find it.
-            </p>
+            <p>There's always a way. You just need to find it.</p>
             <a href="mailto:imorenogirona@gmail.com" class="cta-button">Get in Touch</a>
         </div>
 
-        <!-- Footer -->
         <footer>
             <div class="footer-links">
                 <a href="https://github.com/inakimg/anthropic-portfolio" target="_blank">GitHub</a>
