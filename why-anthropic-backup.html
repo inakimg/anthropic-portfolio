@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Anthropic - Iñaki Moreno</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #FDFBF7;
+            --color-text: #1a1a1a;
+            --color-text-muted: #666;
+            --color-accent: #CC785C;
+            --color-accent-soft: rgba(204, 120, 92, 0.1);
+            --color-border: #e5e0d8;
+            --font-serif: 'Instrument Serif', Georgia, serif;
+            --font-sans: 'DM Sans', -apple-system, sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-sans);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.8;
+            font-size: 17px;
+        }
+        .container { max-width: 640px; margin: 0 auto; padding: 0 24px; }
+        nav {
+            padding: 20px 0;
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+        }
+        nav a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        nav a:hover, nav a.active { color: var(--color-accent); }
+
+        .page-header {
+            padding: 60px 0 40px;
+            text-align: center;
+        }
+        .page-header h1 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 12px;
+        }
+
+        .content {
+            padding-bottom: 60px;
+        }
+        .content p {
+            margin-bottom: 20px;
+        }
+        .content strong {
+            color: var(--color-text);
+            font-weight: 600;
+        }
+
+        .highlight {
+            background: var(--color-accent-soft);
+            border-left: 3px solid var(--color-accent);
+            padding: 20px 24px;
+            margin: 32px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .highlight p {
+            margin-bottom: 12px;
+        }
+        .highlight p:last-child {
+            margin-bottom: 0;
+        }
+
+        .family-photo {
+            margin: 32px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .family-photo img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .family-photo figcaption {
+            padding: 12px 16px;
+            background: white;
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            text-align: center;
+        }
+        .family-photo figcaption a {
+            color: var(--color-accent);
+            text-decoration: none;
+        }
+
+        .parallel {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 32px 0;
+        }
+        .parallel-card {
+            padding: 20px;
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+        }
+        .parallel-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--color-accent);
+            margin-bottom: 8px;
+        }
+        .parallel-card p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+            color: var(--color-text-muted);
+        }
+
+        .values-list {
+            margin: 24px 0;
+        }
+        .value-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            align-items: flex-start;
+        }
+        .value-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--color-accent-soft);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+            font-size: 0.7rem;
+        }
+        .value-text strong {
+            display: block;
+            margin-bottom: 2px;
+        }
+        .value-text span {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+        }
+
+        .links-section {
+            margin-top: 40px;
+            padding-top: 32px;
+            border-top: 1px solid var(--color-border);
+        }
+        .links-section h2 {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 16px;
+            color: var(--color-accent);
+        }
+        .link-grid {
+            display: grid;
+            gap: 12px;
+        }
+        .link-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s;
+        }
+        .link-card:hover {
+            border-color: var(--color-accent);
+            transform: translateX(4px);
+        }
+        .link-card h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        .link-card p {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            margin: 0;
+        }
+        .link-card span {
+            color: var(--color-accent);
+            font-size: 0.85rem;
+        }
+
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--color-border);
+            text-align: center;
+        }
+        .footer-meta {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+        .footer-meta a {
+            color: var(--color-accent);
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .page-header h1 { font-size: 2rem; }
+            .parallel { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="why-anthropic.html" class="active">Why Anthropic</a>
+            <a href="blog.html">Writing</a>
+        </nav>
+
+        <header class="page-header">
+            <h1>Why Anthropic</h1>
+        </header>
+
+        <div class="content">
+            <figure class="family-photo">
+                <img src="family-butcher.jpg" alt="Moreno Antolinos family at their butcher shop in Barcelona">
+                <figcaption>My family at <a href="https://www.cansaladers.cat/" target="_blank">Moreno Antolinos</a> — three generations of honest work</figcaption>
+            </figure>
+
+            <p>
+                I come from a butcher's family in Barcelona. My parents worked their whole lives
+                so I could have opportunities like this one — to be part of the lab building the future of AI.
+            </p>
+
+            <p>
+                That's why I work the way I do. <strong>I may not have all the answers, but I will always
+                find a way.</strong> I might not be the smartest in the room, but no one works harder than me.
+            </p>
+
+            <div class="highlight">
+                <p>
+                    <strong>My parents taught me that trust is built one honest interaction at a time.</strong>
+                </p>
+                <p>
+                    That's what drew me to Anthropic — a company building AI the same way my family
+                    built their business: with integrity, thinking about the long term, and giving customers
+                    what they actually need, not what's easiest to sell.
+                </p>
+            </div>
+
+            <p>
+                I worked at the butcher shop as a kid. Selling at the counter, I learned to give customers
+                what they wanted — not what you wanted to sell. That's exactly how Anthropic operates.
+                No ads. No engagement tricks. Just solving your problem as fast as possible.
+            </p>
+
+            <div class="parallel">
+                <div class="parallel-card">
+                    <h3>At the butcher shop</h3>
+                    <p>Never cut corners. Know every customer by name. Build trust that lasts generations.</p>
+                </div>
+                <div class="parallel-card">
+                    <h3>At Anthropic</h3>
+                    <p>Never cut corners on safety. Constitutional AI. Build trust that lasts generations.</p>
+                </div>
+            </div>
+
+            <p>
+                These principles helped me guide 40+ digital natives and startups to embed AI in ways
+                that drive the outcomes they actually care about. I learned why deployments fail.
+                I experienced ASEAN's regulatory nuances firsthand — by failing many times and getting back up.
+            </p>
+
+            <p>
+                <strong>I became a dad 13 months ago.</strong> AI safety isn't abstract anymore.
+                It's about the world my daughter will grow up in.
+            </p>
+
+            <h3 style="font-family: var(--font-serif); font-weight: 400; margin: 32px 0 16px; color: var(--color-accent);">
+                Values I share with Anthropic
+            </h3>
+
+            <div class="values-list">
+                <div class="value-item">
+                    <div class="value-icon">→</div>
+                    <div class="value-text">
+                        <strong>"I don't know"</strong>
+                        <span>Intellectual humility. Being open to learning. This is exactly who I am.</span>
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">→</div>
+                    <div class="value-text">
+                        <strong>Do the simple thing that works</strong>
+                        <span>Practical, robust solutions over complexity. My butcher family would agree.</span>
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">→</div>
+                    <div class="value-text">
+                        <strong>Long-term over short-term</strong>
+                        <span>The founders pledged 80% of their wealth to philanthropy. They're not here for a quick exit.</span>
+                    </div>
+                </div>
+            </div>
+
+            <p style="color: var(--color-text-muted); font-size: 0.95rem; margin-top: 32px;">
+                Dario Amodei is a researcher who had to focus on the business side — but he's still a researcher at heart.
+                That genuineness is rare. You can tell when a company really cares about something.
+            </p>
+
+            <p style="text-align: center; margin-top: 32px; font-size: 1.1rem;">
+                <strong>There's always a way. You just need to find it.</strong>
+            </p>
+
+            <div class="links-section">
+                <h2>Deep Dives</h2>
+                <div class="link-grid">
+                    <a href="sea-gtm-strategy.html" class="link-card">
+                        <div>
+                            <h3>SEA GTM Strategy</h3>
+                            <p>How I'd build Anthropic's market presence</p>
+                        </div>
+                        <span>→</span>
+                    </a>
+                    <a href="asean-map.html" class="link-card">
+                        <div>
+                            <h3>ASEAN Ecosystem Map</h3>
+                            <p>65+ accounts with compliance & prioritization</p>
+                        </div>
+                        <span>→</span>
+                    </a>
+                    <a href="dn-sales-assistant/index.html" class="link-card">
+                        <div>
+                            <h3>DN Sales Assistant</h3>
+                            <p>Working BDR tool with playbooks</p>
+                        </div>
+                        <span>→</span>
+                    </a>
+                    <a href="blog.html" class="link-card">
+                        <div>
+                            <h3>Building with Claude</h3>
+                            <p>My "aha moment" story</p>
+                        </div>
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p class="footer-meta">
+                <a href="mailto:imorenogirona@gmail.com">Get in touch</a> ·
+                Built with <a href="https://claude.ai">Claude Code</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
