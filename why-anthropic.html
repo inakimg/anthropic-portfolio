@@ -103,16 +103,13 @@
         }
         .journey-item img {
             width: 100%;
-            height: 200px;
+            height: 280px; /* Taller to show full faces */
             object-fit: cover;
-            object-position: center top; /* Default: show faces/heads */
+            object-position: center center;
             display: block;
         }
-        /* Specific photo adjustments */
-        .journey-item img.center-center { object-position: center center; }
-        .journey-item img.center-top { object-position: center top; }
         .journey-item.featured img {
-            height: 280px;
+            height: 320px;
         }
         .journey-caption {
             padding: 14px 16px;
@@ -377,7 +374,7 @@
                 <div class="journey-grid">
                     <!-- 4 years old -->
                     <div class="journey-item">
-                        <img src="me 4 years old football.jpg" alt="Iñaki at 4 years old in Barcelona football kit" class="center-top">
+                        <img src="me 4 years old football.jpg" alt="Iñaki at 4 years old in Barcelona football kit">
                         <div class="journey-caption">
                             <div class="year">Barcelona, 1995</div>
                             <h3>Where it started</h3>
@@ -388,7 +385,7 @@
 
                     <!-- Kids team -->
                     <div class="journey-item">
-                        <img src="team playing in barcelona kids.jpg" alt="Youth football team in Barcelona stadium" class="center-top">
+                        <img src="team playing in barcelona kids.jpg" alt="Youth football team in Barcelona stadium">
                         <div class="journey-caption">
                             <div class="year">Barcelona, 2000s</div>
                             <h3>Team over self</h3>
@@ -399,7 +396,7 @@
 
                     <!-- Dublin -->
                     <div class="journey-item">
-                        <img src="dublin header football.jpg" alt="Iñaki playing football in Dublin, heading the ball" class="center-center">
+                        <img src="dublin header football.jpg" alt="Iñaki playing football in Dublin, heading the ball">
                         <div class="journey-caption">
                             <div class="year">Dublin, 2012</div>
                             <h3>3rd Division Ireland</h3>
@@ -438,6 +435,35 @@
                             <h3>Full circle</h3>
                             <p>Blanca, 13 months. This is why AI safety matters. Her generation.</p>
                             <div class="legacy">"Plant trees you'll never see"</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Speaking Across Asia -->
+            <div class="journey" style="margin-top: 48px;">
+                <h2 class="journey-title">Speaking Across Asia</h2>
+                <p style="text-align: center; color: var(--color-text-muted); font-size: 0.95rem; margin-bottom: 20px;">
+                    Paid my own flights when there was no budget. <strong style="color: var(--color-text);">Key strategic deals were sourced at these events.</strong>
+                </p>
+                <div class="journey-grid">
+                    <!-- WebX Tokyo -->
+                    <div class="journey-item">
+                        <img src="webx-tokyo-2023.jpg" alt="Iñaki speaking at WebX Tokyo 2023 panel with cloud leaders">
+                        <div class="journey-caption">
+                            <div class="year">Tokyo, July 2023</div>
+                            <h3>WebX Tokyo</h3>
+                            <p>Panel with Tencent, Alibaba, Google Cloud. Same event as Japan's Prime Minister.</p>
+                        </div>
+                    </div>
+
+                    <!-- Seoul Meta Week -->
+                    <div class="journey-item">
+                        <img src="seoul-meta-week-2023.jpg" alt="Iñaki presenting on stage at Seoul Meta Week 2023">
+                        <div class="journey-caption">
+                            <div class="year">Seoul, June 2023</div>
+                            <h3>Seoul Meta Week</h3>
+                            <p>Solo keynote presentation. Self-funded trip that generated pipeline.</p>
                         </div>
                     </div>
                 </div>
