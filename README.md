@@ -8,15 +8,12 @@ My application to be Anthropic's **first Account Executive for Digital Natives i
 
 | Page | Description | Lines of Code |
 |------|-------------|---------------|
-| [Main Site](index.html) | Portfolio homepage — customer impact focus | 579 |
-| [Why Anthropic](why-anthropic.html) | Mission alignment & what I'd bring | 324 |
-| [SEA GTM Strategy](sea-gtm-strategy.html) | How I'd build Anthropic's SEA market | 469 |
-| [Claude Mastery](claude-mastery.html) | Interactive 24-day learning roadmap | 1,650+ |
-| [DN Sales Assistant](dn-sales-assistant/index.html) | BDR tool with 25+ accounts & 5 playbooks | 1,297 |
-| [ASEAN Ecosystem Map](asean-map.html) | Interactive map of 65+ target accounts | 1,116 |
-| [Writing](blog.html) | Building with Claude Code — lessons learned | 291 |
-| [Outreach Tracker](anthropic-outreach.html) | Personal tool for Anthropic contacts | 500+ |
-| **Total** | | **6,700+** |
+| [Main Site](index.html) | Portfolio homepage — customer impact focus | 332 |
+| [Why Anthropic](why-anthropic.html) | Photo journey, values alignment & speaking events | 556 |
+| [SEA GTM Strategy](sea-gtm.html) | Interactive ASEAN map + sales tools + playbooks | 1,299 |
+| [DN Sales Assistant](dn-sales-assistant/index.html) | BDR tool with 25+ accounts & 5 playbooks | 1,296 |
+| [Writing](blog.html) | Building with Claude Code — lessons learned | 199 |
+| **Total** | | **3,700+** |
 
 ## Why This Exists
 
