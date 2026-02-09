@@ -105,8 +105,12 @@
             width: 100%;
             height: 200px;
             object-fit: cover;
+            object-position: center top; /* Default: show faces/heads */
             display: block;
         }
+        /* Specific photo adjustments */
+        .journey-item img.center-center { object-position: center center; }
+        .journey-item img.center-top { object-position: center top; }
         .journey-item.featured img {
             height: 280px;
         }
@@ -367,10 +371,13 @@
             <!-- Photo Journey -->
             <div class="journey">
                 <h2 class="journey-title">The Journey</h2>
+                <p style="text-align: center; color: var(--color-text-muted); font-size: 0.95rem; margin-bottom: 20px;">
+                    Team sports has always been in my blood — <strong style="color: var(--color-text);">competing with myself, playing for the team</strong>.
+                </p>
                 <div class="journey-grid">
                     <!-- 4 years old -->
                     <div class="journey-item">
-                        <img src="me 4 years old football.jpg" alt="Iñaki at 4 years old in Barcelona football kit">
+                        <img src="me 4 years old football.jpg" alt="Iñaki at 4 years old in Barcelona football kit" class="center-top">
                         <div class="journey-caption">
                             <div class="year">Barcelona, 1995</div>
                             <h3>Where it started</h3>
@@ -381,7 +388,7 @@
 
                     <!-- Kids team -->
                     <div class="journey-item">
-                        <img src="team playing in barcelona kids.jpg" alt="Youth football team in Barcelona stadium">
+                        <img src="team playing in barcelona kids.jpg" alt="Youth football team in Barcelona stadium" class="center-top">
                         <div class="journey-caption">
                             <div class="year">Barcelona, 2000s</div>
                             <h3>Team over self</h3>
@@ -392,7 +399,7 @@
 
                     <!-- Dublin -->
                     <div class="journey-item">
-                        <img src="dublin header football.jpg" alt="Iñaki playing football in Dublin, heading the ball">
+                        <img src="dublin header football.jpg" alt="Iñaki playing football in Dublin, heading the ball" class="center-center">
                         <div class="journey-caption">
                             <div class="year">Dublin, 2012</div>
                             <h3>3rd Division Ireland</h3>
