@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About — Iñaki Moreno</title>
+    <title>About - Iñaki Moreno</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -82,6 +82,30 @@
         .photo.tall img {
             height: 360px;
         }
+        .photo-caption {
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+        .photo-caption a {
+            color: var(--color-accent);
+        }
+
+        /* Two photos grid */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .photo-grid img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            object-position: center top;
+            border-radius: 12px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+        }
 
         /* Connector text */
         .connector {
@@ -148,6 +172,8 @@
         @media (max-width: 600px) {
             .section-quote { font-size: 1.3rem; }
             .photo img { height: 240px; }
+            .photo-grid { grid-template-columns: 1fr; }
+            .photo-grid img { height: 240px; }
             .speaking-grid { grid-template-columns: 1fr; }
             .speaking-grid img { height: 180px; }
         }
@@ -166,43 +192,52 @@
         <div class="section">
             <p class="section-quote">"People buy from people they trust. Everything else is noise."</p>
             <p class="section-text">
-                My grandfather knew every customer by name — and what they needed before they asked. Give them what they need, not what's expensive. They come back.
+                My grandfather knew every customer by name - and what they needed before they asked.<br>
+                "Iñaki, give them what they need, not what's expensive. They will always come back."
             </p>
             <div class="photo">
                 <img src="family-butcher.jpg" alt="Moreno Antolinos family butcher shop in Barcelona">
             </div>
+            <p class="photo-caption">My family butcher business. Grandparents, uncles. <a href="https://www.cansaladers.cat/" target="_blank">Moreno Antolinos Cansaladers</a>, 2007.</p>
         </div>
 
         <!-- 2. Grandmother Angeles -->
         <div class="section">
-            <p class="section-quote">"Hard work and effort is unnegotiable. Luck and talent — leave that to God."</p>
+            <p class="section-quote">"Hard work and effort is unnegotiable. Luck and talent - leave that to God."</p>
             <p class="section-text">
-                My grandmother Angeles worked as a cook her whole life for a wealthy family. Saved every peseta — lights off, same oil for months. Everything went to her grandchildren.
+                My grandmother Angeles migrated to Catalonia and worked as a cook her whole life for a wealthy family. Never went to school - but no one could beat her at math or memory. She saved every peseta. She was more than a cook for that family - she helped raise their children. Years later, those kids (now grown up) would still come back every Christmas to thank her. Great work changes lives, regardless of your job.
             </p>
             <div class="photo">
                 <img src="hard work pays off they told me.jpg" alt="Iñaki with grandparents">
             </div>
+            <p class="photo-caption">With my grandparents, 1995.</p>
         </div>
 
         <!-- 3. Connector -->
         <p class="connector">
-            Thanks to their sacrifice, I became the first generation to go to university. I'm in debt to them.
+            Thanks to their sacrifice, I became the first generation to go to university. I'm in debt to them. I'm so lucky.
         </p>
 
-        <!-- 4. Grit -->
+        <!-- 4. Football -->
+        <div class="section">
+            <p class="section-quote">"No one is bigger than the team."</p>
+            <p class="section-text">
+                17 years at Club Esportiu Mercantil, a working-class club in Sabadell. Teammates who walked 15km to train. Some couldn't afford shoes. Some turned pro. Staff who gave everything "por amor al arte."<br><br>
+                As captain, I learned: lead by example, put the team first, improve every day.
+            </p>
+            <div class="photo-grid">
+                <img src="me 4 years old football.jpg" alt="Iñaki at 4 years old playing football">
+                <img src="captain playing for ogs in singapore.jpg" alt="Iñaki playing football in Singapore">
+            </div>
+            <p class="photo-caption">Left: 4 years old, first team. Right: Singapore, 2018 - still playing.</p>
+        </div>
+
+        <!-- 5. Grit + Speaking -->
         <div class="section">
             <p class="section-quote">"Low potential. High effort."</p>
             <p class="section-text">
-                Got assigned accounts nobody wanted — difficult quota, low potential. Instead of complaining, I paid for my own flights to find new opportunities. Finished as top performer.
+                Got assigned accounts nobody wanted - difficult quota, low potential. Instead of complaining, I paid for my own flights to find new opportunities. Became Google's Web3 expert. Finished as top 1% performer.
             </p>
-            <div class="photo">
-                <img src="captain playing for ogs in singapore.jpg" alt="Iñaki playing football in Singapore">
-            </div>
-        </div>
-
-        <!-- 5. Speaking -->
-        <div class="section">
-            <p class="section-text" style="text-align: center;">Sharing what I've learned across Asia.</p>
             <div class="speaking-grid">
                 <img src="seoul-meta-week-2023.jpg" alt="Speaking at Seoul Meta Week 2023">
                 <img src="webx-tokyo-2023.jpg" alt="Speaking at WebX Tokyo 2023">
@@ -211,23 +246,21 @@
             <p class="speaking-caption">Seoul · Tokyo · Singapore</p>
         </div>
 
-        <!-- 6. Three Generations + Closing -->
+        <!-- 6. Three Generations -->
         <div class="section">
             <div class="photo tall">
                 <img src="me with my daugther, and my grandma with me. .jpg" alt="Three generations - Iñaki with Blanca, and grandmother Angeles with young Iñaki">
             </div>
-            <p class="section-text" style="margin-top: 20px; font-size: 0.9rem;">
-                Left: me with Blanca, 2024. Right: my grandmother with me, 1994, waiting to eat her macarrones con carne y cebolla.
-            </p>
+            <p class="photo-caption">Left: me with Blanca, 2024. Right: my grandmother with me, 1994, waiting to eat her macarrones con carne y cebolla.</p>
         </div>
 
         <!-- Final Closing -->
         <div class="closing">
             <p class="section-text" style="margin-bottom: 24px; text-align: left;">
-                I see AI like fire. It can burn your house down — or like my grandma used it, to cook amazing food for people. I want to make sure it does good. There's no better place to do that than Anthropic.
+                I see AI like fire. It can burn your house down - or like my grandma used it, to cook amazing food for people. I want to make sure it does good. There's no better place to do that than Anthropic.
             </p>
             <p class="section-text" style="margin-bottom: 24px; text-align: left;">
-                Four generations of hard work brought me here. Now it's my turn — to pay it back, to build something that matters, and to make sure the next generation never forgets where they come from.
+                Four generations of hard work brought me here. Now it's my turn - to pay it back, to build something that matters, and to make sure the next generation never forgets where they come from.
             </p>
             <p class="closing-quote">"Leave the jersey in a better place."</p>
             <a href="sea-gtm.html">See the work →</a>
