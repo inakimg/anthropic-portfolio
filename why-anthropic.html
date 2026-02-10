@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iñaki Moreno</title>
+    <title>About — Iñaki Moreno</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -40,109 +40,94 @@
         }
         nav a:hover, nav a.active { color: var(--color-accent); }
 
-        /* Hero Story */
-        .story {
-            padding: 48px 0 40px;
-        }
-        .story p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 0;
-        }
-        .story strong {
-            color: var(--color-text);
-        }
-
-        /* Timeline */
-        .timeline {
-            padding: 32px 0 48px;
-            border-top: 1px solid var(--color-border);
-        }
-        .timeline h2 {
-            font-family: var(--font-serif);
-            font-size: 1.4rem;
-            font-weight: normal;
-            margin-bottom: 24px;
-            color: var(--color-text);
-        }
-        .timeline-items {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-        }
-        .timeline-item {
-            display: grid;
-            grid-template-columns: 70px 1fr;
-            gap: 16px;
-            padding: 12px 0;
+        /* Section */
+        .section {
+            padding: 40px 0;
             border-bottom: 1px solid var(--color-border);
         }
-        .timeline-item:last-child {
+        .section:last-of-type {
             border-bottom: none;
         }
-        .timeline-year {
-            font-size: 0.85rem;
-            color: var(--color-accent);
-            font-weight: 500;
+        .section-quote {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--color-text);
+            margin-bottom: 16px;
+            line-height: 1.4;
         }
-        .timeline-text {
-            font-size: 0.95rem;
+        .section-text {
+            font-size: 1rem;
             color: var(--color-text-muted);
+            line-height: 1.8;
+        }
+        .section-text a {
+            color: var(--color-accent);
         }
 
-        /* Photo Grid */
-        .photos {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 24px;
-            padding-bottom: 48px;
-        }
-        .photo-item {
+        /* Photo */
+        .photo {
+            margin-top: 24px;
             border-radius: 12px;
             overflow: hidden;
-            background: white;
             box-shadow: 0 2px 16px rgba(0,0,0,0.08);
         }
-        .photo-item img {
+        .photo img {
             width: 100%;
-            height: 320px;
+            height: 300px;
             object-fit: cover;
             object-position: center;
             display: block;
         }
-        .photo-item.tall img {
-            height: 380px;
+        .photo.tall img {
+            height: 360px;
         }
-        .photo-caption {
-            padding: 16px 20px;
-        }
-        .photo-caption p {
-            font-size: 0.95rem;
+
+        /* Connector text */
+        .connector {
+            padding: 32px 0;
+            text-align: center;
+            font-size: 1.05rem;
             color: var(--color-text-muted);
-            margin: 0;
-            line-height: 1.6;
+            font-style: italic;
         }
-        .photo-caption strong {
-            color: var(--color-text);
+
+        /* Speaking grid */
+        .speaking-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .speaking-grid img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .speaking-caption {
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            text-align: center;
         }
 
         /* Closing */
         .closing {
+            padding: 48px 0;
             text-align: center;
-            padding: 32px 0 48px;
-            border-top: 1px solid var(--color-border);
         }
-        .closing p {
+        .closing-quote {
             font-family: var(--font-serif);
-            font-size: 1.3rem;
+            font-size: 1.6rem;
             font-style: italic;
-            color: var(--color-text-muted);
+            color: var(--color-text);
             margin-bottom: 24px;
         }
         .closing a {
             color: var(--color-accent);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
         .closing a:hover {
             text-decoration: underline;
@@ -153,6 +138,7 @@
             text-align: center;
             font-size: 0.85rem;
             color: var(--color-text-muted);
+            border-top: 1px solid var(--color-border);
         }
         footer a {
             color: var(--color-accent);
@@ -160,10 +146,10 @@
         }
 
         @media (max-width: 600px) {
-            .story p { font-size: 1rem; }
-            .photo-item img { height: 260px; }
-            .photo-item.tall img { height: 300px; }
-            .timeline-item { grid-template-columns: 60px 1fr; }
+            .section-quote { font-size: 1.3rem; }
+            .photo img { height: 240px; }
+            .speaking-grid { grid-template-columns: 1fr; }
+            .speaking-grid img { height: 180px; }
         }
     </style>
 </head>
@@ -172,101 +158,78 @@
         <nav>
             <a href="index.html">Home</a>
             <a href="why-anthropic.html" class="active">About</a>
+            <a href="values.html">Values</a>
             <a href="blog.html">Writing</a>
         </nav>
 
-        <!-- The Story -->
-        <div class="story">
-            <p>
-                My great-grandfather started <a href="https://www.cansaladers.cat/" target="_blank" style="color: var(--color-accent);">Moreno Antolinos</a> in 1951.
-                Fourth generation. First one lucky enough to study — paid by the hard work of everyone before me.
-                One side of the family migrated from Murcia to Barcelona for a better life. The other side worked for wealthy families — my grandmother Angeles as a cook, my grandfather as a gardener.
-                She saved on everything. Lights off. Same cooking oil for months. But every peso went to her grandchildren.
-                <strong>Effort is unnegotiable.</strong> No task is too small. Treat everyone the same.
-                My grandfather taught me at the butcher counter: give customers what they need, not what's expensive. They come back.
-                Then Blanca was born. AI safety stopped being theoretical.
+        <!-- 1. Butcher Shop -->
+        <div class="section">
+            <p class="section-quote">"People buy from people they trust. Everything else is noise."</p>
+            <p class="section-text">
+                My grandfather knew every customer by name — and what they needed before they asked. Give them what they need, not what's expensive. They come back.
+            </p>
+            <div class="photo">
+                <img src="family-butcher.jpg" alt="Moreno Antolinos family butcher shop in Barcelona">
+            </div>
+        </div>
+
+        <!-- 2. Grandmother Angeles -->
+        <div class="section">
+            <p class="section-quote">"Hard work and effort is unnegotiable. Luck and talent — leave that to God."</p>
+            <p class="section-text">
+                My grandmother Angeles worked as a cook her whole life for a wealthy family. Saved every peseta — lights off, same oil for months. Everything went to her grandchildren.
+            </p>
+            <div class="photo">
+                <img src="hard work pays off they told me.jpg" alt="Iñaki with grandparents">
+            </div>
+        </div>
+
+        <!-- 3. Connector -->
+        <p class="connector">
+            Thanks to their sacrifice, I became the first generation to go to university. I'm in debt to them.
+        </p>
+
+        <!-- 4. Grit -->
+        <div class="section">
+            <p class="section-quote">"Low potential. High effort."</p>
+            <p class="section-text">
+                Got assigned accounts nobody wanted — difficult quota, low potential. Instead of complaining, I paid for my own flights to find new opportunities. Finished as top performer.
+            </p>
+            <div class="photo">
+                <img src="captain playing for ogs in singapore.jpg" alt="Iñaki playing football in Singapore">
+            </div>
+        </div>
+
+        <!-- 5. Speaking -->
+        <div class="section">
+            <p class="section-text" style="text-align: center;">Sharing what I've learned across Asia.</p>
+            <div class="speaking-grid">
+                <img src="seoul-meta-week-2023.jpg" alt="Speaking at Seoul Meta Week 2023">
+                <img src="webx-tokyo-2023.jpg" alt="Speaking at WebX Tokyo 2023">
+                <img src="hacksingapore-2023.jpg" alt="HackSingapore 2023">
+            </div>
+            <p class="speaking-caption">Seoul · Tokyo · Singapore</p>
+        </div>
+
+        <!-- 6. Three Generations + Closing -->
+        <div class="section">
+            <div class="photo tall">
+                <img src="me with my daugther, and my grandma with me. .jpg" alt="Three generations - Iñaki with Blanca, and grandmother Angeles with young Iñaki">
+            </div>
+            <p class="section-text" style="margin-top: 20px; font-size: 0.9rem;">
+                Left: me with Blanca, 2024. Right: my grandmother with me, 1994, waiting to eat her macarrones con carne y cebolla.
             </p>
         </div>
 
-        <!-- Timeline -->
-        <div class="timeline">
-            <h2>The path</h2>
-            <div class="timeline-items">
-                <div class="timeline-item">
-                    <span class="timeline-year">1951</span>
-                    <span class="timeline-text">Great-grandfather starts Moreno Antolinos butcher shop</span>
-                </div>
-                <div class="timeline-item">
-                    <span class="timeline-year">1992</span>
-                    <span class="timeline-text">Born in Barcelona. First generation to go to university</span>
-                </div>
-                <div class="timeline-item">
-                    <span class="timeline-year">2002</span>
-                    <span class="timeline-text">Captain of CE Mercantil youth team. 17 years with the club</span>
-                </div>
-                <div class="timeline-item">
-                    <span class="timeline-year">2010</span>
-                    <span class="timeline-text">Work at family butcher shop — learn customer focus firsthand</span>
-                </div>
-                <div class="timeline-item">
-                    <span class="timeline-year">2015</span>
-                    <span class="timeline-text">Move to Singapore. Start in tech</span>
-                </div>
-                <div class="timeline-item">
-                    <span class="timeline-year">2019</span>
-                    <span class="timeline-text">Join Google. Build enterprise sales across APAC</span>
-                </div>
-                <div class="timeline-item">
-                    <span class="timeline-year">2023</span>
-                    <span class="timeline-text">Blanca is born. AI safety becomes personal</span>
-                </div>
-                <div class="timeline-item">
-                    <span class="timeline-year">Now</span>
-                    <span class="timeline-text">Ready for the next chapter</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Photos -->
-        <div class="photos">
-
-            <!-- Butcher Shop (FIRST - business/customers) -->
-            <div class="photo-item">
-                <img src="family-butcher.jpg" alt="Moreno Antolinos family butcher shop in Barcelona">
-                <div class="photo-caption">
-                    <p><strong>Moreno Antolinos.</strong> Three generations at <a href="https://www.cansaladers.cat/" target="_blank" style="color: var(--color-accent);">the family butcher shop</a>. I learned the business working the counter — making sausages, serving customers, getting feedback. The full loop.</p>
-                </div>
-            </div>
-
-            <!-- Grandparents -->
-            <div class="photo-item">
-                <img src="hard work pays off they told me.jpg" alt="Iñaki with grandparents and brother">
-                <div class="photo-caption">
-                    <p><strong>Barcelona, ~1998.</strong> With my grandparents and brother. Every Christmas, the families she cooked for would come back with an envelope to thank her. That's how I learned: do good work, people remember.</p>
-                </div>
-            </div>
-
-            <!-- Football -->
-            <div class="photo-item">
-                <img src="captain playing for ogs in singapore.jpg" alt="Iñaki playing football in Singapore with city skyline">
-                <div class="photo-caption">
-                    <p><strong>Singapore, 2018.</strong> 2nd Division. Captain since I was 10. 25+ years of football taught me: show up every day, no one is bigger than the team. I learned from teammates who walked 15km to train. Some couldn't afford new shoes. Some turned pro.</p>
-                </div>
-            </div>
-
-            <!-- Three Generations (LAST - the closing message) -->
-            <div class="photo-item tall">
-                <img src="me with my daugther, and my grandma with me. .jpg" alt="Three generations - Iñaki with Blanca, and grandmother Angeles with young Iñaki">
-                <div class="photo-caption">
-                    <p><strong>Three generations.</strong> Left: me with Blanca, 2024. Right: my grandmother Angeles with me, 1992. She always wore her bata — the worker's dress. My job now is to leave the jersey in a better place than I found it.</p>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Closing -->
+        <!-- Final Closing -->
         <div class="closing">
-            <p>"There's always a way. You just need to find it."</p>
+            <p class="section-text" style="margin-bottom: 24px; text-align: left;">
+                I see AI like fire. It can burn your house down — or like my grandma used it, to cook amazing food for people. I want to make sure it does good. There's no better place to do that than Anthropic.
+            </p>
+            <p class="section-text" style="margin-bottom: 24px; text-align: left;">
+                Four generations of hard work brought me here. Now it's my turn — to pay it back, to build something that matters, and to make sure the next generation never forgets where they come from.
+            </p>
+            <p class="closing-quote">"Leave the jersey in a better place."</p>
             <a href="sea-gtm.html">See the work →</a>
         </div>
 
