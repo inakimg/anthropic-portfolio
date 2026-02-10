@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What They Taught Me — For Blanca</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #FDFBF7;
+            --color-text: #1a1a1a;
+            --color-text-muted: #666;
+            --color-accent: #CC785C;
+            --color-accent-soft: rgba(204, 120, 92, 0.1);
+            --color-border: #e5e0d8;
+            --font-serif: 'Instrument Serif', Georgia, serif;
+            --font-sans: 'DM Sans', -apple-system, sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-sans);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.7;
+            font-size: 17px;
+        }
+        .container { max-width: 680px; margin: 0 auto; padding: 0 24px; }
+        nav {
+            padding: 20px 0;
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+        }
+        nav a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        nav a:hover, nav a.active { color: var(--color-accent); }
+
+        /* Hero */
+        .hero {
+            padding: 48px 0 40px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            font-weight: normal;
+            margin-bottom: 16px;
+        }
+        .hero .subtitle {
+            font-size: 1.1rem;
+            color: var(--color-text-muted);
+            max-width: 500px;
+            margin: 0 auto 24px;
+        }
+        .hero .for-blanca {
+            display: inline-block;
+            background: var(--color-accent-soft);
+            color: var(--color-accent);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        /* Intro */
+        .intro {
+            padding: 32px 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .intro p {
+            font-size: 1rem;
+            color: var(--color-text-muted);
+            margin-bottom: 16px;
+        }
+        .intro p:last-child { margin-bottom: 0; }
+
+        /* Question Section */
+        .questions-section {
+            padding: 40px 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .questions-section h2 {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            font-weight: normal;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        .questions-grid {
+            display: grid;
+            gap: 12px;
+        }
+        .question-btn {
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            color: var(--color-text);
+        }
+        .question-btn:hover {
+            border-color: var(--color-accent);
+            background: var(--color-accent-soft);
+        }
+        .question-btn.active {
+            border-color: var(--color-accent);
+            background: var(--color-accent-soft);
+        }
+
+        /* Answer Section */
+        .answer-section {
+            margin-top: 32px;
+            display: none;
+        }
+        .answer-section.visible {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .answer-card {
+            background: white;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+        }
+        .answer-card .who {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .answer-card .who img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .answer-card .who .name {
+            font-weight: 500;
+            color: var(--color-text);
+        }
+        .answer-card .who .relation {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+        .answer-card .wisdom {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--color-text);
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+        .answer-card .story {
+            font-size: 0.95rem;
+            color: var(--color-text-muted);
+            line-height: 1.7;
+        }
+
+        /* Grandparents Grid */
+        .grandparents {
+            padding: 40px 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .grandparents h2 {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            font-weight: normal;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        .grandparent-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        .grandparent-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .grandparent-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 12px;
+        }
+        .grandparent-card .name {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        .grandparent-card .origin {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            margin-bottom: 8px;
+        }
+        .grandparent-card .role {
+            font-size: 0.85rem;
+            color: var(--color-accent);
+        }
+
+        /* Footer note */
+        .footer-note {
+            padding: 32px 0;
+            text-align: center;
+            border-top: 1px solid var(--color-border);
+        }
+        .footer-note p {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            font-style: italic;
+        }
+
+        footer {
+            padding: 24px 0;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+        footer a {
+            color: var(--color-accent);
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.8rem; }
+            .grandparent-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="why-anthropic.html">About</a>
+            <a href="values.html" class="active">Values</a>
+            <a href="blog.html">Writing</a>
+        </nav>
+
+        <!-- Hero -->
+        <div class="hero">
+            <h1>What They Taught Me</h1>
+            <p class="subtitle">The wisdom of four people who migrated for a better life, worked with their hands, and gave everything to their grandchildren.</p>
+            <span class="for-blanca">For Blanca</span>
+        </div>
+
+        <!-- Intro -->
+        <div class="intro">
+            <p>Blanca, by the time you read this, the world will move even faster than it does today. You'll have AI that can answer any question in seconds. You'll wonder why things should take time.</p>
+            <p>This page is here to remind you: some things can't be rushed. The people below — your great-great-grandparents — knew that. They worked their whole lives so you could have choices they never had.</p>
+            <p>Ask them a question. See what they'd say.</p>
+        </div>
+
+        <!-- Questions -->
+        <div class="questions-section">
+            <h2>Ask a question</h2>
+            <div class="questions-grid">
+                <button class="question-btn" data-question="hard">What do I do when things get hard?</button>
+                <button class="question-btn" data-question="money">How should I think about money?</button>
+                <button class="question-btn" data-question="work">Why does hard work matter?</button>
+                <button class="question-btn" data-question="people">How should I treat people?</button>
+                <button class="question-btn" data-question="patience">Why do things take time?</button>
+                <button class="question-btn" data-question="family">What matters most in life?</button>
+            </div>
+
+            <!-- Answer Display -->
+            <div class="answer-section" id="answer-section">
+                <div class="answer-card" id="answer-card">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Grandparents -->
+        <div class="grandparents">
+            <h2>Your great-great-grandparents</h2>
+            <div class="grandparent-grid">
+                <div class="grandparent-card">
+                    <img src="hard work pays off they told me.jpg" alt="Angeles">
+                    <div class="name">Angeles</div>
+                    <div class="origin">From Zaragoza</div>
+                    <div class="role">Cook for a wealthy family</div>
+                </div>
+                <div class="grandparent-card">
+                    <img src="IMG_2441.jpg" alt="Antonio">
+                    <div class="name">Antonio</div>
+                    <div class="origin">From Valencia</div>
+                    <div class="role">Gardener</div>
+                </div>
+                <div class="grandparent-card">
+                    <img src="family-butcher.jpg" alt="Avelino">
+                    <div class="name">Avelino</div>
+                    <div class="origin">From Murcia</div>
+                    <div class="role">Barber, bus driver, butcher</div>
+                </div>
+                <div class="grandparent-card">
+                    <img src="family-butcher.jpg" alt="Merce">
+                    <div class="name">Merce</div>
+                    <div class="origin">From Santomera</div>
+                    <div class="role">Opened the butcher shop</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer note -->
+        <div class="footer-note">
+            <p>These aren't AI-generated answers. These are real stories and values passed down through our family. I wrote them so you'd never forget where you come from.</p>
+        </div>
+
+        <footer>
+            <a href="why-anthropic.html">← Back to my story</a>
+        </footer>
+    </div>
+
+    <script>
+        const answers = {
+            hard: {
+                name: "Avelino",
+                relation: "Your great-great-grandfather",
+                image: "family-butcher.jpg",
+                wisdom: "When one door closes, look for the window.",
+                story: "When I was 12, I migrated to Catalonia alone. My first job was laying asphalt roads in the summer heat. I was too small for that work. One day a man saw me struggling and said: 'You're too young for this.' He took me to the village barber and I learned a trade. I didn't speak Catalan — I learned. I became a bus driver. Then I helped open a butcher shop. When something doesn't work, you find another way."
+            },
+            money: {
+                name: "Avelino",
+                relation: "Your great-great-grandfather",
+                image: "family-butcher.jpg",
+                wisdom: "Take care of what you have. It will take care of you.",
+                story: "I saved for 25 years to buy a car for my family. After all that time, people thought it was new. I only used it when we needed it. Every week I cleaned it, checked every part. When you work hard for something, you respect it. And here's a funny story: when I got my first salary, I wanted a wallet to put it in. I bought the wallet — and it cost my whole salary. I had a beautiful wallet with nothing inside. That taught me something."
+            },
+            work: {
+                name: "Angeles",
+                relation: "Your great-great-grandmother",
+                image: "hard work pays off they told me.jpg",
+                wisdom: "Your legs will hurt. Keep standing.",
+                story: "I worked as a cook for a wealthy family my whole life. Standing all day, every day. My legs always hurt. But I never complained — not to your papa, not to anyone. Every Christmas, the families I cooked for would come back with an envelope to thank me. Not because I asked. Because I did good work, year after year. That's how people remember you: not by what you say, but by what you do when no one is watching."
+            },
+            people: {
+                name: "Angeles",
+                relation: "Your great-great-grandmother",
+                image: "hard work pays off they told me.jpg",
+                wisdom: "Everyone deserves the same respect. The owner and the gardener.",
+                story: "I cooked for wealthy people. Your great-great-grandfather Antonio worked their garden. We were the help. But we never felt small, and we never made anyone else feel small. Rich or poor, everyone sat at our table the same way. Humble people don't talk much. They just treat everyone right and let their work speak."
+            },
+            patience: {
+                name: "Angeles",
+                relation: "Your great-great-grandmother",
+                image: "hard work pays off they told me.jpg",
+                wisdom: "Use only what you need. Nothing more.",
+                story: "I saved on everything. Same cooking oil for months. Lights off in every room — if your papa forgot one light on, I'd remind him for days! But everything I saved went to my grandchildren. Patience isn't about suffering. It's about knowing what matters. The small things add up. That's how we built something from nothing."
+            },
+            family: {
+                name: "Antonio & Angeles",
+                relation: "Your great-great-grandparents",
+                image: "IMG_2441.jpg",
+                wisdom: "Big table. Everyone together. Nothing else matters.",
+                story: "We both migrated — Antonio from Valencia, me from Zaragoza. Every weekend we'd travel back to bring money to our families. During the civil war, we shared what little food we had. Family went to war and sometimes didn't come back. We learned: you don't need much. A big cooking, everyone around the table, that's everything. The house doesn't need to be big. The table does."
+            }
+        };
+
+        const buttons = document.querySelectorAll('.question-btn');
+        const answerSection = document.getElementById('answer-section');
+        const answerCard = document.getElementById('answer-card');
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const question = btn.dataset.question;
+                const answer = answers[question];
+
+                // Update active state
+                buttons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Build answer HTML
+                answerCard.innerHTML = `
+                    <div class="who">
+                        <img src="${answer.image}" alt="${answer.name}">
+                        <div>
+                            <div class="name">${answer.name}</div>
+                            <div class="relation">${answer.relation}</div>
+                        </div>
+                    </div>
+                    <div class="wisdom">"${answer.wisdom}"</div>
+                    <div class="story">${answer.story}</div>
+                `;
+
+                // Show answer
+                answerSection.classList.remove('visible');
+                void answerSection.offsetWidth; // Trigger reflow for animation
+                answerSection.classList.add('visible');
+
+                // Scroll to answer
+                setTimeout(() => {
+                    answerSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>
