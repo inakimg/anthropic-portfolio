@@ -121,6 +121,7 @@
             <a href="index.html">Home</a>
             <a href="story.html">My Story</a>
             <a href="deals.html">AI Deals</a>
+            <a href="first-90-days.html">First 90 Days</a>
             <a href="blog.html" class="active">Writing</a>
         </nav>
 
@@ -128,6 +129,45 @@
             <h1>Writing</h1>
             <p>Building in public.</p>
         </header>
+
+        <article>
+            <h2>How I Displaced OpenAI With a Multi-Model Router</h2>
+            <div class="article-meta">A technical teardown</div>
+
+            <p>
+                A customer running an agentic analytics platform - 2M+ users - was locked into a single
+                OpenAI dependency. Fragmented LLM APIs, runaway cost, and security gaps were quietly
+                blocking their entire enterprise pipeline. The incumbent answer was "use a bigger model."
+                That's expensive and slow.
+            </p>
+
+            <p>
+                The real insight: <strong>not every request needs the most powerful model.</strong> Most
+                production traffic is high-volume and structured; only a slice needs deep agentic reasoning.
+                So instead of one model for everything, I co-architected a <strong>RAG complexity router</strong>
+                with the customer's engineers.
+            </p>
+
+            <div class="highlight">
+                <p>
+                    <strong>The architecture:</strong> classify each incoming request by complexity, then route -
+                    <strong>Claude Opus</strong> for agentic reasoning and multi-step tasks, <strong>Gemini Flash</strong>
+                    for high-volume structured queries - all at <strong>sub-200ms latency</strong>. Best model for
+                    each job, not one model taxed for all of them.
+                </p>
+            </div>
+
+            <p>
+                The outcome: a <strong>$1M+/year</strong> contract won over OpenAI, <strong>2x lower cost</strong>,
+                a 15% lift in free-to-paid conversion, and an enterprise pipeline that was finally unblocked.
+            </p>
+
+            <p>
+                The lesson I keep relearning: <strong>in enterprise AI, technical credibility is the deal.</strong>
+                The sellers who understand the architecture - who can sit with the engineers and design the
+                routing logic - are the ones who win. That's the seller I've built myself into.
+            </p>
+        </article>
 
         <article>
             <h2>The Moment I Understood</h2>

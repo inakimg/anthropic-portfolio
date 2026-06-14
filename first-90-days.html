@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First 90 Days - Iñaki Moreno</title>
+    <meta name="description" content="If I had the territory tomorrow: a concrete 30/60/90-day GTM plan - expand the users already in the product, win the top logos in priority verticals, and build a repeatable motion.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="First 90 Days - Iñaki Moreno">
+    <meta property="og:description" content="A plan, not a promise. How I'd open a frontier-AI territory: expand existing users with no account team, win top logos, systematize the motion.">
+    <meta property="og:image" content="https://inakimg.github.io/anthropic-portfolio/profile.jpg">
+    <meta property="og:url" content="https://inakimg.github.io/anthropic-portfolio/first-90-days.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="First 90 Days - Iñaki Moreno">
+    <meta name="twitter:description" content="A concrete 30/60/90-day GTM plan for a frontier-AI territory.">
+    <meta name="twitter:image" content="https://inakimg.github.io/anthropic-portfolio/profile.jpg">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23B8654A'/%3E%3Ctext x='50' y='70' font-size='58' font-family='Georgia,serif' fill='white' text-anchor='middle'%3EIM%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FAF9F5; --surface: #FFFFFF; --text: #1F2328; --text-muted: #57606A;
+            --accent: #B8654A; --accent-soft: rgba(204, 120, 92, 0.12); --border: #D8DEE4;
+            --font-serif: 'Instrument Serif', Georgia, serif; --font-sans: 'DM Sans', -apple-system, sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-sans); background: var(--bg); color: var(--text); line-height: 1.65; font-size: 16px; }
+        .container { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+        nav { display: flex; gap: 24px; justify-content: center; padding: 20px 24px; flex-wrap: wrap; }
+        nav a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+        nav a:hover, nav a.active { color: var(--accent); }
+
+        .page-header { text-align: center; padding: 32px 0 8px; }
+        .page-header h1 { font-family: var(--font-serif); font-size: 2.2rem; font-weight: 400; margin-bottom: 10px; }
+        .page-header .lede { color: var(--text-muted); font-size: 1.05rem; max-width: 620px; margin: 0 auto; }
+
+        .philosophy { background: var(--surface); border-left: 3px solid var(--accent); border-radius: 0 10px 10px 0; padding: 18px 22px; margin: 28px 0; }
+        .philosophy p { font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; color: var(--text); line-height: 1.5; }
+
+        .phase { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 26px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .phase-tag { display: inline-block; background: var(--accent-soft); color: var(--accent); font-size: 0.75rem; font-weight: 600; padding: 4px 11px; border-radius: 14px; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 12px; }
+        .phase h2 { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 400; margin-bottom: 14px; }
+        .phase ul { list-style: none; }
+        .phase li { padding: 9px 0 9px 26px; position: relative; font-size: 0.95rem; color: var(--text); border-bottom: 1px solid var(--border); }
+        .phase li:last-child { border-bottom: none; }
+        .phase li::before { content: "→"; position: absolute; left: 0; color: var(--accent); font-weight: 600; }
+        .phase li strong { color: var(--accent); }
+        .highlight-row { background: var(--accent-soft); border-radius: 8px; padding: 4px 12px !important; }
+
+        .section-title { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 400; margin: 40px 0 16px; text-align: center; }
+
+        table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; font-size: 0.9rem; }
+        th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+        th { background: var(--accent-soft); color: var(--accent); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; }
+        tr:last-child td { border-bottom: none; }
+        td strong { color: var(--accent); }
+
+        .watch { background: var(--surface); border: 1px dashed var(--accent); border-radius: 12px; padding: 24px; margin-top: 16px; }
+        .watch h3 { font-size: 1rem; margin-bottom: 12px; }
+        .watch li { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 10px; padding-left: 22px; position: relative; list-style: none; }
+        .watch li::before { content: "•"; position: absolute; left: 6px; color: var(--accent); }
+        .watch li strong { color: var(--text); }
+
+        .cta { text-align: center; padding: 44px 0; }
+        .cta a { display: inline-block; background: var(--accent); color: white; padding: 13px 28px; border-radius: 8px; text-decoration: none; font-weight: 500; }
+        footer { padding: 28px 0; border-top: 1px solid var(--border); text-align: center; font-size: 0.85rem; color: var(--text-muted); }
+        footer a { color: var(--accent); text-decoration: none; }
+        @media (max-width: 600px) { .page-header h1 { font-size: 1.8rem; } }
+    </style>
+</head>
+<body>
+    <nav id="main-nav">
+        <a href="index.html">Home</a>
+        <a href="story.html">My Story</a>
+        <a href="deals.html">AI Deals</a>
+        <a href="first-90-days.html" class="active">First 90 Days</a>
+        <a href="blog.html">Writing</a>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>If I Had the Territory Tomorrow</h1>
+            <p class="lede">A plan, not a promise. Most candidates tell you what they've done. Here's exactly what I'd <em>do</em> in the first 90 days - and what I'd be watching.</p>
+        </div>
+
+        <div class="philosophy">
+            <p>"The job isn't to sell AI. It's to be the trusted guide who helps a customer cross a once-in-a-generation shift - and to grow fastest what's already working."</p>
+        </div>
+
+        <div class="phase">
+            <span class="phase-tag">Days 1-30 · Listen &amp; Map</span>
+            <h2>Understand the product, the team, and where the gold already is</h2>
+            <ul>
+                <li><strong>Be a power user on day one.</strong> I can't guide a customer through a tool I don't live in. I already build with these models daily - I'll go deeper.</li>
+                <li>Meet the team, top customers, and partners. Learn the existing motion before changing anything.</li>
+                <li class="highlight-row"><strong>Map the territory two ways:</strong> (1) the top logos in priority verticals, and (2) the accounts <strong>already using the product self-serve with no account team</strong> - the gold sitting in the data.</li>
+                <li>Score every account on expansion potential and AI-readiness. <a href="ai-readiness.html" style="color: var(--accent);">I already built the tool for this</a> - 489 accounts mapped.</li>
+            </ul>
+        </div>
+
+        <div class="phase">
+            <span class="phase-tag">Days 31-60 · Land &amp; Expand</span>
+            <h2>Fast wins first: grow the users who already love it</h2>
+            <ul>
+                <li class="highlight-row"><strong>Start where it's warmest:</strong> existing self-serve users with no account team. They already chose the product - they just never had anyone to help them scale it. Fastest path to revenue.</li>
+                <li>For each: align with the exec sponsor, map current usage, find expansion (seats, new use-cases, production workloads), and remove friction - procurement, security review, compliance.</li>
+                <li><strong>In parallel, open the top target logos</strong> in priority verticals with technical POCs. Lead with the engineers, not the slides.</li>
+                <li>Lock in 2-3 reference stories early - momentum compounds.</li>
+            </ul>
+        </div>
+
+        <div class="phase">
+            <span class="phase-tag">Days 61-90 · Systematize &amp; Scale</span>
+            <h2>Turn wins into a repeatable machine</h2>
+            <ul>
+                <li>Codify what worked into a <strong>repeatable playbook</strong>: discovery → POC → expand, with the qualification gates that actually predict wins.</li>
+                <li>Activate <strong>partner &amp; ecosystem leverage</strong> (cloud marketplaces, SIs) - marketplace deals mean near-zero procurement friction.</li>
+                <li>Define the coverage model and where the first SE / BDR support should sit.</li>
+                <li>Build a quarter of qualified pipeline with healthy coverage, and a named target list for the next two quarters.</li>
+            </ul>
+        </div>
+
+        <h2 class="section-title">90-Day Targets</h2>
+        <table>
+            <tr><th>By</th><th>What's true</th></tr>
+            <tr><td><strong>Day 30</strong></td><td>Territory mapped. Top 20 target logos + top 20 existing-user expansions identified and prioritized.</td></tr>
+            <tr><td><strong>Day 60</strong></td><td>First POCs live. First expansions closed from existing users. 2-3 reference stories in motion.</td></tr>
+            <tr><td><strong>Day 90</strong></td><td>Repeatable playbook documented. Partner pipeline activated. Coverage model defined. A full quarter of qualified pipeline built.</td></tr>
+        </table>
+
+        <h2 class="section-title">What I'd Be Watching</h2>
+        <div class="watch">
+            <ul>
+                <li><strong>Support coverage.</strong> Users with no account team often have no SE either. Growing them fast needs a scalable support motion, not just a closer.</li>
+                <li><strong>Procurement &amp; compliance friction</strong> in regulated verticals (FSI, healthcare, public sector) - I'd pre-map data-residency and security requirements before the first meeting.</li>
+                <li><strong>Displacement timing.</strong> Many buyers are multi-model. Knowing when a contract or a pain point opens the window is half the battle.</li>
+                <li><strong>Retention, not just land.</strong> The close is the beginning - usage and renewal are the real scoreboard.</li>
+                <li><strong>Partner leverage.</strong> Marketplaces and SIs are force multipliers in APAC - one AE can't cover the region alone.</li>
+            </ul>
+        </div>
+
+        <div class="cta">
+            <a href="mailto:imorenogirona@gmail.com">Let's talk about your territory</a>
+        </div>
+
+        <footer>
+            <a href="index.html">Home</a> · <a href="deals.html">See the proof</a> · <a href="mailto:imorenogirona@gmail.com">Get in touch</a>
+        </footer>
+    </div>
+</body>
+</html>
