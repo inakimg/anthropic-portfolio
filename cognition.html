@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Cognition - Iñaki Moreno</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #FAF9F5;
+            --color-surface: #FFFFFF;
+            --color-text: #1F2328;
+            --color-text-muted: #57606A;
+            --color-accent: #B8654A;
+            --color-accent-soft: rgba(204, 120, 92, 0.12);
+            --color-border: #D8DEE4;
+            --color-slate: #24292F;
+            --font-serif: 'Instrument Serif', Georgia, serif;
+            --font-sans: 'DM Sans', -apple-system, sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-sans);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.7;
+            font-size: 17px;
+        }
+        .container { max-width: 680px; margin: 0 auto; padding: 0 24px; }
+        .page-wrapper { display: flex; max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+        .main-content { flex: 1; max-width: 680px; }
+        .sticky-nav { width: 160px; flex-shrink: 0; padding: 40px 0 40px 32px; }
+        .sticky-nav-inner { position: sticky; top: 32px; }
+        .sticky-nav h4 { font-size: 0.65rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; font-weight: 600; }
+        .sticky-nav a { display: block; font-size: 0.8rem; color: var(--color-text-muted); text-decoration: none; padding: 6px 0; border-left: 2px solid transparent; padding-left: 10px; transition: all 0.2s; }
+        .sticky-nav a:hover, .sticky-nav a.active { color: var(--color-accent); border-left-color: var(--color-accent); }
+        @media (max-width: 800px) {
+            .sticky-nav { display: none; }
+            .page-wrapper { padding: 0; }
+            .main-content { max-width: 100%; }
+        }
+        nav {
+            padding: 20px 0; display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
+        }
+        nav a { color: var(--color-text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+        nav a:hover, nav a.active { color: var(--color-accent); }
+
+        .section { padding: 40px 0; border-bottom: 1px solid var(--color-border); }
+        .section:last-of-type { border-bottom: none; }
+        .section-quote { font-family: var(--font-serif); font-size: 1.5rem; font-style: italic; color: var(--color-text); margin-bottom: 16px; line-height: 1.4; }
+        .section-text { font-size: 1rem; color: var(--color-text-muted); line-height: 1.8; }
+        .section-text a { color: var(--color-accent); }
+
+        .photo { margin-top: 24px; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.08); }
+        .photo img { width: 100%; height: 300px; object-fit: cover; object-position: center; display: block; }
+        .photo.tall img { height: 360px; }
+        .photo-caption { margin-top: 12px; font-size: 0.85rem; color: var(--color-text-muted); }
+        .photo-caption a { color: var(--color-accent); }
+        .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px; }
+        .photo-grid img { width: 100%; height: 520px; object-fit: cover; object-position: center bottom; border-radius: 12px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); }
+        .connector { padding: 32px 0; text-align: center; font-size: 1.05rem; color: var(--color-text-muted); font-style: italic; }
+
+        .fit-box { background: var(--color-surface); border: 2px solid var(--color-accent); border-radius: 12px; padding: 24px; margin-top: 20px; }
+        .fit-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 18px; }
+        .fit-row:last-child { margin-bottom: 0; }
+        .fit-tag { background: var(--color-accent); color: white; font-size: 0.62rem; font-weight: 600; padding: 4px 8px; border-radius: 4px; white-space: nowrap; letter-spacing: 0.3px; }
+        .fit-row p.h { font-weight: 600; color: var(--color-text); margin-bottom: 4px; }
+        .fit-row p.d { font-size: 0.9rem; color: var(--color-text-muted); }
+
+        .closing { padding: 48px 0; text-align: center; }
+        .closing-quote { font-family: var(--font-serif); font-size: 1.6rem; font-style: italic; color: var(--color-text); margin-bottom: 24px; }
+        .closing a.btn { display: inline-block; background: var(--color-accent); color: white; padding: 12px 26px; border-radius: 8px; text-decoration: none; font-size: 0.95rem; font-weight: 500; }
+        .closing a.btn:hover { background: #a85740; }
+
+        footer { padding: 24px 0; text-align: center; font-size: 0.85rem; color: var(--color-text-muted); border-top: 1px solid var(--color-border); }
+        footer a { color: var(--color-accent); text-decoration: none; }
+
+        @media (max-width: 600px) {
+            .section-quote { font-size: 1.3rem; }
+            .photo img { height: 240px; }
+            .photo-grid { grid-template-columns: 1fr; }
+            .photo-grid img { height: 240px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="story.html">My Story</a>
+            <a href="deals.html">AI Deals</a>
+            <a href="blog.html">Writing</a>
+        </nav>
+    </div>
+
+    <div class="page-wrapper">
+        <main class="main-content">
+
+        <!-- Intro -->
+        <div class="section" id="intro">
+            <p class="section-quote">"The best salespeople use what they sell."</p>
+            <p class="section-text">
+                I'm not an engineer. Yet I ship production software every week - apps and tools I use to run my own sales business, built by describing what I want to an autonomous AI agent.
+            </p>
+            <p class="section-text" style="margin-top: 16px;">
+                That's exactly the future Cognition is building. So when I pitch it, I won't be reading a deck - I'll be showing my own work. <strong>I am the proof point.</strong>
+            </p>
+        </div>
+
+        <!-- Roots -->
+        <div class="section" id="roots">
+            <p class="section-quote">"Give them what they need, not what's expensive. They'll always come back."</p>
+            <p class="section-text">
+                My grandfather ran our family butcher shop (founded 1951) and knew every customer by name - what they needed before they asked. That's where I learned the only durable sales strategy: be a trusted advisor, never a vendor.
+            </p>
+            <div class="photo">
+                <img src="family-butcher.jpg" alt="Moreno Antolinos family butcher shop in Barcelona">
+            </div>
+            <p class="photo-caption">My family butcher business, founded in 1951. <a href="https://www.cansaladers.cat/" target="_blank">Moreno Antolinos Cansaladers</a>.</p>
+        </div>
+
+        <!-- Grit -->
+        <div class="section" id="grit">
+            <p class="section-quote">"Don't complain. Find a way."</p>
+            <p class="section-text">
+                Inherited a territory at 10% attainment with zero event budget. Instead of complaining, I self-funded my own flights across APAC to hunt greenfield accounts. <strong>4x'd the pipeline and closed the year at 514% of quota.</strong> No infrastructure, no air cover - just a clear goal and relentless effort. That's the 0&rarr;1 muscle.
+            </p>
+            <div class="photo-grid">
+                <img src="me 4 years old football.jpg" alt="Iñaki at 4 years old playing football">
+                <img src="captain playing for ogs in singapore.jpg" alt="Iñaki playing football in Singapore">
+            </div>
+            <p class="photo-caption">10+ years as a football captain. Lead by example, put the team first, improve every day.</p>
+        </div>
+
+        <!-- Why Cognition -->
+        <div class="section" id="why-cognition">
+            <p class="section-quote">"Why Cognition?"</p>
+            <p class="section-text">
+                Every wave of technology I've sold made expert work accessible to more people. Google Ads put a sales team in every founder's pocket. Cloud put a data center behind every startup. <strong>Autonomous agents put an engineering team behind anyone with an idea.</strong> I've lived that last one personally - it changed how I work.
+            </p>
+            <p class="section-text" style="margin-top: 16px;">
+                I sell to the exact buyer Cognition needs to win: founders, CTOs, VPs of Engineering, and SREs. I don't just survive technical conversations - I start them. I've co-architected LLM routers with engineers, demoed to SRE teams, and shipped a production agent that <strong>reclaimed $300K+/year</strong> by cutting the time SREs lost to Jira bugs in half.
+            </p>
+            <p class="section-text" style="margin-top: 16px;">
+                Singapore and Southeast Asia are greenfield. The digital natives here are some of the fastest adopters of agentic tooling in the world, and I've spent 8 years building the relationships. <strong>Cognition needs someone who can build a region from zero - and who engineers actually trust.</strong>
+            </p>
+        </div>
+
+        <!-- Fit -->
+        <div class="section" id="fit">
+            <p class="section-quote">"Where I'd make the difference."</p>
+            <div class="fit-box">
+                <div class="fit-row">
+                    <span class="fit-tag">0&rarr;1 GTM</span>
+                    <div>
+                        <p class="h">Build the motion, not just close deals</p>
+                        <p class="d">14 years of greenfield acquisition: 50+ net-new logos &gt;$250K, 10+ &gt;$1M. I build the playbook where none exists, then scale it.</p>
+                    </div>
+                </div>
+                <div class="fit-row">
+                    <span class="fit-tag">ENG-LED</span>
+                    <div>
+                        <p class="h">Credibility with technical buyers</p>
+                        <p class="d">Professional Cloud Architect who ships code with AI agents. I speak the language of the people who actually decide whether to adopt Devin.</p>
+                    </div>
+                </div>
+                <div class="fit-row">
+                    <span class="fit-tag">APAC</span>
+                    <div>
+                        <p class="h">A region, not a rolodex</p>
+                        <p class="d">8 years across SEA digital natives at Google Cloud. Top 1% global performer, President's Club 2025. The relationships already exist.</p>
+                    </div>
+                </div>
+                <div class="fit-row">
+                    <span class="fit-tag">PROOF</span>
+                    <div>
+                        <p class="h">I use the product I'd sell</p>
+                        <p class="d">A non-engineer shipping real apps with autonomous agents. The most honest demo is my own daily workflow.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Closing -->
+        <div class="closing">
+            <div style="background: linear-gradient(135deg, var(--color-accent) 0%, #c4956a 100%); border-radius: 12px; padding: 28px 32px; margin-bottom: 28px; text-align: left;">
+                <p style="font-family: var(--font-serif); font-size: 1.25rem; color: white; line-height: 1.6; margin: 0;">
+                    Give me the territory others think is too early. That's where I do my best work - and that's exactly where Cognition is.
+                </p>
+            </div>
+            <p class="closing-quote">"There's always a way. You just have to find it."</p>
+            <a href="deals.html" class="btn">See the proof &rarr;</a>
+        </div>
+
+        <footer>
+            <a href="mailto:imorenogirona@gmail.com">Get in touch</a> · <a href="index.html">Home</a>
+        </footer>
+        </main>
+
+        <aside class="sticky-nav">
+            <div class="sticky-nav-inner">
+                <h4>Why Cognition</h4>
+                <a href="#intro">The Proof Point</a>
+                <a href="#roots">The Roots</a>
+                <a href="#grit">The Grit</a>
+                <a href="#why-cognition">Why Cognition</a>
+                <a href="#fit">The Fit</a>
+            </div>
+        </aside>
+    </div>
+</body>
+</html>
