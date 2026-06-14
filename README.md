@@ -1,51 +1,44 @@
-# Anthropic Portfolio
+# Iñaki Moreno - Portfolio
 
-My application to be Anthropic's **first Account Executive for Digital Natives in Singapore**.
+A living portfolio of an **AI-native enterprise seller**: real deals, the tools I build to run my own sales motion, and the story behind how I work.
 
-🔗 **Live Site:** [inakimg.github.io/anthropic-portfolio](https://inakimg.github.io/anthropic-portfolio)
+Not a deck. Working software - every page and tool here I built myself with AI coding agents, then use in my day-to-day.
 
-## What's Inside
+🔗 **Live:** [inakimg.github.io/anthropic-portfolio](https://inakimg.github.io/anthropic-portfolio)
 
-| Page | Description | Lines of Code |
-|------|-------------|---------------|
-| [Main Site](index.html) | Portfolio homepage — customer impact focus | 332 |
-| [Why Anthropic](why-anthropic.html) | Photo journey, values alignment & speaking events | 556 |
-| [SEA GTM Strategy](sea-gtm.html) | Interactive ASEAN map + sales tools + playbooks | 1,299 |
-| [DN Sales Assistant](dn-sales-assistant/index.html) | BDR tool with 25+ accounts & 5 playbooks | 1,296 |
-| [Writing](blog.html) | Building with Claude Code — lessons learned | 199 |
-| **Total** | | **3,700+** |
+## What's inside
 
-## Why This Exists
+| Page | What it is |
+|------|------------|
+| [Home](index.html) | Who I am, how I sell as an AI native, the tools I build |
+| [My Story](story.html) | Butcher-shop roots to enterprise AI sales in APAC |
+| [AI Deals](deals.html) | Flagship wins, methodology, and a deal I lost (and what I learned) |
+| [Account Intelligence](ai-readiness.html) | 489 ASEAN accounts mapped + AI-readiness scoring |
+| [Writing](blog.html) | Notes from building in public |
 
-This isn't just a portfolio. It's a demonstration of:
+~8,000 lines across 25 pages and tools.
 
-1. **Technical fluency with Claude** — Built 100% with Claude Code
-2. **Market understanding** — GTM strategy, account mapping, vertical playbooks
-3. **Builder mentality** — Working tools, not just decks
-4. **"Show don't tell"** — Aligned with Anthropic's values
+## How it's built
 
-## Built With
+- **AI coding agents** - I describe what I want; I review, refine, and ship.
+- **HTML, CSS, vanilla JavaScript** - no frameworks, no build step.
+- **GitHub Pages** - deployed and live.
 
-- **Claude Code** — Every line of code
-- **Cowork mode** — Multiple agents working in parallel
-- **HTML, CSS, vanilla JavaScript** — No frameworks, no build step
-- **GitHub Pages** — Deployed and live
+## About me
 
-## About Me
+**Iñaki Moreno** — Senior Account Executive, Digital Natives (Google Cloud, Singapore)
 
-**Iñaki Moreno** — Senior Digital Natives Field Sales at Google Cloud Singapore
+- Top 1% global performer · President's Club 2025 · 145%+ average attainment
+- 50+ net-new logos >$250K ARR · 10+ deals >$1M ARR · largest single deal $10M+
+- 8 years across ASEAN: Singapore, Indonesia, Vietnam, Thailand, Philippines, Malaysia
+- Master Trainer / volunteer at AI Singapore — responsible AI adoption for NGOs
 
-- 40+ AI deals led end-to-end — helping startups unlock new value streams
-- 8+ years in ASEAN — Singapore, Indonesia, Vietnam, Thailand, Philippines, Malaysia
-- Master Contributor at AI Singapore — mentoring startups on responsible AI
-- Built GTM from scratch twice — Iberia, then SEA Digital Natives
+## Links
 
-## Quick Links
-
-- 🌐 [Live Portfolio](https://inakimg.github.io/anthropic-portfolio)
+- 🌐 [Portfolio](https://inakimg.github.io/anthropic-portfolio)
 - 💼 [LinkedIn](https://linkedin.com/in/inakimg)
 - 📧 [Email](mailto:imorenogirona@gmail.com)
 
 ---
 
-*There's always a way. You just need to find it.*
+*There's always a way. You just have to find it.*
