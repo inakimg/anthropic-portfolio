@@ -9,12 +9,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --color-bg: #FDFBF7;
-            --color-text: #1a1a1a;
-            --color-text-muted: #666;
-            --color-accent: #CC785C;
-            --color-accent-soft: rgba(204, 120, 92, 0.1);
-            --color-border: #e5e0d8;
+            --color-bg: #FAF9F5;
+            --color-surface: #FFFFFF;
+            --color-text: #1F2328;
+            --color-text-muted: #57606A;
+            --color-accent: #B8654A;
+            --color-accent-soft: rgba(204, 120, 92, 0.12);
+            --color-border: #D8DEE4;
+            --color-slate: #24292F;
             --font-serif: 'Instrument Serif', Georgia, serif;
             --font-sans: 'DM Sans', -apple-system, sans-serif;
         }
@@ -33,13 +35,20 @@
             display: flex;
             gap: 24px;
             justify-content: center;
+            flex-wrap: wrap;
         }
         nav a {
             color: var(--color-text-muted);
             text-decoration: none;
             font-size: 0.9rem;
+            transition: color 0.2s;
         }
         nav a:hover, nav a.active { color: var(--color-accent); }
+        nav a:focus {
+            color: var(--color-accent);
+            outline: 2px solid var(--color-accent);
+            outline-offset: 2px;
+        }
 
         .page-header {
             padding: 60px 0 40px;
@@ -110,7 +119,8 @@
     <div class="container">
         <nav>
             <a href="index.html">Home</a>
-            <a href="why-anthropic.html">My Story</a>
+            <a href="story.html">My Story</a>
+            <a href="deals.html">AI Deals</a>
             <a href="blog.html" class="active">Writing</a>
         </nav>
 
@@ -125,17 +135,17 @@
 
             <p>
                 I've been selling AI for years. I thought I understood it. Then I started
-                <em>building</em> with Claude Code — and everything changed.
+                <em>building</em> with AI coding agents — and everything changed.
             </p>
 
             <p>
                 It started small. My wife and I needed a way to track family expenses.
                 I'm not a developer. Never wrote production code in my life. But I thought —
-                let me just try describing what I want to Claude.
+                let me just try describing what I wanted to an AI agent.
             </p>
 
             <p>
-                <strong>Two hours later, I had a working expense tracker.</strong> Categories,
+                <strong>Two hours later, I had a <a href="wealth-tracker.html" style="color: var(--color-accent);">working expense tracker</a>.</strong> Categories,
                 monthly summaries, a clean interface. It wasn't perfect, but it worked. We still use it.
             </p>
 
@@ -145,15 +155,15 @@
 
             <div class="highlight">
                 <p>
-                    <strong>3,700+ lines of code in a few days.</strong> Interactive maps, sales tools,
+                    <strong>9,700+ lines of code in a few days.</strong> Interactive maps, sales tools,
                     strategy documents — all by describing what I wanted and iterating fast. Not because
-                    I learned to code. Because Claude handled the code while I focused on what I actually know:
+                    I learned to code. Because the AI handled the code while I focused on what I actually know:
                     the business problem.
                 </p>
             </div>
 
             <p>
-                Andrej Karpathy talked about this — how Claude Code feels like having a team of engineers.
+                Andrej Karpathy talked about this — how AI coding agents feel like having a team of engineers.
                 That's real. But what hit me deeper was something else.
             </p>
 
@@ -169,18 +179,18 @@
             </p>
 
             <p>
-                That's why AI safety isn't theoretical to me. It's what I work on every day.
-                It's why I volunteer at AI Singapore. And it's why I want to join Anthropic.
+                That's why responsible AI isn't theoretical to me. It's what I work on every day.
+                It's why I volunteer at AI Singapore - helping NGOs and the next generation adopt AI the right way.
             </p>
 
             <p>
-                Claude isn't just capable — it's built with values. Constitutional AI, transparency,
-                genuine helpfulness. When I recommend Claude to customers, I'm not just selling features.
-                I'm recommending something I trust.
+                The models that win long-term won't just be the most capable - they'll be the ones people
+                <em>trust</em>. When I recommend a tool to a customer, I'm not just selling features.
+                I'm putting my name on something I believe in.
             </p>
 
             <p>
-                <strong>I want to do that full-time.</strong>
+                <strong>Now I want to do this at the frontier - full-time.</strong>
             </p>
 
             <p style="text-align: center; margin-top: 32px; color: var(--color-text-muted);">
@@ -191,7 +201,7 @@
         <footer>
             <p class="footer-meta">
                 <a href="mailto:imorenogirona@gmail.com">Get in touch</a> ·
-                Built with <a href="https://claude.ai">Claude Code</a>
+                Built with AI coding agents
             </p>
         </footer>
     </div>

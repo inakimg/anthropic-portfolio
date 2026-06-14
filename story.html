@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Story - Iñaki Moreno</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #FAF9F5;
+            --color-surface: #FFFFFF;
+            --color-text: #1F2328;
+            --color-text-muted: #57606A;
+            --color-accent: #B8654A;
+            --color-accent-soft: rgba(204, 120, 92, 0.12);
+            --color-border: #D8DEE4;
+            --color-slate: #24292F;
+            --font-serif: 'Instrument Serif', Georgia, serif;
+            --font-sans: 'DM Sans', -apple-system, sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-sans);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.7;
+            font-size: 17px;
+        }
+        .container { max-width: 680px; margin: 0 auto; padding: 0 24px; }
+
+        /* Page Layout with Sticky Nav */
+        .page-wrapper { display: flex; max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+        .main-content { flex: 1; max-width: 680px; }
+        .sticky-nav { width: 160px; flex-shrink: 0; padding: 40px 0 40px 32px; }
+        .sticky-nav-inner { position: sticky; top: 32px; }
+        .sticky-nav h4 { font-size: 0.65rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; font-weight: 600; }
+        .sticky-nav a { display: block; font-size: 0.8rem; color: var(--color-text-muted); text-decoration: none; padding: 6px 0; border-left: 2px solid transparent; padding-left: 10px; transition: all 0.2s; }
+        .sticky-nav a:hover, .sticky-nav a.active { color: var(--color-accent); border-left-color: var(--color-accent); }
+
+        @media (max-width: 800px) {
+            .sticky-nav { display: none; }
+            .page-wrapper { padding: 0; }
+            .main-content { max-width: 100%; }
+        }
+        nav {
+            padding: 20px 0;
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        nav a:hover, nav a.active { color: var(--color-accent); }
+        nav a:focus {
+            color: var(--color-accent);
+            outline: 2px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        /* Section */
+        .section {
+            padding: 40px 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .section:last-of-type {
+            border-bottom: none;
+        }
+        .section-quote {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--color-text);
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+        .section-text {
+            font-size: 1rem;
+            color: var(--color-text-muted);
+            line-height: 1.8;
+        }
+        .section-text a {
+            color: var(--color-accent);
+        }
+
+        /* Photo */
+        .photo {
+            margin-top: 24px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+        }
+        .photo img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+        .photo.tall img {
+            height: 360px;
+        }
+        .photo-caption {
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+        .photo-caption a {
+            color: var(--color-accent);
+        }
+
+        /* Two photos grid */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .photo-grid img {
+            width: 100%;
+            height: 520px;
+            object-fit: cover;
+            object-position: center bottom;
+            border-radius: 12px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+        }
+
+        /* Connector text */
+        .connector {
+            padding: 32px 0;
+            text-align: center;
+            font-size: 1.05rem;
+            color: var(--color-text-muted);
+            font-style: italic;
+        }
+
+        /* Speaking grid */
+        .speaking-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .speaking-grid img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .speaking-caption {
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            text-align: center;
+        }
+
+        /* Closing */
+        .closing {
+            padding: 48px 0;
+            text-align: center;
+        }
+        .closing-quote {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            font-style: italic;
+            color: var(--color-text);
+            margin-bottom: 24px;
+        }
+        .closing a {
+            color: var(--color-accent);
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        .closing a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            padding: 24px 0;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            border-top: 1px solid var(--color-border);
+        }
+        footer a {
+            color: var(--color-accent);
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .section-quote { font-size: 1.3rem; }
+            .photo img { height: 240px; }
+            .photo-grid { grid-template-columns: 1fr; }
+            .photo-grid img { height: 240px; }
+            .speaking-grid { grid-template-columns: 1fr; }
+            .speaking-grid img { height: 180px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="story.html" class="active">My Story</a>
+            <a href="deals.html">AI Deals</a>
+            <a href="blog.html">Writing</a>
+        </nav>
+    </div>
+
+    <div class="page-wrapper">
+        <main class="main-content">
+        <!-- 1. Butcher Shop -->
+        <div class="section" id="roots">
+            <p class="section-quote">"People buy from people they trust. Everything else is noise."</p>
+            <p class="section-text">
+                My grandfather knew every customer by name - and what they needed before they asked.<br>
+                "Iñaki, give them what they need, not what's expensive. They will always come back."
+            </p>
+            <div class="photo">
+                <img src="family-butcher.jpg" alt="Moreno Antolinos family butcher shop in Barcelona">
+            </div>
+            <p class="photo-caption">My family butcher business, founded in 1951. Grandparents, uncles. <a href="https://www.cansaladers.cat/" target="_blank">Moreno Antolinos Cansaladers</a>, 2007.</p>
+        </div>
+
+        <!-- 2. Grandmother Angeles -->
+        <div class="section" id="work-ethic">
+            <p class="section-quote">"Hard work and effort are non-negotiable. Luck and talent - leave that to God."</p>
+            <p class="section-text">
+                My grandmother Angeles migrated to Catalonia and worked as a cook her whole life for a wealthy family. Never went to school - but no one could beat her at math or memory.
+            </p>
+            <p class="section-text" style="margin-top: 12px;">
+                She was more than a cook - she helped raise their children. Years later, those kids (now grown up) would still come back every Christmas to thank her. <strong>Great work changes lives</strong>, regardless of your title.
+            </p>
+            <div class="photo">
+                <img src="hard work pays off they told me.jpg" alt="Iñaki with grandparents">
+            </div>
+            <p class="photo-caption">With my grandparents and brother at home, 1995. Waiting for my parents to finish at the butcher shop.</p>
+        </div>
+
+        <!-- 3. Connector -->
+        <p class="connector">
+            Thanks to their sacrifice, I became the first generation to go to university. I'm in debt to them. I'm so lucky.
+        </p>
+
+        <!-- 4. Football -->
+        <div class="section" id="team">
+            <p class="section-quote">"No one is bigger than the team."</p>
+            <p class="section-text">
+                17 years at Club Esportiu Mercantil, a working-class club in Sabadell. <strong>Teammates who walked 15km to train.</strong> Some couldn't afford shoes. Some turned pro. Staff who gave everything "por amor al arte."<br><br>
+                As captain, I learned: lead by example, put the team first, improve every day.
+            </p>
+            <div class="photo-grid">
+                <img src="me 4 years old football.jpg" alt="Iñaki at 4 years old playing football">
+                <img src="captain playing for ogs in singapore.jpg" alt="Iñaki playing football in Singapore">
+            </div>
+            <p class="photo-caption">Left: 4 years old, first team. Right: Singapore, 2018 - still playing.</p>
+        </div>
+
+        <!-- 5. Grit + Speaking -->
+        <div class="section" id="grit">
+            <p class="section-quote">"Don't complain. Find a way."</p>
+            <p class="section-text">
+                Got assigned accounts nobody wanted - difficult quota, low potential. Instead of complaining, I paid for my own flights to find new opportunities. Became my company's Web3 expert. Finished as a top 1% performer.
+            </p>
+            <div class="speaking-grid">
+                <img src="seoul-meta-week-2023.jpg" alt="Speaking at Seoul Meta Week 2023">
+                <img src="webx-tokyo-2023.jpg" alt="Speaking at WebX Tokyo 2023">
+                <img src="hacksingapore-2023.jpg" alt="HackSingapore 2023">
+            </div>
+            <p class="speaking-caption">Seoul · Tokyo · Singapore</p>
+        </div>
+
+        <!-- 6. Builder -->
+        <div class="section" id="builder">
+            <p class="section-quote">"If I can't build it, I don't really understand it."</p>
+            <p class="section-text">
+                Today I'm a daily user of AI coding agents - building apps and tools to automate my own sales workflows and for my family. The same curiosity that made me learn every cut of meat behind the counter now makes me want to understand the technology from the inside out.
+            </p>
+            <p class="section-text" style="margin-top: 16px;">
+                I volunteer as a Master Trainer for <a href="https://aisingapore.org/talent/ai-ready-asean/" target="_blank">AI Ready ASEAN</a> - helping train millions across the region on responsible AI. Because the next generation should grow up with technology built the right way.
+            </p>
+        </div>
+
+        <!-- 7. Three Generations -->
+        <div class="section">
+            <div class="photo tall">
+                <img src="me with my daugther, and my grandma with me. .jpg" alt="Three generations - Iñaki with Blanca, and grandmother Angeles with young Iñaki">
+            </div>
+            <p class="photo-caption">Left: me and my daughter, Singapore 2025. Right: my grandmother and me, Barcelona 1994, waiting to eat her macarrones con carne y cebolla.</p>
+        </div>
+
+        <!-- Final Closing -->
+        <div class="closing">
+            <!-- Four Generations Highlight -->
+            <div style="background: linear-gradient(135deg, var(--color-accent) 0%, #c4956a 100%); border-radius: 12px; padding: 28px 32px; margin-bottom: 28px; text-align: left;">
+                <p style="font-family: var(--font-serif); font-size: 1.25rem; color: white; line-height: 1.6; margin: 0;">
+                    <strong>Four generations of hard work</strong> brought me here. Now it's my turn - to pay it back, to build something that matters, and to make sure the next generation never forgets where they come from.
+                </p>
+            </div>
+            <p class="closing-quote">"Leave the jersey in a better place."</p>
+            <a href="deals.html">See the work →</a>
+        </div>
+
+        <footer>
+            <a href="mailto:imorenogirona@gmail.com">Get in touch</a>
+        </footer>
+        </main>
+
+        <!-- STICKY NAV -->
+        <aside class="sticky-nav">
+            <div class="sticky-nav-inner">
+                <h4>My Story</h4>
+                <a href="#roots">The Roots</a>
+                <a href="#work-ethic">Work Ethic</a>
+                <a href="#team">The Team</a>
+                <a href="#grit">The Grit</a>
+                <a href="#builder">The Builder</a>
+            </div>
+        </aside>
+    </div>
+</body>
+</html>

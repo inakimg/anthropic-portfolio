@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>40+ AI Deals - Iñaki Moreno</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FAF9F5;
+            --surface: #FFFFFF;
+            --text: #1F2328;
+            --text-muted: #57606A;
+            --accent: #B8654A;
+            --accent-soft: rgba(204, 120, 92, 0.12);
+            --border: #D8DEE4;
+            --font-serif: 'Instrument Serif', Georgia, serif;
+            --font-sans: 'DM Sans', -apple-system, sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-sans); background: var(--bg); color: var(--text); line-height: 1.6; font-size: 16px; }
+
+        /* Layout */
+        .page-wrapper { display: flex; max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        .main-content { flex: 1; max-width: 760px; padding: 32px 0; padding-right: 48px; }
+        .sticky-nav { width: 180px; flex-shrink: 0; padding: 32px 0; }
+        .sticky-nav-inner { position: sticky; top: 32px; }
+        .sticky-nav h4 { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; font-weight: 600; }
+        .sticky-nav a { display: block; font-size: 0.85rem; color: var(--text-muted); text-decoration: none; padding: 8px 0; border-left: 2px solid transparent; padding-left: 12px; transition: all 0.2s; }
+        .sticky-nav a:hover, .sticky-nav a.active { color: var(--accent); border-left-color: var(--accent); }
+
+        nav { display: flex; gap: 24px; justify-content: center; padding: 16px 24px 32px; flex-wrap: wrap; max-width: 1100px; margin: 0 auto; }
+        nav a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+        nav a:hover, nav a.active { color: var(--accent); }
+
+        /* Header */
+        .page-header { margin-bottom: 32px; text-align: center; }
+        .page-header h1 { font-family: var(--font-serif); font-size: 2rem; font-weight: 400; margin-bottom: 8px; }
+        .page-header p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* Stats Row */
+        .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+        .stat-box { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; text-align: center; }
+        .stat-number { font-family: var(--font-serif); font-size: 1.8rem; color: var(--accent); }
+        .stat-label { font-size: 0.8rem; color: var(--text-muted); }
+
+        /* Section */
+        .section { margin-bottom: 40px; scroll-margin-top: 24px; }
+        .section-title { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 400; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+        /* Accordion - Accessible */
+        .accordion { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: all 0.3s ease; }
+        .accordion:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+        .accordion.featured { border-color: var(--accent); border-width: 2px; box-shadow: 0 4px 16px rgba(204,120,92,0.12); }
+        .accordion-header { padding: 18px 20px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: background 0.2s; background: transparent; border: none; width: 100%; text-align: left; font-family: inherit; }
+        .accordion-header:hover { background: var(--accent-soft); }
+        .accordion-header:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; background: var(--accent-soft); }
+        .accordion-header h3 { font-size: 1rem; font-weight: 600; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .accordion-arrow { font-size: 0.8rem; color: var(--text-muted); transition: transform 0.2s; }
+        .accordion.open .accordion-arrow { transform: rotate(180deg); }
+        .accordion-content { display: none; padding: 0 20px 20px; }
+        .accordion.open .accordion-content { display: block; }
+
+        /* Deal Tags */
+        .deal-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+        .deal-tag { font-size: 0.75rem; font-weight: 600; padding: 4px 10px; border-radius: 6px; }
+        .deal-tag.openai { background: #10a37f; color: white; }
+        .deal-tag.claude { background: #d4a574; color: white; }
+        .deal-tag.gemini { background: #4285f4; color: white; }
+        .deal-tag.veo { background: #4285f4; color: white; }
+        .deal-tag.sora { background: #000; color: white; }
+        .deal-tag.kling { background: #6366f1; color: white; }
+        .deal-tag.dormant { background: #ef4444; color: white; }
+        .deal-tag.arr { background: #22c55e; color: white; }
+        .deal-tag.series { background: var(--accent-soft); color: var(--accent); }
+
+        .deal-meta { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px; }
+        .deal-story { font-size: 0.9rem; line-height: 1.7; }
+        .deal-story strong { color: var(--accent); }
+
+        /* Selling Principles */
+        .principles-box { background: var(--surface); border: 2px solid var(--accent); border-radius: 12px; padding: 24px; }
+        .principles-box h3 { font-family: var(--font-serif); font-size: 1.1rem; margin-bottom: 16px; }
+        .principle { padding: 10px 0; border-bottom: 1px solid var(--border); }
+        .principle:last-child { border-bottom: none; }
+        .principle strong { color: var(--text); }
+        .principle p { font-size: 0.9rem; color: var(--text-muted); margin-top: 4px; }
+
+        /* What I Bring */
+        .bring-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        .bring-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
+        .bring-card h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; }
+        .bring-card p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+
+        footer { padding: 24px 0; border-top: 1px solid var(--border); text-align: center; font-size: 0.85rem; color: var(--text-muted); }
+        footer a { color: var(--accent); text-decoration: none; }
+
+        @media (max-width: 900px) {
+            .sticky-nav { display: none; }
+            .main-content { padding-right: 0; max-width: 100%; }
+            .stats-row, .bring-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav id="main-nav">
+        <a href="index.html">Home</a>
+        <a href="story.html">My Story</a>
+        <a href="deals.html">AI Deals</a>
+        <a href="blog.html">Writing</a>
+    </nav>
+    <script>
+        (function() {
+            const path = window.location.pathname;
+            document.querySelectorAll('#main-nav a').forEach(link => {
+                if (path.endsWith(link.getAttribute('href'))) link.classList.add('active');
+            });
+        })();
+    </script>
+
+    <div class="page-wrapper">
+        <main class="main-content">
+            <div class="page-header">
+                <h1>40+ AI Deals</h1>
+                <p>Enterprise AI sales across Southeast Asia. Here's how I work.</p>
+            </div>
+
+            <!-- STATS -->
+            <div class="section" id="metrics">
+                <div class="stats-row">
+                    <div class="stat-box">
+                        <div class="stat-number">$50M+</div>
+                        <div class="stat-label">TCV closed</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">220%</div>
+                        <div class="stat-label">Avg quota attainment</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">40+</div>
+                        <div class="stat-label">AI/ML Deals</div>
+                    </div>
+                </div>
+                <div style="text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-top: -16px;">
+                    <strong style="color: var(--text);">8 years</strong> ASEAN · <strong style="color: var(--text);">6 markets</strong> covered · <strong style="color: var(--text);">2025</strong> Cloud Club (top 1%)
+                </div>
+            </div>
+
+            <!-- FLAGSHIP DEALS -->
+            <div class="section" id="flagship">
+                <h2 class="section-title">Flagship Deals</h2>
+
+                <!-- Deal 1: OpenAI Displacement - OPEN BY DEFAULT -->
+                <div class="accordion featured open">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>
+                            <span class="deal-tag openai">OpenAI</span>
+                            <span style="color: var(--text-muted);">→</span>
+                            <span class="deal-tag claude">Claude</span>
+                            <span class="deal-tag gemini">Gemini</span>
+                            8-Figure TCV · Agentic Platform
+                        </h3>
+                        <span class="accordion-arrow">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="deal-meta">Agentic SaaS · 2M+ End Users · Multi-model Architecture</div>
+                        <div class="deal-story">
+                            <strong>Pain:</strong> Agentic analytics platform serving 2M+ users was locked into OpenAI. Security gaps blocking enterprise pipeline. $200K/month spend with no path to scale.<br><br>
+                            <strong>Solution:</strong> Designed multi-model architecture on Vertex. Built complexity-based router: Claude handles agentic reasoning and multi-step tasks, Gemini processes high-volume structured queries.<br><br>
+                            <strong>Impact:</strong> 15% lift in free-to-paid conversion. Enterprise deals unblocked. 40% cost reduction.
+                        </div>
+                        <div style="background: var(--bg); border-radius: 8px; padding: 14px; margin-top: 14px; font-size: 0.8rem;">
+                            <div style="font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; font-size: 0.7rem;">Deal Qualification (MEDDPICC)</div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                                <div><strong>Economic Buyer:</strong> CEO (board pressure on margins)</div>
+                                <div><strong>Champion:</strong> VP Engineering (technical credibility)</div>
+                                <div><strong>Compelling Event:</strong> Enterprise pipeline blocked by security review</div>
+                                <div><strong>Decision Process:</strong> POC → Security review → Board approval</div>
+                                <div><strong>Paper Process:</strong> MSA already in place via GCP</div>
+                                <div><strong>Competition:</strong> Status quo (OpenAI), Azure migration</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deal 2: Veo -->
+                <div class="accordion featured">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>
+                            <span class="deal-tag sora">Sora</span>
+                            <span class="deal-tag kling">Kling</span>
+                            <span style="color: var(--text-muted);">→</span>
+                            <span class="deal-tag veo">Veo</span>
+                            $2M TCV · Creative Agency
+                        </h3>
+                        <span class="accordion-arrow">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="deal-meta">Multimodal AI · Video Generation · Production Deployment</div>
+                        <div class="deal-story">
+                            <strong>Pain:</strong> Creative agency losing pitches to legacy shops. Video AI tools (Sora, Kling) were unstable, producing inconsistent quality.<br><br>
+                            <strong>Solution:</strong> Deployed Veo for multimodal content generation. When production issues emerged, coordinated PMs and engineering for rapid resolution.<br><br>
+                            <strong>Impact:</strong> Customer closed $8M in new contracts. 95% client satisfaction. $2M committed spend.
+                        </div>
+                        <div style="background: var(--bg); border-radius: 8px; padding: 14px; margin-top: 14px; font-size: 0.8rem;">
+                            <div style="font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; font-size: 0.7rem;">Deal Qualification (MEDDPICC)</div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                                <div><strong>Economic Buyer:</strong> CEO (agency growth mandate)</div>
+                                <div><strong>Champion:</strong> Creative Director (quality frustrated)</div>
+                                <div><strong>Compelling Event:</strong> Lost 3 pitches to AI-first agencies</div>
+                                <div><strong>Decision Process:</strong> Pilot project → Client demo → Full deployment</div>
+                                <div><strong>Paper Process:</strong> Standard vendor agreement</div>
+                                <div><strong>Competition:</strong> Sora (reliability), Kling (quality), status quo</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deal 3: Territory Turnaround -->
+                <div class="accordion featured">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>
+                            <span class="deal-tag dormant">Dormant</span>
+                            <span style="color: var(--text-muted);">→</span>
+                            <span class="deal-tag arr">$10M+ ARR</span>
+                            Territory Turnaround
+                        </h3>
+                        <span class="accordion-arrow">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="deal-meta">SEA Digital Natives · 6 Markets · 18 Months</div>
+                        <div class="deal-story">
+                            <strong>Pain:</strong> Inherited territory rated "low potential" - mostly dormant accounts, zero active pipeline.<br><br>
+                            <strong>Solution:</strong> Self-funded travel across 6 markets. Built pipeline from scratch through 30+ personalized outreaches per week and in-person relationship building.<br><br>
+                            <strong>Impact:</strong> $10M+ ARR within 18 months. Territory now one of highest-performing in region.
+                        </div>
+                        <div style="background: var(--bg); border-radius: 8px; padding: 14px; margin-top: 14px; font-size: 0.8rem;">
+                            <div style="font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; font-size: 0.7rem;">What Made It Work</div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                                <div><strong>Week 1-4:</strong> Mapped 200+ accounts, identified 40 high-potential</div>
+                                <div><strong>Week 5-12:</strong> 30+ outbound/week, self-funded visits to ID, VN, TH</div>
+                                <div><strong>Month 3-6:</strong> First 5 POCs converted, built case study momentum</div>
+                                <div><strong>Month 6-18:</strong> Referral flywheel activated, 60% inbound</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SELLING PRINCIPLES - How I Work -->
+            <div class="section" id="principles">
+                <h2 class="section-title">How I Sell</h2>
+                <div class="principles-box">
+                    <h3 style="font-family: var(--font-serif); font-size: 1.1rem; margin-bottom: 16px; color: var(--color-accent);">Principles from my grandfather's butcher shop</h3>
+                    <div class="principle">
+                        <strong>Help first, expect nothing.</strong>
+                        <p>My grandfather at his butcher counter: "Give them what they need, not what's expensive." Customers always come back.</p>
+                    </div>
+                    <div class="principle">
+                        <strong>Invest before asking.</strong>
+                        <p>Self-funded flights, weeks of research, debugging their code. Trust is earned through action, not promises.</p>
+                    </div>
+                    <div class="principle">
+                        <strong>Play the long game.</strong>
+                        <p>Some deals took 12+ months. Consistent effort compounds - in sales and in relationships.</p>
+                    </div>
+                    <div class="principle">
+                        <strong>Stay after the sale.</strong>
+                        <p>The close is the beginning. Support in production crises builds partnerships that last years.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MORE DEALS -->
+            <div class="section" id="deals">
+                <h2 class="section-title">More Deal Stories</h2>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3><span class="deal-tag series">Series B</span> Blockchain Analytics Platform</h3>
+                        <span class="accordion-arrow">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="deal-meta">Singapore · Data & AI · 2023</div>
+                        <div class="deal-story">
+                            <strong>Pain:</strong> CTO needed real-time fraud detection but was skeptical of cloud costs after previous bad experiences.<br><br>
+                            <strong>Solution:</strong> Spent 3 weeks mapping their on-chain data pipeline. Discovered they were re-processing 2TB daily due to architecture inefficiencies.<br><br>
+                            <strong>Impact:</strong> 6-figure annual deal. 40% reduction in processing costs.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3><span class="deal-tag series">Series C</span> Regional SaaS Platform</h3>
+                        <span class="accordion-arrow">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="deal-meta">Singapore + Indonesia · ML Platform · 2022</div>
+                        <div class="deal-story">
+                            <strong>Pain:</strong> CEO had been burned by a competitor's broken promises. Refused to talk to cloud vendors.<br><br>
+                            <strong>Solution:</strong> Reached out with a relevant case study - no pitch, just a company that solved their exact problem. Built trust over 8 months.<br><br>
+                            <strong>Impact:</strong> Became their largest cloud partner. Supported cross-border expansion to 3 markets.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3><span class="deal-tag series">Pre-IPO</span> Gaming Studio</h3>
+                        <span class="accordion-arrow">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="deal-meta">Vietnam · GenAI · 2024</div>
+                        <div class="deal-story">
+                            <strong>Pain:</strong> Wanted AI for game content generation but had no ML team or expertise.<br><br>
+                            <strong>Solution:</strong> Connected them with startup program. Self-funded trip to Ho Chi Minh to run hands-on workshop with their developers.<br><br>
+                            <strong>Impact:</strong> Started small, grew to 6-figure committed spend. They hired their first ML engineer.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3><span class="deal-tag series">Seed</span> HealthTech Startup</h3>
+                        <span class="accordion-arrow">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="deal-meta">Thailand · Healthcare AI · 2023</div>
+                        <div class="deal-story">
+                            <strong>Pain:</strong> Building AI diagnostics but worried about patient data sovereignty. No vendor understood Thai regulations.<br><br>
+                            <strong>Solution:</strong> Researched Thai healthcare regulations, mapped data residency requirements, designed compliant architecture before first meeting.<br><br>
+                            <strong>Impact:</strong> Won against 2 larger competitors. Founder now refers other Thai startups.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LESSON LEARNED -->
+            <div class="section" id="lessons">
+                <h2 class="section-title">A Deal I Lost (And What I Learned)</h2>
+                <div class="accordion open">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3><span class="deal-tag" style="background: #6b7280; color: white;">Lost</span> Regional Logistics Platform</h3>
+                        <span class="accordion-arrow">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="deal-meta">Indonesia · ML Platform · 2023 · Lost to AWS</div>
+                        <div class="deal-story">
+                            <strong>What happened:</strong> $500K ARR opportunity. I had the technical champion (VP Engineering), strong POC results, and executive sponsor interest. Lost at the final stage to AWS.<br><br>
+                            <strong>Why I lost:</strong> I focused on the technical buyer and didn't multi-thread to procurement early enough. AWS had an existing MSA and procurement relationship. By the time I engaged their CFO on commercial terms, the "path of least resistance" was already set.<br><br>
+                            <strong>What I learned:</strong> Champion is not enough. Now I map the full buying committee in Week 1: Economic Buyer, Technical Buyer, Procurement, Legal. I ask "Who else needs to say yes?" in every discovery call. I build relationships with finance before presenting commercial terms.<br><br>
+                            <strong>How it changed me:</strong> This loss taught me that enterprise sales is multi-stakeholder navigation, not just relationship building. I now use explicit org mapping for every strategic deal.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WHAT I BRING -->
+            <div class="section" id="bring">
+                <h2 class="section-title">What I Bring</h2>
+                <div class="bring-grid">
+                    <div class="bring-card">
+                        <h4>Technical Depth</h4>
+                        <p>Multi-model architectures, agentic deployments, compliance. I go deep with engineering teams.</p>
+                    </div>
+                    <div class="bring-card">
+                        <h4>Regional Network</h4>
+                        <p>8 years across SG, ID, VN, TH, PH, MY. Relationships that took years to build.</p>
+                    </div>
+                    <div class="bring-card">
+                        <h4>Digital Natives Fluency</h4>
+                        <p>SaaS, FinTech, Gaming, HealthTech. I understand their models and priorities.</p>
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                <a href="index.html">Home</a> · <a href="mailto:imorenogirona@gmail.com">Get in Touch</a>
+            </footer>
+        </main>
+
+        <!-- STICKY NAV -->
+        <aside class="sticky-nav">
+            <div class="sticky-nav-inner">
+                <h4>On This Page</h4>
+                <a href="#metrics">The Numbers</a>
+                <a href="#flagship">The Wins</a>
+                <a href="#principles">The Butcher Shop</a>
+                <a href="#deals">The Stories</a>
+                <a href="#lessons">The Loss</a>
+                <a href="#bring">The Edge</a>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        function toggleAccordion(header) {
+            const accordion = header.parentElement;
+            accordion.classList.toggle('open');
+        }
+
+        // Highlight active section in sticky nav
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.sticky-nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const top = section.offsetTop - 100;
+                if (scrollY >= top) current = section.getAttribute('id');
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

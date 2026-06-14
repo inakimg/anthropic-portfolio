@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Intelligence System - Iñaki Moreno</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #FAF9F5;
+            --color-text: #1F2328;
+            --color-text-muted: #57606A;
+            --color-accent: #B8654A;
+            --color-accent-soft: rgba(204, 120, 92, 0.12);
+            --color-border: #D8DEE4;
+            --color-surface: #FFFFFF;
+            --font-serif: 'Instrument Serif', Georgia, serif;
+            --font-sans: 'DM Sans', -apple-system, sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-sans);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+        nav {
+            padding: 20px 0;
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        nav a:hover { color: var(--color-accent); }
+        nav a:focus {
+            color: var(--color-accent);
+            outline: 2px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        .page-header {
+            padding: 48px 0 24px;
+            text-align: center;
+        }
+        .page-header h1 {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+        .page-header p {
+            color: var(--color-text-muted);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Two Modes Section */
+        .modes-section {
+            margin: 32px 0;
+        }
+        .modes-header {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .modes-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .mode-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s;
+        }
+        .mode-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+        .mode-card.primary {
+            border: 2px solid var(--color-accent);
+        }
+        .mode-badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+        .mode-badge.internal {
+            background: var(--color-accent);
+            color: white;
+        }
+        .mode-badge.external {
+            background: var(--color-accent-soft);
+            color: var(--color-accent);
+        }
+        .mode-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+        .mode-card p {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            margin-bottom: 16px;
+        }
+        .mode-features {
+            list-style: none;
+            font-size: 0.85rem;
+        }
+        .mode-features li {
+            padding: 6px 0;
+            padding-left: 20px;
+            position: relative;
+            color: var(--color-text-muted);
+        }
+        .mode-features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+            font-weight: 600;
+        }
+
+        /* Demo Section */
+        .demo-section {
+            margin: 32px 0;
+        }
+        .demo-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        .demo-header h2 {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 400;
+        }
+        .demo-badge {
+            background: var(--color-accent);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .screenshot {
+            background: var(--color-surface);
+            border: 2px solid var(--color-accent);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        .screenshot img {
+            width: 100%;
+            display: block;
+        }
+        .demo-caption {
+            padding: 16px;
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            background: var(--color-bg);
+            text-align: center;
+        }
+
+        /* Stats Row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin: 24px 0;
+        }
+        .stat {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            padding: 14px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--color-accent);
+        }
+        .stat-label {
+            font-size: 0.65rem;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        /* Workflow Section */
+        .workflow-section {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+        }
+        .workflow-section h3 {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+        }
+        .workflow-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .workflow-step {
+            text-align: center;
+            padding: 16px;
+            background: var(--color-bg);
+            border-radius: 8px;
+        }
+        .workflow-step .number {
+            width: 28px;
+            height: 28px;
+            background: var(--color-accent);
+            color: white;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .workflow-step .title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+        .workflow-step .desc {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Use Cases */
+        .use-cases {
+            margin: 32px 0;
+        }
+        .use-cases h3 {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: 16px;
+        }
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .use-case {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            padding: 16px;
+        }
+        .use-case h4 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .use-case p {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+        }
+
+        .cta {
+            text-align: center;
+            margin: 32px 0 48px;
+        }
+        .cta-button {
+            display: inline-block;
+            background: var(--color-accent);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .cta-button:hover {
+            background: #a55a42;
+            transform: translateY(-2px);
+        }
+        .cta-note {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            margin-top: 10px;
+        }
+
+        footer {
+            padding: 32px 0;
+            border-top: 1px solid var(--color-border);
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+        }
+        footer a { color: var(--color-accent); text-decoration: none; }
+
+        @media (max-width: 600px) {
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .modes-grid, .workflow-steps, .use-case-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="story.html">My Story</a>
+            <a href="deals.html">AI Deals</a>
+            <a href="blog.html">Writing</a>
+        </nav>
+
+        <header class="page-header">
+            <h1>Account Intelligence System</h1>
+            <p>Territory intelligence for ASEAN. Two modes: AE pre-call prep and customer-facing AI readiness assessments.</p>
+        </header>
+
+        <!-- Two Modes -->
+        <div class="modes-section">
+            <div class="modes-header">Built for Two Audiences</div>
+            <div class="modes-grid">
+                <div class="mode-card primary">
+                    <span class="mode-badge internal">Internal - AE Tool</span>
+                    <h3>Territory Intelligence</h3>
+                    <p>60-second discovery briefs for any account. Pre-call prep that used to take 2 hours.</p>
+                    <ul class="mode-features">
+                        <li>489 ASEAN accounts mapped</li>
+                        <li>AI readiness scoring (6 dimensions)</li>
+                        <li>Pain points & trigger events</li>
+                        <li>Competitive landscape & entry strategy</li>
+                        <li>Partner mapping recommendations</li>
+                    </ul>
+                </div>
+                <div class="mode-card">
+                    <span class="mode-badge external">External - Customer Demo</span>
+                    <h3>AI Readiness Assessment</h3>
+                    <p>Value-add tool to share with prospects. Shows their AI maturity vs. industry benchmarks.</p>
+                    <ul class="mode-features">
+                        <li>Interactive radar visualization</li>
+                        <li>Industry benchmarking</li>
+                        <li>Maturity recommendations</li>
+                        <li>PDF export for stakeholders</li>
+                        <li>Follow-up meeting trigger</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-row">
+            <div class="stat">
+                <div class="stat-value">489</div>
+                <div class="stat-label">Accounts Mapped</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">6</div>
+                <div class="stat-label">Verticals Scored</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">60s</div>
+                <div class="stat-label">Brief Generation</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">50+</div>
+                <div class="stat-label">AI Signals</div>
+            </div>
+        </div>
+
+        <!-- Demo -->
+        <div class="demo-section">
+            <div class="demo-header">
+                <h2>AE Territory View</h2>
+                <span class="demo-badge">Live Demo</span>
+            </div>
+            <div class="screenshot">
+                <img src="ai-readiness-demo.gif" alt="Account Intelligence System - AE territory view showing account search, AI readiness radar, and discovery brief generation">
+            </div>
+            <div class="demo-caption">
+                Search by vertical, country, funding stage. Generate discovery briefs in seconds.
+            </div>
+        </div>
+
+        <!-- Workflow -->
+        <div class="workflow-section">
+            <h3>How AEs Use This</h3>
+            <div class="workflow-steps">
+                <div class="workflow-step">
+                    <div class="number">1</div>
+                    <div class="title">Search</div>
+                    <div class="desc">Filter by vertical, country, funding stage, AI maturity</div>
+                </div>
+                <div class="workflow-step">
+                    <div class="number">2</div>
+                    <div class="title">Analyze</div>
+                    <div class="desc">AI readiness radar: data, talent, budget, use cases, infra, culture</div>
+                </div>
+                <div class="workflow-step">
+                    <div class="number">3</div>
+                    <div class="title">Brief</div>
+                    <div class="desc">One-click: pain points, triggers, objections, entry strategy</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Use Cases -->
+        <div class="use-cases">
+            <h3>Example Use Cases</h3>
+            <div class="use-case-grid">
+                <div class="use-case">
+                    <h4>Pre-Call Prep</h4>
+                    <p>"Give me a 60-second brief on Grab's AI readiness before my call with their VP Engineering"</p>
+                </div>
+                <div class="use-case">
+                    <h4>Pipeline Prioritization</h4>
+                    <p>"Show me Series B+ fintechs in Indonesia with high AI readiness but no LLM vendor"</p>
+                </div>
+                <div class="use-case">
+                    <h4>Customer Demo</h4>
+                    <p>"Run an AI readiness assessment for SCBX that I can share with their CDO"</p>
+                </div>
+                <div class="use-case">
+                    <h4>Competitive Intel</h4>
+                    <p>"Which accounts in my territory are currently using OpenAI that I could displace?"</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta">
+            <a href="index.html" class="cta-button">← Back to Home</a>
+            <p class="cta-note">Built with AI + real ASEAN market data</p>
+        </div>
+
+        <footer>
+            <a href="index.html">Home</a> · <a href="mailto:imorenogirona@gmail.com">Get in Touch</a>
+        </footer>
+    </div>
+</body>
+</html>
