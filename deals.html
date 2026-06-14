@@ -110,7 +110,10 @@
             .sticky-nav { display: none; }
             .main-content { padding-right: 0; max-width: 100%; }
             .stats-row, .bring-grid { grid-template-columns: 1fr; }
+            .page-wrapper { padding: 0 16px; }
+            .accordion-content div[style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
         }
+        nav a { padding: 8px 4px; }
     </style>
 </head>
 <body>
@@ -120,6 +123,7 @@
         <a href="deals.html">AI Deals</a>
         <a href="first-90-days.html">First 90 Days</a>
         <a href="blog.html">Writing</a>
+        <a href="cv.html">CV</a>
     </nav>
     <script>
         (function() {
@@ -164,7 +168,7 @@
 
                 <!-- Deal 1: OpenAI Displacement - OPEN BY DEFAULT -->
                 <div class="accordion featured open">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <button class="accordion-header" type="button" aria-expanded="true" onclick="toggleAccordion(this)">
                         <h3>
                             <span class="deal-tag openai">OpenAI</span>
                             <span style="color: var(--text-muted);">→</span>
@@ -173,12 +177,12 @@
                             $1M+/year · Agentic Platform
                         </h3>
                         <span class="accordion-arrow">▼</span>
-                    </div>
+                    </button>
                     <div class="accordion-content">
                         <div class="deal-meta">Agentic SaaS · 2M+ End Users · $1M+/year · Multi-model Architecture</div>
                         <div class="deal-story">
                             <strong>Pain:</strong> Agentic analytics platform serving 2M+ users was locked into a single OpenAI dependency. Fragmented LLM APIs, runaway cost, and security gaps were blocking the enterprise pipeline.<br><br>
-                            <strong>Solution:</strong> Co-architected a multi-model stack on Vertex with the customer's engineers. Built a RAG complexity router - <strong>Claude Opus</strong> for agentic reasoning and multi-step tasks, <strong>Gemini Flash</strong> for high-volume structured queries - at <strong>sub-200ms latency and 2x lower cost.</strong><br><br>
+                            <strong>Solution:</strong> Co-architected a multi-model stack on Vertex with the customer's engineers. Built a request-complexity router - a lightweight classifier in front of the model APIs - sending agentic reasoning and multi-step tasks to <strong>Claude Opus</strong> and high-volume structured queries to <strong>Gemini Flash</strong>. The routing decision adds <strong>under 200ms</strong>; cheap-path requests return in well under a second, at <strong>~2x lower blended cost.</strong><br><br>
                             <strong>Impact:</strong> Won a <strong>$1M+/year</strong> contract over OpenAI. 15% lift in free-to-paid conversion. Enterprise pipeline unblocked.
                         </div>
                         <div style="background: var(--bg); border-radius: 8px; padding: 14px; margin-top: 14px; font-size: 0.8rem;">
@@ -197,7 +201,7 @@
 
                 <!-- Deal 2: Dev Concierge agent (shipped) -->
                 <div class="accordion featured">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <button class="accordion-header" type="button" aria-expanded="false" onclick="toggleAccordion(this)">
                         <h3>
                             <span class="deal-tag claude">Shipped Agent</span>
                             <span style="color: var(--text-muted);">→</span>
@@ -205,12 +209,12 @@
                             Dev Concierge · SRE Productivity
                         </h3>
                         <span class="accordion-arrow">▼</span>
-                    </div>
+                    </button>
                     <div class="accordion-content">
                         <div class="deal-meta">Agentic Workflow · SRE / DevOps · Production Deployment</div>
                         <div class="deal-story">
                             <strong>Pain:</strong> A customer's SRE team was losing <strong>40%+ of its time</strong> triaging and resolving repetitive Jira bugs - burning senior engineering hours and slowing every release.<br><br>
-                            <strong>Solution:</strong> Instead of pitching a slide, I built one. I pitched, demoed, and <strong>shipped a production Dev Concierge agent</strong> that triages incoming issues, drafts fixes, and routes them to the right owner - wired directly into their Jira workflow.<br><br>
+                            <strong>Solution:</strong> Instead of pitching a slide, I built one. I pitched, demoed, and <strong>shipped a production Dev Concierge agent</strong>: built on the Jira webhook API with an LLM triage step that classifies and de-dupes incoming issues, drafts a candidate fix, and posts it as a comment for human review - never auto-merging.<br><br>
                             <strong>Impact:</strong> <strong>Reclaimed $300K+/year</strong> in engineering capacity and <strong>2x faster resolution.</strong> A seller who ships production code earns a different kind of trust.
                         </div>
                         <div style="background: var(--bg); border-radius: 8px; padding: 14px; margin-top: 14px; font-size: 0.8rem;">
@@ -219,7 +223,7 @@
                                 <div><strong>Buyer:</strong> VP Engineering (capacity crunch)</div>
                                 <div><strong>Champion:</strong> SRE lead (drowning in toil)</div>
                                 <div><strong>Compelling Event:</strong> Release velocity slipping</div>
-                                <div><strong>Proof:</strong> Working agent, not a slide deck</div>
+                                <div><strong>Stack:</strong> Jira API + LLM triage, human-in-the-loop on every fix</div>
                             </div>
                         </div>
                     </div>
@@ -227,13 +231,13 @@
 
                 <!-- Deal 3: $10M+ C-suite orchestration -->
                 <div class="accordion featured">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <button class="accordion-header" type="button" aria-expanded="false" onclick="toggleAccordion(this)">
                         <h3>
                             <span class="deal-tag arr">$10M+</span>
                             Top-3 SEA Deal · C-Suite Orchestration
                         </h3>
                         <span class="accordion-arrow">▼</span>
-                    </div>
+                    </button>
                     <div class="accordion-content">
                         <div class="deal-meta">SEA Digital Native · 2023 · One of the largest Google Cloud deals in the region</div>
                         <div class="deal-story">
@@ -257,7 +261,7 @@
 
                 <!-- Deal 4: Territory Turnaround -->
                 <div class="accordion featured">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <button class="accordion-header" type="button" aria-expanded="false" onclick="toggleAccordion(this)">
                         <h3>
                             <span class="deal-tag dormant">10% attainment</span>
                             <span style="color: var(--text-muted);">→</span>
@@ -265,7 +269,7 @@
                             Territory Turnaround
                         </h3>
                         <span class="accordion-arrow">▼</span>
-                    </div>
+                    </button>
                     <div class="accordion-content">
                         <div class="deal-meta">SEA Digital Natives · Zero event budget · Self-funded</div>
                         <div class="deal-story">
@@ -290,7 +294,7 @@
             <div class="section" id="principles">
                 <h2 class="section-title">How I Sell</h2>
                 <div class="principles-box">
-                    <h3 style="font-family: var(--font-serif); font-size: 1.1rem; margin-bottom: 16px; color: var(--color-accent);">Principles from my grandfather's butcher shop</h3>
+                    <h3 style="font-family: var(--font-serif); font-size: 1.1rem; margin-bottom: 16px; color: var(--accent);">Principles from my grandfather's butcher shop</h3>
                     <div class="principle">
                         <strong>Help first, expect nothing.</strong>
                         <p>My grandfather at his butcher counter: "Give them what they need, not what's expensive." Customers always come back.</p>
@@ -301,7 +305,7 @@
                     </div>
                     <div class="principle">
                         <strong>Play the long game.</strong>
-                        <p>Some deals took 12+ months. Consistent effort compounds - in sales and in relationships.</p>
+                        <p>Some deals took 12+ months. I kept showing up. They closed.</p>
                     </div>
                     <div class="principle">
                         <strong>Stay after the sale.</strong>
@@ -315,10 +319,10 @@
                 <h2 class="section-title">More Deal Stories</h2>
 
                 <div class="accordion">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <button class="accordion-header" type="button" aria-expanded="false" onclick="toggleAccordion(this)">
                         <h3><span class="deal-tag veo">Multimodal</span> Creative Agency · $2M Committed</h3>
                         <span class="accordion-arrow">▼</span>
-                    </div>
+                    </button>
                     <div class="accordion-content">
                         <div class="deal-meta">Video Generation · Production Deployment · 2024</div>
                         <div class="deal-story">
@@ -330,10 +334,10 @@
                 </div>
 
                 <div class="accordion">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <button class="accordion-header" type="button" aria-expanded="false" onclick="toggleAccordion(this)">
                         <h3><span class="deal-tag series">Series B</span> On-Chain Analytics Platform</h3>
                         <span class="accordion-arrow">▼</span>
-                    </div>
+                    </button>
                     <div class="accordion-content">
                         <div class="deal-meta">Singapore · Data &amp; AI · 2023</div>
                         <div class="deal-story">
@@ -345,10 +349,10 @@
                 </div>
 
                 <div class="accordion">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <button class="accordion-header" type="button" aria-expanded="false" onclick="toggleAccordion(this)">
                         <h3><span class="deal-tag series">Series C</span> Regional SaaS Platform</h3>
                         <span class="accordion-arrow">▼</span>
-                    </div>
+                    </button>
                     <div class="accordion-content">
                         <div class="deal-meta">Singapore + Indonesia · ML Platform · 2022</div>
                         <div class="deal-story">
@@ -360,10 +364,10 @@
                 </div>
 
                 <div class="accordion">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <button class="accordion-header" type="button" aria-expanded="false" onclick="toggleAccordion(this)">
                         <h3><span class="deal-tag series">Pre-IPO</span> Gaming Studio</h3>
                         <span class="accordion-arrow">▼</span>
-                    </div>
+                    </button>
                     <div class="accordion-content">
                         <div class="deal-meta">Vietnam · GenAI · 2024</div>
                         <div class="deal-story">
@@ -375,10 +379,10 @@
                 </div>
 
                 <div class="accordion">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <button class="accordion-header" type="button" aria-expanded="false" onclick="toggleAccordion(this)">
                         <h3><span class="deal-tag series">Seed</span> HealthTech Startup</h3>
                         <span class="accordion-arrow">▼</span>
-                    </div>
+                    </button>
                     <div class="accordion-content">
                         <div class="deal-meta">Thailand · Healthcare AI · 2023</div>
                         <div class="deal-story">
@@ -394,10 +398,10 @@
             <div class="section" id="lessons">
                 <h2 class="section-title">A Deal I Lost (And What I Learned)</h2>
                 <div class="accordion open">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <button class="accordion-header" type="button" aria-expanded="true" onclick="toggleAccordion(this)">
                         <h3><span class="deal-tag" style="background: #6b7280; color: white;">Lost</span> Regional Logistics Platform</h3>
                         <span class="accordion-arrow">▼</span>
-                    </div>
+                    </button>
                     <div class="accordion-content">
                         <div class="deal-meta">Indonesia · ML Platform · 2023 · Lost to AWS</div>
                         <div class="deal-story">
@@ -451,7 +455,8 @@
     <script>
         function toggleAccordion(header) {
             const accordion = header.parentElement;
-            accordion.classList.toggle('open');
+            const open = accordion.classList.toggle('open');
+            header.setAttribute('aria-expanded', open);
         }
 
         // Highlight active section in sticky nav

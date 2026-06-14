@@ -123,6 +123,7 @@
             <a href="deals.html">AI Deals</a>
             <a href="first-90-days.html">First 90 Days</a>
             <a href="blog.html" class="active">Writing</a>
+            <a href="cv.html">CV</a>
         </nav>
 
         <header class="page-header">
@@ -144,16 +145,16 @@
             <p>
                 The real insight: <strong>not every request needs the most powerful model.</strong> Most
                 production traffic is high-volume and structured; only a slice needs deep agentic reasoning.
-                So instead of one model for everything, I co-architected a <strong>RAG complexity router</strong>
-                with the customer's engineers.
+                So instead of one model for everything, I co-architected a <strong>complexity-based model router</strong>
+                with the customer's engineers - a lightweight classifier in front of the model APIs.
             </p>
 
             <div class="highlight">
                 <p>
-                    <strong>The architecture:</strong> classify each incoming request by complexity, then route -
+                    <strong>The architecture:</strong> a classifier scores each incoming request by complexity, then routes -
                     <strong>Claude Opus</strong> for agentic reasoning and multi-step tasks, <strong>Gemini Flash</strong>
-                    for high-volume structured queries - all at <strong>sub-200ms latency</strong>. Best model for
-                    each job, not one model taxed for all of them.
+                    for high-volume structured queries. The routing decision adds <strong>under 200ms of overhead</strong>;
+                    cheap-path requests return in well under a second. Best model for each job, not one model taxed for all of them.
                 </p>
             </div>
 
@@ -175,12 +176,12 @@
 
             <p>
                 I've been selling AI for years. I thought I understood it. Then I started
-                <em>building</em> with AI coding agents — and everything changed.
+                <em>building</em> with AI coding agents - and everything changed.
             </p>
 
             <p>
                 It started small. My wife and I needed a way to track family expenses.
-                I'm not a developer. Never wrote production code in my life. But I thought —
+                I'm not a developer. Never wrote production code in my life. But I thought -
                 let me just try describing what I wanted to an AI agent.
             </p>
 
@@ -195,25 +196,25 @@
 
             <div class="highlight">
                 <p>
-                    <strong>9,700+ lines of code in a few days.</strong> Interactive maps, sales tools,
-                    strategy documents — all by describing what I wanted and iterating fast. Not because
+                    <strong>8,000+ lines of code, start to finish in days.</strong> Interactive maps, sales tools,
+                    strategy documents - all by describing what I wanted and iterating fast. Not because
                     I learned to code. Because the AI handled the code while I focused on what I actually know:
                     the business problem.
                 </p>
             </div>
 
             <p>
-                Andrej Karpathy talked about this — how AI coding agents feel like having a team of engineers.
+                Andrej Karpathy talked about this - how AI coding agents feel like having a team of engineers.
                 That's real. But what hit me deeper was something else.
             </p>
 
             <p>
-                <strong>This is the future.</strong> Not just for developers — for everyone who has ideas
+                <strong>This is the future.</strong> Not just for developers - for everyone who has ideas
                 but lacks the technical skills to ship them. And that future needs to be built responsibly.
             </p>
 
             <p>
-                I help customers deploy AI across Southeast Asia. I've seen what happens when AI goes right —
+                I help customers deploy AI across Southeast Asia. I've seen what happens when AI goes right -
                 and when it goes wrong. Bad implementations, hallucinating systems in production, teams that
                 didn't think through the edge cases.
             </p>
