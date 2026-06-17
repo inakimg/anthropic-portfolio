@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - Iñaki Moreno</title>
+    <title>My Story - Iñaki Moreno</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --color-bg: #FDFBF7;
-            --color-text: #1a1a1a;
-            --color-text-muted: #666;
-            --color-accent: #CC785C;
-            --color-accent-soft: rgba(204, 120, 92, 0.1);
-            --color-border: #e5e0d8;
+            --color-bg: #FAF9F5;
+            --color-surface: #FFFFFF;
+            --color-text: #1F2328;
+            --color-text-muted: #57606A;
+            --color-accent: #B8654A;
+            --color-accent-soft: rgba(204, 120, 92, 0.12);
+            --color-border: #D8DEE4;
+            --color-slate: #24292F;
             --font-serif: 'Instrument Serif', Georgia, serif;
             --font-sans: 'DM Sans', -apple-system, sans-serif;
         }
@@ -27,18 +29,40 @@
             font-size: 17px;
         }
         .container { max-width: 680px; margin: 0 auto; padding: 0 24px; }
+
+        /* Page Layout with Sticky Nav */
+        .page-wrapper { display: flex; max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+        .main-content { flex: 1; max-width: 680px; }
+        .sticky-nav { width: 160px; flex-shrink: 0; padding: 40px 0 40px 32px; }
+        .sticky-nav-inner { position: sticky; top: 32px; }
+        .sticky-nav h4 { font-size: 0.65rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; font-weight: 600; }
+        .sticky-nav a { display: block; font-size: 0.8rem; color: var(--color-text-muted); text-decoration: none; padding: 6px 0; border-left: 2px solid transparent; padding-left: 10px; transition: all 0.2s; }
+        .sticky-nav a:hover, .sticky-nav a.active { color: var(--color-accent); border-left-color: var(--color-accent); }
+
+        @media (max-width: 800px) {
+            .sticky-nav { display: none; }
+            .page-wrapper { padding: 0; }
+            .main-content { max-width: 100%; }
+        }
         nav {
             padding: 20px 0;
             display: flex;
             gap: 24px;
             justify-content: center;
+            flex-wrap: wrap;
         }
         nav a {
             color: var(--color-text-muted);
             text-decoration: none;
             font-size: 0.9rem;
+            transition: color 0.2s;
         }
         nav a:hover, nav a.active { color: var(--color-accent); }
+        nav a:focus {
+            color: var(--color-accent);
+            outline: 2px solid var(--color-accent);
+            outline-offset: 2px;
+        }
 
         /* Section */
         .section {
@@ -184,11 +208,16 @@
         <nav>
             <a href="index.html">Home</a>
             <a href="why-anthropic.html" class="active">My Story</a>
+            <a href="deals.html">40+ AI Deals</a>
+            <a href="gtm-territory.html">Win ASEAN</a>
             <a href="blog.html">Writing</a>
         </nav>
+    </div>
 
+    <div class="page-wrapper">
+        <main class="main-content">
         <!-- 1. Butcher Shop -->
-        <div class="section">
+        <div class="section" id="roots">
             <p class="section-quote">"People buy from people they trust. Everything else is noise."</p>
             <p class="section-text">
                 My grandfather knew every customer by name - and what they needed before they asked.<br>
@@ -201,10 +230,13 @@
         </div>
 
         <!-- 2. Grandmother Angeles -->
-        <div class="section">
-            <p class="section-quote">"Hard work and effort is unnegotiable. Luck and talent - leave that to God."</p>
+        <div class="section" id="work-ethic">
+            <p class="section-quote">"Hard work and effort are non-negotiable. Luck and talent - leave that to God."</p>
             <p class="section-text">
-                My grandmother Angeles migrated to Catalonia and worked as a cook her whole life for a wealthy family. Never went to school - but no one could beat her at math or memory. She saved every peseta. She was more than a cook for that family - she helped raise their children. Years later, those kids (now grown up) would still come back every Christmas to thank her. <strong>Great work changes lives</strong>, regardless of your job.
+                My grandmother Angeles migrated to Catalonia and worked as a cook her whole life for a wealthy family. Never went to school - but no one could beat her at math or memory.
+            </p>
+            <p class="section-text" style="margin-top: 12px;">
+                She was more than a cook - she helped raise their children. Years later, those kids (now grown up) would still come back every Christmas to thank her. <strong>Great work changes lives</strong>, regardless of your title.
             </p>
             <div class="photo">
                 <img src="hard work pays off they told me.jpg" alt="Iñaki with grandparents">
@@ -218,7 +250,7 @@
         </p>
 
         <!-- 4. Football -->
-        <div class="section">
+        <div class="section" id="team">
             <p class="section-quote">"No one is bigger than the team."</p>
             <p class="section-text">
                 17 years at Club Esportiu Mercantil, a working-class club in Sabadell. <strong>Teammates who walked 15km to train.</strong> Some couldn't afford shoes. Some turned pro. Staff who gave everything "por amor al arte."<br><br>
@@ -232,7 +264,7 @@
         </div>
 
         <!-- 5. Grit + Speaking -->
-        <div class="section">
+        <div class="section" id="grit">
             <p class="section-quote">"Don't complain. Find a way."</p>
             <p class="section-text">
                 Got assigned accounts nobody wanted - difficult quota, low potential. Instead of complaining, I paid for my own flights to find new opportunities. Became Google's Web3 expert. Finished as top 1% performer.
@@ -254,32 +286,94 @@
         </div>
 
         <!-- Why Anthropic -->
-        <div class="section">
+        <div class="section" id="why-anthropic">
             <p class="section-quote">"Why Anthropic?"</p>
             <p class="section-text">
-                I see AI like fire. It can burn your house down - or like my grandma used it, to cook amazing food for people. I want to make sure it does good.
+                The first time I read Claude's constitution - helpful, honest, harmless - it took me straight back to working beside my grandfather in our family butcher shop. That was him: address what people truly need, never what costs most, because trust is what brings them back for life. I didn't expect to find that idea at the centre of a frontier AI lab - but it's there, and it's why I want to spend my career here.
             </p>
             <p class="section-text" style="margin-top: 16px;">
-                I volunteer as a Master Trainer for <a href="https://aisingapore.org/talent/ai-ready-asean/" target="_blank">AI Ready ASEAN</a> - helping train 5.5M people across the region on responsible AI. It's a start. But I want to do more.
+                Plenty of companies state safety as a core value. <strong>Anthropic actually organizes its foundation around it</strong> - through Constitutional AI, the Responsible Scaling Policy, and a commitment to never race past safety questions. That's the difference between stating a value and walking the talk. It's the exact reason I volunteer as a Master Trainer at <a href="https://aisingapore.org/talent/ai-ready-asean/" target="_blank">AI Singapore</a>, having trained 100+ people on responsible AI adoption for the greater good.
             </p>
             <p class="section-text" style="margin-top: 16px;">
-                Anthropic's values feel like home. <strong>"High-trust, low-ego"</strong> - that's how my grandfather ran the butcher shop. <strong>"Helpful, honest, harmless"</strong> - that's my grandmother, cooking for families who still came back 20 years later to thank her. "Put the mission first, no one is a bystander" - that's every teammate who walked 15km to train. I didn't learn these values from a company handbook. I learned them at a butcher counter, at my grandmother's kitchen, on a football pitch in Sabadell. Anthropic is building AI the way my grandparents built their lives: with care, with integrity, and for the people who come after.
+                I'm proud of scaling the AI business at Google Cloud, but my ambition is to join the frontier lab igniting the race to the top on safety - somewhere building steerable, trustworthy AI isn't one division of a broader tech ecosystem, but the <strong>singular, defining mission</strong> of the entire company.
+            </p>
+            <p class="section-text" style="margin-top: 16px;">
+                <strong>And I can build ASEAN.</strong> I've spent a decade doing this exact job - growing a greenfield territory to <strong>$12M+ ARR in under a year</strong>, closing deals up to <strong>$10M+</strong>, and winning workloads onto Claude over OpenAI. I sell Claude to founders and engineers, and I build with it daily (recently, 150 account decks in 45 minutes via an agentic workflow). I speak their language because I'm one of them. Singapore is home and the heart of ASEAN - and I'm fully ready to relocate to Sydney to build this market alongside the core team.
+            </p>
+            <p class="section-text" style="margin-top: 16px;">
+                That thread runs from my grandfather's counter to Claude's constitution to my daughter's future: <strong>technology this powerful must be built honestly, and for the people who come after us.</strong> I've never felt anything more urgent than helping build AI the right way - carrying my grandparents' legacy forward by doing it.
+            </p>
+        </div>
+
+        <!-- Values Alignment -->
+        <div class="section" id="values">
+            <p class="section-quote">"These values feel like home."</p>
+
+            <!-- Values Box -->
+            <div style="background: var(--color-surface); border: 2px solid var(--color-accent); border-radius: 12px; padding: 24px; margin-top: 20px;">
+                <div style="display: grid; gap: 20px;">
+                    <div style="display: flex; align-items: flex-start; gap: 12px;">
+                        <span style="background: var(--color-accent); color: white; font-size: 0.65rem; font-weight: 600; padding: 4px 8px; border-radius: 4px; white-space: nowrap;">ANTHROPIC</span>
+                        <div>
+                            <p style="font-weight: 600; color: var(--color-text); margin-bottom: 4px;">"High-trust, low-ego"</p>
+                            <p style="font-size: 0.9rem; color: var(--color-text-muted);">That's how my grandfather ran the butcher shop. Trust your people. Share credit. Fix problems, don't assign blame.</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: flex-start; gap: 12px;">
+                        <span style="background: var(--color-accent); color: white; font-size: 0.65rem; font-weight: 600; padding: 4px 8px; border-radius: 4px; white-space: nowrap;">CLAUDE</span>
+                        <div>
+                            <p style="font-weight: 600; color: var(--color-text); margin-bottom: 4px;">"Helpful, honest, harmless"</p>
+                            <p style="font-size: 0.9rem; color: var(--color-text-muted);">That's my grandmother, cooking for families who still came back 20 years later to thank her. Do the right thing even when no one is watching.</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: flex-start; gap: 12px;">
+                        <span style="background: var(--color-accent); color: white; font-size: 0.65rem; font-weight: 600; padding: 4px 8px; border-radius: 4px; white-space: nowrap;">CULTURE</span>
+                        <div>
+                            <p style="font-weight: 600; color: var(--color-text); margin-bottom: 4px;">"No one is a bystander"</p>
+                            <p style="font-size: 0.9rem; color: var(--color-text-muted);">That's every teammate who walked 15km to train because they believed in something bigger than themselves.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="section-text" style="margin-top: 20px;">
+                I didn't learn these from a company handbook. I learned them at a butcher counter, in my grandmother's kitchen, on a football pitch in Sabadell.
+            </p>
+            <p class="section-text" style="margin-top: 16px;">
+                Anthropic is building AI the way my grandparents built their lives: <strong>with care, with integrity, and for the people who come after.</strong>
             </p>
         </div>
 
         <!-- Final Closing -->
         <div class="closing">
-            <p class="section-text" style="margin-bottom: 24px; text-align: left;">
-                Four generations of hard work brought me here. Now it's my turn - to pay it back, to build something that matters, and to make sure the next generation never forgets where they come from.
-            </p>
+            <!-- Four Generations Highlight -->
+            <div style="background: linear-gradient(135deg, var(--color-accent) 0%, #c4956a 100%); border-radius: 12px; padding: 28px 32px; margin-bottom: 28px; text-align: left;">
+                <p style="font-family: var(--font-serif); font-size: 1.25rem; color: white; line-height: 1.6; margin: 0;">
+                    <strong>Four generations of hard work</strong> brought me here. Now it's my turn - to pay it back, to build something that matters, and to make sure the next generation never forgets where they come from.
+                </p>
+            </div>
             <p class="closing-quote">"Leave the jersey in a better place."</p>
-            <a href="sea-gtm.html">See the work →</a>
+            <a href="gtm-territory.html">See the work →</a>
         </div>
 
         <footer>
             <a href="mailto:imorenogirona@gmail.com">Get in touch</a> ·
             Built with <a href="https://claude.ai">Claude Code</a>
         </footer>
+        </main>
+
+        <!-- STICKY NAV -->
+        <aside class="sticky-nav">
+            <div class="sticky-nav-inner">
+                <h4>My Story</h4>
+                <a href="#roots">The Roots</a>
+                <a href="#work-ethic">Work Ethic</a>
+                <a href="#team">The Team</a>
+                <a href="#grit">The Grit</a>
+                <a href="#why-anthropic">Why Anthropic</a>
+                <a href="#values">Values</a>
+            </div>
+        </aside>
     </div>
 </body>
 </html>
