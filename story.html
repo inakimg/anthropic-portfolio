@@ -335,5 +335,24 @@
             </div>
         </aside>
     </div>
+    <script>
+        (function() {
+            if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+            var key = 'sy:' + location.pathname;
+            window.addEventListener('pagehide', function() {
+                try { sessionStorage.setItem(key, String(window.scrollY)); } catch (e) {}
+            });
+            window.addEventListener('pageshow', function() {
+                try {
+                    var y = sessionStorage.getItem(key);
+                    if (y === null) return;
+                    var root = document.documentElement, prev = root.style.scrollBehavior;
+                    root.style.scrollBehavior = 'auto';
+                    window.scrollTo(0, parseInt(y, 10) || 0);
+                    root.style.scrollBehavior = prev;
+                } catch (e) {}
+            });
+        })();
+    </script>
 </body>
 </html>
