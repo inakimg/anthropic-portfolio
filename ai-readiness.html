@@ -331,6 +331,7 @@
             .modes-grid, .workflow-steps, .use-case-grid { grid-template-columns: 1fr; }
         }
         nav { position: sticky; top: 0; z-index: 100; background: #FAF9F5; box-shadow: 0 1px 0 #D8DEE4, 0 4px 12px rgba(31,35,40,0.04); }
+        @media (max-width: 600px) { nav { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; justify-content: flex-start; gap: 16px; white-space: nowrap; padding-top: 8px; padding-bottom: 8px; scrollbar-width: none; } nav::-webkit-scrollbar { display: none; } }
     </style>
 </head>
 <body>
@@ -442,7 +443,7 @@
             <div class="use-case-grid">
                 <div class="use-case">
                     <h4>Pre-Call Prep</h4>
-                    <p>"Give me a 60-second brief on Grab's AI readiness before my call with their VP Engineering"</p>
+                    <p>"Give me a 60-second brief on a target account's AI readiness before my call with their VP of Engineering"</p>
                 </div>
                 <div class="use-case">
                     <h4>Pipeline Prioritization</h4>
@@ -450,7 +451,7 @@
                 </div>
                 <div class="use-case">
                     <h4>Customer Demo</h4>
-                    <p>"Run an AI readiness assessment for SCBX that I can share with their CDO"</p>
+                    <p>"Run an AI readiness assessment for a regional bank that I can share with their CDO"</p>
                 </div>
                 <div class="use-case">
                     <h4>Competitive Intel</h4>

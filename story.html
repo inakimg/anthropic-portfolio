@@ -43,7 +43,7 @@
         .page-wrapper { display: flex; max-width: 1000px; margin: 0 auto; padding: 0 24px; }
         .main-content { flex: 1; max-width: 680px; }
         .sticky-nav { width: 160px; flex-shrink: 0; padding: 40px 0 40px 32px; }
-        .sticky-nav-inner { position: sticky; top: 32px; }
+        .sticky-nav-inner { position: sticky; top: 84px; }
         .sticky-nav h4 { font-size: 0.65rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; font-weight: 600; }
         .sticky-nav a { display: block; font-size: 0.8rem; color: var(--color-text-muted); text-decoration: none; padding: 6px 0; border-left: 2px solid transparent; padding-left: 10px; transition: all 0.2s; }
         .sticky-nav a:hover, .sticky-nav a.active { color: var(--color-accent); border-left-color: var(--color-accent); }
@@ -211,6 +211,7 @@
             .speaking-grid img { height: 180px; }
         }
         nav { position: sticky; top: 0; z-index: 100; background: #FAF9F5; box-shadow: 0 1px 0 #D8DEE4, 0 4px 12px rgba(31,35,40,0.04); }
+        @media (max-width: 600px) { nav { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; justify-content: flex-start; gap: 16px; white-space: nowrap; padding-top: 8px; padding-bottom: 8px; scrollbar-width: none; } nav::-webkit-scrollbar { display: none; } }
     </style>
 </head>
 <body>
@@ -320,7 +321,7 @@
         </div>
 
         <footer>
-            <a href="mailto:imorenogirona@gmail.com">Get in touch</a>
+            <a href="index.html">Home</a> · <a href="mailto:imorenogirona@gmail.com">Get in touch</a>
         </footer>
         </main>
 
